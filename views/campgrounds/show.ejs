@@ -1,0 +1,63 @@
+<% include ../partials/header %>
+<% include ../partials/navbar %>
+
+<div class="container mt-2">
+    <div class="row">
+        
+    <!-- Sidebar -->
+        <div class="col-md-3">
+            <h4 class="text-center pb-1">Yelp Camp</h4>
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Info 1</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Info 2</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Info 3</a>
+            </div>
+        </div>
+        
+    <!-- Campground Info -->
+        <div class="col-md-9">
+            
+            <div class="card">
+                <img src="<%= campground.image %>" class="card-img-top">
+                <div class="card-header">
+                    <a class="lead" href=""><strong><%= campground.name %></strong></a>
+                    <span class="float-right">$9.00/night</span>
+                </div>                
+                <div class="card-body py-3">
+                    <p class="card-text"><%= campground.description %></p>
+
+                 
+                </div>
+            </div>
+            
+    <!-- Reviews -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="float-left m-0">Reviews</h5>
+                    <a class="btn btn-info float-right" href="/campgrounds/<%= campground._id %>/comments/new">New Comment</a>
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    <% campground.comments.forEach(function(comment){ %>
+                        <li class="list-group-item">
+                            <h6 class="d-inline"><%= comment.author %></h6>
+                            <small class="float-right">10 days ago</small>                                
+                            <p class="mb-0 mt-1"><%= comment.text %></p>
+                        </li>
+                    <% }) %>                       
+                    
+                </ul>
+
+            </div>
+            
+        </div>
+    
+    
+        
+        
+    </div>
+</div>
+
+
+
+<% include ../partials/footer %>

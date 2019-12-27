@@ -1,33 +1,61 @@
 //======================= MODULES =======================
 
-const express    = require("express"),
-      bodyParser = require("body-parser"),
-      mongoose   = require("mongoose"),
-      Campground = require("./models/campground");
+const express        = require("express"),
+      bodyParser     = require("body-parser"),
+      secrets        = require("./secrets"),
       
+// MongoDB & Models
+      mongoose       = require("mongoose"),
+      Campground     = require("./models/campground"),
+      Comment        = require("./models/comment"),
+      User           = require("./models/user"),
+      seedDB         = require("./seeds"),
+
+// Authentication
+      passport       = require("passport"),
+      LocalStrategy  = require("passport-local"),
+      expressSession = require("express-session");
 
 //=================== EXPRESS CONFIG ====================
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}))
-   .use(express.static("public"))
+   .use(express.static(`${__dirname}/public`))
    .set("view engine", "ejs");
 
+
+//==================== AUTHENTICATION ====================
+
+app.use(expressSession({
+    secret: secrets.secret,
+    resave: false,
+    saveUninitialized: false
+   }))
+   .use(passport.initialize())
+   .use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //======================= DATABASE =======================
 
 // enter the following arguments when starting app.js:
 // $ node app.js <atlas username> <atlas password>
 
-// Connect to MongoDB Atlas
-const atlasUsername = process.argv[2],
-      atlasPassword = process.argv[3],
+// Create connection string
+const atlasUsername = secrets.atlasUsername,
+      atlasPassword = secrets.atlasPassword,
       database = 'yelpCamp',
       connectionString = `mongodb+srv://${atlasUsername}:${atlasPassword}@cluster0-pekd8.mongodb.net/${database}?retryWrites=true&w=majority`;
-      
+
+// Connect to MongoDB Atlas with connection string
 mongoose.set('useUnifiedTopology', true)
         .set('useFindAndModify', false)
         .connect(connectionString, { useNewUrlParser: true });
+
+// Seed the database
+seedDB();
 
 
 //===================== ROUTES =========================
@@ -38,17 +66,17 @@ app.route('/')
     });
 
 app.route('/campgrounds')
-    .get((req, res) => {
+    .get((req, res) => {                                        // Index
         Campground.find({}, (error, campgrounds) => {
             if (error) {
                 console.log(error);
             }
             else {
-                res.render("index", {campgrounds: campgrounds});
+                res.render("campgrounds/index", {campgrounds: campgrounds});
             }
         })
     })
-    .post((req, res) => {
+    .post((req, res) => {                                       // Create
         Campground.create(
             {
                 name: req.body.name,
@@ -67,19 +95,59 @@ app.route('/campgrounds')
         res.redirect("/campgrounds");        
     });
 
-app.route('/campgrounds/new')
+app.route('/campgrounds/new')                                   // New
     .get((req, res) => {
-        res.render("new")
+        res.render("campgrounds/new")
     });
 
-app.route('/campgrounds/:id')
+app.route('/campgrounds/:id')                                   // Show
+    .get((req, res) => {
+        Campground.findById(req.params.id).populate("comments").exec((error, campground) => {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                res.render('campgrounds/show', {campground: campground});    
+            }
+        });
+    });
+
+// ------------------ Comments Routes --------------------
+
+app.route('/campgrounds/:id/comments/new')                      // New
     .get((req, res) => {
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
                 console.log(error);
             }
             else {
-                res.render('show', {campground: campground});    
+                res.render('comments/new', {campground: campground})
+            }
+        })
+    });
+
+app.route('/campgrounds/:id/comments')
+    .post((req, res) => {                                       // Create
+        // Lookup campground using ID
+        Campground.findById(req.params.id, (error, campground) => {
+            if (error) {
+                console.log(error);
+                res.redirect('/campgrounds');
+            }
+            else {
+                // Create new comment document
+                Comment.create(req.body.comment, (error, comment) => {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        // Associate new comment with campground                    
+                        campground.comments.push(comment);
+                        campground.save();
+                        // Redirect to campground show page                        
+                        res.redirect(`/campgrounds/${campground._id}`);
+                    }
+                });
             }
         });
     });

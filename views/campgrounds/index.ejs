@@ -1,5 +1,5 @@
-<% include partials/header %>
-<% include partials/navbar %>
+<% include ../partials/header %>
+<% include ../partials/navbar %>
 
 <div class="container">
     <div class="jumbotron my-4">
@@ -15,11 +15,11 @@
         <% campgrounds.forEach((campground) => { %>
             <div class="col-lg-4 col-sm-6 mb-4">
                 <div class="card shadow">
-                    <img class="card-img-top" src="<%= campground.image %>">
+                    <img class="card-img-top camp-index-img" src="<%= campground.image %>">
                     <div class="card-header">
-                        <h4 class="campground-title text-center align-top m-0"><%= campground.name%></h4>
+                        <h4 class="camp-index-title text-center align-top m-0"><%= campground.name%></h4>
                     </div>
-                    <div class="card-body m-2">
+                    <div class="card-body camp-index-body m-2">
                         <p class="card-text"><%= campground.description %></p>
                         <a href='/campgrounds/<%= campground._id %>' class="card-link">More Info</a>
                     </div>
@@ -34,4 +34,4 @@
 
         
 </div>
-<% include partials/footer %>
+<% include ../partials/footer %>
