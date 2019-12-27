@@ -58,12 +58,32 @@ mongoose.set('useUnifiedTopology', true)
 seedDB();
 
 
+//================ ROUTING MIDDLEWARE ==================
+
+// Pass user object to every response template
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+// Check if user is authenticated and proceed if true
+// Redirect to login if false
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+
 //===================== ROUTES =========================
 
 app.route('/')
     .get((req, res) => {
         res.render("landing");
     });
+
+// ------------------ Campgrounds Routes --------------------
 
 app.route('/campgrounds')
     .get((req, res) => {                                        // Index
@@ -115,7 +135,7 @@ app.route('/campgrounds/:id')                                   // Show
 // ------------------ Comments Routes --------------------
 
 app.route('/campgrounds/:id/comments/new')                      // New
-    .get((req, res) => {
+    .get(isLoggedIn, (req, res) => {
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
                 console.log(error);
@@ -127,7 +147,7 @@ app.route('/campgrounds/:id/comments/new')                      // New
     });
 
 app.route('/campgrounds/:id/comments')
-    .post((req, res) => {                                       // Create
+    .post(isLoggedIn, (req, res) => {                                       // Create
         // Lookup campground using ID
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
@@ -152,6 +172,39 @@ app.route('/campgrounds/:id/comments')
         });
     });
 
+// ------------------ Authentication Routes --------------------
+
+app.route('/register')
+    .get(function(req, res) {                              // Show register form
+        res.render('register');
+    })
+    .post(function(req, res) {                              // Register new user
+        let newUser = new User({username: req.body.username});
+        User.register(newUser, req.body.password, function(error, user) {
+            if (error) {
+                console.log(error);
+                return res.redirect('/register');
+            }
+            passport.authenticate('local')(req, res, function() {
+                res.redirect('/campgrounds');
+            });
+        });
+    });
+
+app.route('/login')
+    .get(function(req, res) {                                 // Show login form
+        res.render('login');
+    })
+    .post(passport.authenticate("local", {                        // Log in user
+        successRedirect: '/campgrounds',
+        failureRedirect: '/login'
+    }));
+
+app.route('/logout')                                             // Log user out
+    .get(function(req, res) {
+        req.logout();
+        res.redirect('/campgrounds');
+    });
 
 //================== START SERVER ======================
 
@@ -172,3 +225,5 @@ app.listen(port, hostname, function () {
 //  https://63dcbade7414481f8c2640d0eca49682.vfs.cloud9.us-east-1.amazonaws.com/
 
 // TODO: City/state for each site (present as subtitle for cards)
+// TODO: Consistent use of anonymous function OR arrow notation
+// TODO: Consistent use of var OR let

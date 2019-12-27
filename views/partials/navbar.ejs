@@ -17,12 +17,21 @@
         </ul>
     
         <ul class="navbar-nav mr-5">
-          <li>
-              <button class="btn btn-outline-success mr-2 my-2 my-sm-0" type="submit">Sign Up</button>
-          </li>
-            <li>
-              <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</button>
-          </li>
+            <% if (!currentUser) { %>
+                <li>
+                    <a href='/register'><button class="btn btn-outline-success mr-2 my-2 my-sm-0" type="submit">Sign Up</button></a>
+                </li>
+                <li>
+                    <a href='/login'><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</button></a>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link mr-2" href="#">Signed in as <%= currentUser.username %></a>
+                </li>
+                <li>
+                    <a href='/logout'><button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</button></a>
+                </li>
+            <% } %>
         </ul>
       </div>
 
