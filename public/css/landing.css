@@ -1,30 +1,112 @@
 body {
-  background-color: #000;
+  background-color: #003300;
 }
 
-#landing-header {
-  z-index: 1;
-  position: relative;
-  text-align: center;
-  margin-top: 40vh;
+.front {
+    z-index: 1;
 }
 
-#landing-header h1 {
-    color: white;
+.back {
+    z-index: -1;
+}
+
+.landing-container {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    /*background-color: #262626;*/
+    /*opacity: 0.5;*/
+}
+
+.landing-buttons {
+    width: 100%;
+    text-align: right;
+    padding: 8px 16px 8px 16px;
+}
+
+.landing-container .jumbotron {
+    background-color: rgba(0, 0, 0, 0);
+
+}
+
+.text-shadow {
+    opacity: 100%;
     text-shadow: 0 0 10px #000000;
 }
 
-#landing-header a {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+#arrow-container {
+    text-align: center;
 }
+
+#down-arrow {
+    height: 40px;
+    width: 40px;
+}
+
+.bounce {
+  position:relative;
+  bottom:0;
+  -webkit-animation:bounce 1s infinite;
+  -moz-animation:bounce 1s infinite;
+  -o-animation:bounce 1s infinite;
+  animation:bounce 1s infinite;
+}
+
+@-webkit-keyframes bounce {
+  0%       { bottom:0px; }
+  50%      { bottom:15px; }
+  100%     {bottom:30;}
+}
+
+ @-moz-keyframes bounce {
+  0%       { bottom:0px; }
+  50%      { bottom:15px; }
+  100%     {bottom:30;}
+}
+
+ @-o-keyframes bounce {
+  0%       { bottom:0px; }
+  50%      { bottom:15px; }
+  100%     {bottom:30;}
+}
+
+ @keyframes bounce {
+  0%       { bottom:0px; }
+  50%      { bottom:15px; }
+  100%     {bottom:30;}
+}
+
+/*#landing-header {*/
+/*    z-index: 1;*/
+/*    position: absolute;*/
+/*    text-align: center;*/
+/*    margin-top: 40vh;*/
+/*    left: 0;*/
+/*    right: 0;*/
+
+/*}*/
+
+/*#landing-header h1 {*/
+/*    color: white;*/
+/*    text-shadow: 0 0 10px #000000;*/
+/*}*/
+
+/*#landing-header a {*/
+/*    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+/*}*/
 
 #slideshow {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
+  /*top: 0;*/
+  /*left: 0;*/
   z-index: 0;
+    background-color: #001a00;
+    opacity: 0.65;
 }
-
 
 #slideshow img {
     width: 100%;
