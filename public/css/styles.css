@@ -21,3 +21,7 @@ body {
 .camp-show-title {
     height: auto;
 }
+
+.delete-form {
+    display: inline;
+}

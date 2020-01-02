@@ -1,9 +1,21 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose"),
+      Comment  = require("./comment");
 
-var campgroundSchema = new mongoose.Schema({
+
+const campgroundSchema = new mongoose.Schema({
     name: String,
     image: String,
     description: String,
+    price: String,
+    
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
+    
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -11,5 +23,16 @@ var campgroundSchema = new mongoose.Schema({
         }
     ]
 });
+
+
+campgroundSchema.pre('remove', function(next) {
+    Comment.deleteMany({_id: {$in: this.comments}}, function(error) {
+        if (error) {
+            console.log(error);
+        }
+        next();
+    });
+});
+
 
 module.exports = mongoose.model("Campground", campgroundSchema);

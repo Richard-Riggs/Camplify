@@ -1,0 +1,33 @@
+body {
+  background-color: #000;
+}
+
+#landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  margin-top: 40vh;
+}
+
+#landing-header h1 {
+    color: white;
+    text-shadow: 0 0 10px #000000;
+}
+
+#landing-header a {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+
+#slideshow img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
