@@ -12,14 +12,44 @@
     
 <% include partials/flash-messages %>
 
-<!-- Landing Header -->
-<div id="landing-header">
- 	<h1>Welcome to YelpCamp!</h1>
-	<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>
+<!-- Landing Container -->
+<!--<div id="landing-header">-->
+<!-- 	<h1>Welcome to YelpCamp!</h1>-->
+<!--	<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>-->
+<!--</div>-->
+
+<!-- Landing Container -->
+
+<div class="container-fluid landing-container front">
+
+    <div class="landing-buttons">
+        <a href='/register'><button class="btn btn-outline-success mr-2" type="submit">Sign Up</button></a>
+        <a href='/login'><button class="btn btn-outline-primary " type="submit">Log In</button></a>
+    </div>
+
+    <div class="container">
+        <div class="jumbotron text-light text-center">
+            <h1 class="display-1 text-shadow">YelpCamp</h1>
+            <p class="lead text-shadow mt-3">Find your next adventure.</p>
+            <a class="btn btn-success btn-lg mt-3" href="/campgrounds" role="button">View Campgrounds</a>
+        </div>
+
+    </div>
+
+    <div id="arrow-container">
+        <img id="down-arrow" class="bounce" src="/images/icons/arrow-down-sign-to-navigate.svg" alt="">
+    </div>
+
 </div>
 
-<!-- Background Slideshow -->
-<div id="slideshow" class="carousel slide carousel-fade" data-ride="carousel">
+
+
+
+
+
+
+<!-- Landing Slideshow -->
+<div id="slideshow" class="carousel slide carousel-fade back" data-ride="carousel">
   <div class="carousel-inner">
       
     <div class="carousel-item active">
@@ -44,6 +74,19 @@
     
   </div>
 </div>
+
+<!-- Features -->
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-1">TEST</h1>
+        </div>
+    </div>
+
+</div>
+
+<!-- ------------------------------- -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
