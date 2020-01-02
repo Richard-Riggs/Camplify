@@ -80,8 +80,13 @@ app.use(campgroundRoutes)
 //===================== START SERVER ====================
 
 //          AWS Cloud9 ENVIRONMENT
-const hostname = '0.0.0.0',
-      port = 8080;
+// const hostname = '0.0.0.0',
+//       port = 8080;
+
+//          LOCAL ENVIRONMENT
+const hostname = '127.0.0.1';
+const port = 3000;
+// Access local website here:   http://127.0.0.1:3000/
 
 app.listen(port, hostname, function () {
     console.log("The YelpCamp server has started");
@@ -91,10 +96,7 @@ app.listen(port, hostname, function () {
 //  https://63dcbade7414481f8c2640d0eca49682.vfs.cloud9.us-east-1.amazonaws.com/
 
 
-//          LOCAL ENVIRONMENT
-// const hostname = '127.0.0.1';
-// const port = 3000;
-// Access local website here:   http://127.0.0.1:3000/
+
 
 
 // TODO: City/state for each site (present as subtitle for cards)
