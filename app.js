@@ -6,6 +6,7 @@ const express        = require("express"),
       flash          = require("connect-flash"),
       secrets        = require("./secrets"),
       middleware     = require("./middleware"),
+      moment         = require("moment"),
       
 // MongoDB & Models
       mongoose       = require("mongoose"),
@@ -20,8 +21,9 @@ const express        = require("express"),
 // Routes
       campgroundRoutes = require("./routes/campgrounds"),
       commentRoutes = require("./routes/comments"),
-      indexRoutes = require("./routes/index");
+      indexRoutes = require("./routes/index"),
 
+      testRoutes = require("./routes/test"); //###############################
 
 //===================== EXPRESS SETUP ====================
 
@@ -31,6 +33,7 @@ app.use(bodyParser.urlencoded({extended: true}))
    .use(methodOverride('_method'))
    .set("view engine", "ejs");
 
+app.locals.moment = require('moment');
 
 //==================== AUTHENTICATION ====================
 
@@ -74,7 +77,8 @@ mongoose.set('useUnifiedTopology', true)
 
 app.use(campgroundRoutes)
    .use(commentRoutes)
-   .use(indexRoutes);
+   .use(indexRoutes)
+   .use(testRoutes);
 
 
 //===================== START SERVER ====================

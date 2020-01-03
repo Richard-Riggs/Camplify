@@ -7,7 +7,7 @@ const campgroundSchema = new mongoose.Schema({
     image: String,
     description: String,
     price: String,
-    
+    createdAt: {type: Date},
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

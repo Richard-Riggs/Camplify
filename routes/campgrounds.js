@@ -31,6 +31,7 @@ router.route('/campgrounds')
                 price: req.body.price,
                 image: req.body.image,
                 description: req.body.description,
+                createdAt: Date(),
                 author: {
                     id: req.user._id,
                     username: req.user.username

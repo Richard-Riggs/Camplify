@@ -25,7 +25,7 @@
                 </div>                
                 <div class="card-body py-3">
                     <p class="card-text"><%= campground.description %></p>
-                    <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %></em></small></p>
+                    <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small></p>
                     
                     <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
                     
@@ -50,7 +50,7 @@
                     <% campground.comments.forEach(function(comment){ %>
                         <li class="list-group-item">
                             <h6 class="d-inline"><%= comment.author.username %></h6>
-                            <small class="float-right">10 days ago</small>                                
+                            <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
                             <p class="mb-0 mt-1"><%= comment.text %></p>
                             
                             <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
