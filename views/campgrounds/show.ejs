@@ -19,38 +19,49 @@
             
             <div class="card">
                 <img src="<%= campground.image %>" class="card-img-top">
-                <div class="card-header">
+
+                <!-- Card Header -->
+                <div class="card-header space-between">
                     <a class="lead" href=""><strong><%= campground.name %></strong></a>
-                    <span class="float-right">$<%= campground.price %>/night</span>
-                </div>                
+                    <div>
+                        <span>$<%= campground.price %>/night</span>
+                        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+                            <div class="btn-group btn-group-sm ml-3" role="group" aria-label="Basic example">
+                                <a class="btn btn-info" href='/campgrounds/<%= campground._id %>/edit'><img src="/images/icons/pencil.svg" width="15" height="15" alt=""></a>
+                                <button type="button" class="btn btn-danger user-button" data-toggle="modal" data-target="#deleteModel">
+                                    <img src="/images/icons/trash.svg" width="15" height="15" alt="">
+                                </button>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
                 <div class="card-body py-3">
                     <p class="card-text"><%= campground.description %></p>
-                    <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %></em></small></p>
-                    
-                    <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                    
-                    <a class="btn btn-warning btn-sm" href='/campgrounds/<%= campground._id %>/edit'>Edit</a>
-                    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                    
-                    <% } %>
-                    
+                    <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small></p>
                 </div>
             </div>
             
     <!-- Reviews -->
             <div class="card mt-3">
-                <div class="card-header">
-                    <h5 class="float-left m-0">Reviews</h5>
-                    <a class="btn btn-info float-right" href="/campgrounds/<%= campground._id %>/comments/new">New Comment</a>
+                <div class="card-header align-items-middle container-fluid">
+                    <div class="row align-items-center">
+                        <h5 class="float-left pl-3 m-0">Reviews</h5>
+                        <% let alreadyReviewed = false; %>
+                        <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+                            <a class="btn btn-info float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
+                        <% } %>
+                    </div>
+
+
                 </div>
                 <ul class="list-group list-group-flush">
 
                     <% campground.comments.forEach(function(comment){ %>
                         <li class="list-group-item">
                             <h6 class="d-inline"><%= comment.author.username %></h6>
-                            <small class="float-right">10 days ago</small>                                
+                            <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
                             <p class="mb-0 mt-1"><%= comment.text %></p>
                             
                             <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
@@ -68,7 +79,7 @@
                             <% } %>
                             
                         </li>
-                    <% }) %>                       
+                    <% }); %>
                     
                 </ul>
             </div>
@@ -76,6 +87,28 @@
     </div>
 </div>
 
+<!-- Delete Campground Modal -->
+<div class="modal fade " id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Delete <%= campground.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Deleting this campground will permanently delete all associated data, including reviews, images, and descriptions. This action cannot be undone. Do you wish to continue?
+      </div>
+      <div class="modal-footer ">
+          <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">Cancel</button>
+          <form class="delete-form text-center mr-auto" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+            <input type="submit" class="btn btn-danger" value="Delete Campground">
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <% include ../partials/footer %>
