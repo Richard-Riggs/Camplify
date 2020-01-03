@@ -9,7 +9,7 @@ const express = require("express"),
 // ------------------ Comments Routes --------------------
 
 router.route('/campgrounds/:id/comments/new')                             // New
-    .get(middleware.isLoggedIn, (req, res) => {
+    .get([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
                 req.flash('error', `Error: ${error.message}.`);
@@ -23,7 +23,7 @@ router.route('/campgrounds/:id/comments/new')                             // New
 
 
 router.route('/campgrounds/:id/comments')
-    .post(middleware.isLoggedIn, (req, res) => {                                  // Create
+    .post([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {                      // Create
         
         // Lookup campground using ID
         Campground.findById(req.params.id, (error, campground) => {

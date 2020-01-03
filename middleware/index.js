@@ -22,7 +22,7 @@ module.exports.isLoggedIn = function(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    req.flash('warning', 'Please log in to continue')
+    req.flash('warning', 'Please log in to continue');
     res.redirect('/login');
 };
 
@@ -84,3 +84,35 @@ module.exports.checkCommentOwnership = function(req, res, next) {
     });
 };
 
+
+// Check if user has already posted a review on the given campground
+module.exports.userAlreadyReviewed = function (req, res, next) {
+
+    // Lookup campground that user seeks to review
+    Campground.findById(req.params.id, function (error, campground) {
+        if (error) {
+            req.flash('error', `Error: ${error.message}.`);
+            res.redirect('/campgrounds');
+        } else {
+
+            // Lookup comments associated with campground
+            Comment.find({_id: {$in: campground.comments}}, function (error, comments) {
+                if (error) {
+                    req.flash('error', `Error: ${error.message}.`);
+                    res.redirect('/campgrounds');
+                } else {
+
+                // Compare current user against comments
+                for(let i=0; i < comments.length; i++) {
+                    if (comments[i].author.id.equals(req.user._id)) {
+                        req.flash('warning', 'You have already posted a review for this campground.');
+                        return res.redirect(`/campgrounds/${req.params.id}`);
+                    }
+                }
+                // Continue if there's no association between the user and any of the campground's reviews
+                return next();
+                }
+            })
+        }
+    })
+};
