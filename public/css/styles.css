@@ -1,5 +1,30 @@
 body {
     padding-top: 56px;
+    /*background-color: #f2f2f2;*/
+    /*background-color: rgba(0, 51, 0, 0.15)*/
+}
+
+#navbar {
+    background: none;
+    color: white;
+    background-color: #003300;
+}
+
+/*#index-container {*/
+/*    background-color: white;*/
+/*}*/
+
+#index-header {
+    background-color: white;
+    color: #0d260d;
+}
+
+.card-header{
+    background-color: #f2f2f2;
+}
+
+.card-body {
+
 }
 
 .camp-index-img {
