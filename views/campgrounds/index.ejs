@@ -1,19 +1,20 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
-<div class="container">
-    <div class="jumbotron my-4">
+<div id="index-container" class="container">
+    <div id="index-header" class="jumbotron my-4">
       <h1 class="display-4 text-center">Welcome to YelpCamp!</h1>
-      <p class="lead text-center">Beautiful campgrounds for beautiful people</p>
-      <hr class="my-4">
+      <p class="lead text-center">Your adventure starts here</p>
+
       <p>Explore our hand-picked campgrounds from across America</p>
       <a class="btn btn-primary btn-md" href="/campgrounds/new" role="button">Add New Campground</a>
+      <hr class="my-4">
     </div>    
     
     <div class="row">
 
         <% campgrounds.forEach((campground) => { %>
-            <div class="col-lg-4 col-sm-6 mb-4">
+            <div class="campground-index-card col-lg-4 col-sm-6 mb-4">
                 <div class="card shadow">
                     <img class="card-img-top camp-index-img" src="<%= campground.image %>">
                     <div class="card-header">
