@@ -8,18 +8,30 @@ const express        = require("express"),
 
 // ------------------ Campgrounds Routes --------------------
 
-router.route('/campgrounds')
-
+router.route("/campgrounds")
     // INDEX ROUTE
-    .get((req, res) => {
-        Campground.find({}, (error, campgrounds) => {
-            if (error) {
-                req.flash('error', `Error: ${error.message}.`);
-                res.redirect('/');
-            }
-            else {
-                res.render("campgrounds/index", {campgrounds: campgrounds});
-            }
+    .get(function (req, res) {
+        let perPage = 12;
+        let pageQuery = parseInt(req.query.page);
+        let pageNumber = pageQuery ? pageQuery : 1;
+        Campground
+            .find({})
+            // .sort({ createdAt: 'ascending' })
+            .skip((perPage * pageNumber) - perPage)
+            .limit(perPage)
+            .exec(function (error, campgrounds) {
+                Campground.countDocuments().exec(function (error, count) {
+                    if (error) {
+                        req.flash('error', `Error: ${error.message}.`);
+                        res.redirect('/');
+                    } else {
+                        res.render("campgrounds/index", {
+                            campgrounds: campgrounds,
+                            current: pageNumber,
+                            pages: Math.ceil(count / perPage)
+                        });
+                    }
+                });
         });
     })
 
