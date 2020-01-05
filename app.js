@@ -1,29 +1,29 @@
 //======================= MODULES =======================
 
-const express        = require("express"),
-      bodyParser     = require("body-parser"),
-      methodOverride = require("method-override"),
-      flash          = require("connect-flash"),
-      secrets        = require("./secrets"),
-      middleware     = require("./middleware"),
-      moment         = require("moment"),
-      
+const express          = require("express"),
+      bodyParser       = require("body-parser"),
+      methodOverride   = require("method-override"),
+      flash            = require("connect-flash"),
+      secrets          = require("./secrets"),
+      middleware       = require("./middleware"),
+      moment           = require("moment"),
+
 // MongoDB & Models
-      mongoose       = require("mongoose"),
-      User           = require("./models/user"),
-      seedDB         = require("./seeds"),
+      mongoose         = require("mongoose"),
+      User             = require("./models/user"),
+      seedDB           = require("./seeds"),
 
 // Authentication
-      passport       = require("passport"),
-      LocalStrategy  = require("passport-local"),
-      expressSession = require("express-session"),
+      passport         = require("passport"),
+      LocalStrategy    = require("passport-local"),
+      expressSession   = require("express-session"),
 
 // Routes
       campgroundRoutes = require("./routes/campgrounds"),
-      commentRoutes = require("./routes/comments"),
-      indexRoutes = require("./routes/index"),
+      commentRoutes    = require("./routes/comments"),
+      indexRoutes      = require("./routes/index"),
 
-      testRoutes = require("./routes/test"); //###############################
+      testRoutes       = require("./routes/test"); //###############################
 
 //===================== EXPRESS SETUP ====================
 
