@@ -47,10 +47,10 @@ INDEX PAGE
 - Abbreviate card description
 - Include average rating on card
 - Include city/state for each card
-- Add pagination (show 18 campground cards/page)
-- Include sort-by feature (newest, most reviewed, highest reviewed)
+- X - Add pagination (show 12 campground cards/page) [Completed 1/5/2020]
+- X - Include sort-by feature (newest, most reviewed, highest reviewed) [Completed 1/7/2020]
 - Update index header
-- Add page footer (all pages)
+- Add page footer
 
 SHOW PAGE
 - Include GPS/map info in sidebar

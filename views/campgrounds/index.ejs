@@ -11,7 +11,21 @@
       <p>Explore our hand-picked campgrounds from across America</p>
       <a class="btn btn-primary btn-md" href="/campgrounds/new" role="button">Add New Campground</a>
       <hr class="my-4">
-    </div>    
+
+    <!-- Index Sort Buttons -->
+    <div class="dropdown text-right">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= sortName[sortQuery] %>
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="<%= queryString({sort: 'recent', page: current}) %>">Most Recent</a>
+        <a class="dropdown-item" href="<%= queryString({sort: 'rating', page: current}) %>">Highest Rated</a>
+        <a class="dropdown-item" href="<%= queryString({sort: 'reviews', page: current}) %>">Most Reviewed</a>
+      </div>
+    </div>
+
+    </div>
     
     <div class="row">
 
@@ -42,14 +56,15 @@
             <% if (current == 1) { %>
                 <li class="page-item disabled"><a class="page-link">First</a></li>
             <% } else { %>
-                <li><a class="page-link" href="/campgrounds">First</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: 1}) %>">First</a></li>
             <% } %>
 
             <!-- Previous Page button (disabled if on first page) -->
             <% if (current == 1) { %>
                 <li class="page-item disabled"><a class="page-link">«</a></li>
             <% } else { %>
-                <li><a class="page-link" href="/campgrounds?page=<%= Number(current) - 1 %>">«</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: (Number(current) - 1)}) %>">
+                «</a></li>
             <% } %>
 
             <!-- Previous pages ellipses (if there are 5+ previous pages) -->
@@ -63,12 +78,12 @@
                 <% if (i == current) { %>
                 <li class="active"><a class="page-link"><%= i %></a></li>
                 <% } else { %>
-                    <li><a class="page-link" href="/campgrounds?page=<%= i %>"><%= i %></a></li>
+                    <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: i}) %>"><%= i %></a></li>
                 <% } %>
             <% } %>
 
             <!-- Next pages ellipses (if there are 5+ subsequent pages) -->
-            <% if (i == Number(current) + 4 && i < pages) { %>
+            <% if (pages > Number(current) + 4) { %>
                 <li class="page-item disabled"><a class="page-link">...</a></li>
             <% } %>
 
@@ -76,14 +91,14 @@
             <% if (current == pages) { %>
                 <li class="page-item disabled"><a class="page-link">»</a></li>
             <% } else { %>
-                <li><a class="page-link" href="/campgrounds?page=<%= Number(current) + 1 %>">»</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: (Number(current) + 1)}) %>">»</a></li>
             <% } %>
 
             <!-- Last page button (disabled if on the last page) -->
             <% if (current == pages) { %>
                 <li class="page-item disabled"><a class="page-link">Last</a></li>
             <% } else { %>
-                <li><a class="page-link" href="/campgrounds?page=<%= pages %>">Last</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: pages}) %>">Last</a></li>
             <% } %>
 
         </ul>

@@ -3,51 +3,65 @@
 const express        = require("express"),
       router         = express.Router(),
       Campground     = require("../models/campground"),
-      middleware     = require("../middleware");
+      middleware     = require("../middleware"),
+      dbSortQuery    = require("../lib/dbQueries").dbSortQuery;
+      ejsFunctions   = require("../lib/ejsFunctions");
 
 
 // ------------------ Campgrounds Routes --------------------
 
 router.route("/campgrounds")
-    // INDEX ROUTE
-    .get(function (req, res) {
-        let perPage = 12;
-        let pageQuery = parseInt(req.query.page);
-        let pageNumber = pageQuery ? pageQuery : 1;
-        Campground
-            .find({})
-            // .sort({ createdAt: 'ascending' })
-            .skip((perPage * pageNumber) - perPage)
-            .limit(perPage)
-            .exec(function (error, campgrounds) {
-                Campground.countDocuments().exec(function (error, count) {
-                    if (error) {
-                        req.flash('error', `Error: ${error.message}.`);
-                        res.redirect('/');
-                    } else {
-                        res.render("campgrounds/index", {
-                            campgrounds: campgrounds,
-                            current: pageNumber,
-                            pages: Math.ceil(count / perPage)
-                        });
-                    }
-                });
-        });
-    })
+
+// INDEX ROUTE
+.get(function (req, res) {
+    let perPage = 12;
+    let pageQuery = parseInt(req.query.page);
+    let pageNumber = pageQuery ? pageQuery : 1;
+    let sorts = ['recent', 'reviews', 'rating'];
+    let sortQuery = (sorts.includes(req.query.sort)) ? req.query.sort : 'recent';
+
+    Campground
+        .find({})
+        .sort(dbSortQuery(sortQuery))
+        .skip((perPage * pageNumber) - perPage)
+        .limit(perPage)
+        .exec(function (error, campgrounds) {
+            Campground.countDocuments().exec(function (error, count) {
+                if (error) {
+                    req.flash('error', `Error: ${error.message}.`);
+                    res.redirect('/');
+                } else {
+                    res.render("campgrounds/index", {
+                        campgrounds: campgrounds,
+                        current: pageNumber,
+                        pages: Math.ceil(count / perPage),
+                        queryString: ejsFunctions.queryString,
+                        sortQuery: sortQuery,
+                        sortName: {
+                            recent: 'Most Recent',
+                            reviews: 'Most Reviewed',
+                            rating: 'Highest Rating'
+                        }
+                    });
+                }
+            });
+    });
+})
 
     // CREATE ROUTE
     .post(middleware.isLoggedIn, (req, res) => {
         Campground.create(
             {
                 name: req.body.name,
-                price: req.body.price,
                 image: req.body.image,
                 description: req.body.description,
+                price: req.body.price,
                 createdAt: Date(),
                 author: {
                     id: req.user._id,
                     username: req.user.username
-                }
+                },
+                commentCount: 0
                 
             }, function(error, campground) {
                 if (error) {
@@ -92,7 +106,7 @@ router.route('/campgrounds/:id')
                 res.redirect('/campgrounds');
             }
             else {
-                req.flash('success', 'Successfully updated campground.')
+                req.flash('success', 'Successfully updated campground.');
                 res.redirect(`/campgrounds/${req.params.id}`);
             }
         });

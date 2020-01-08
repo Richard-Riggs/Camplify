@@ -4,14 +4,14 @@ const express          = require("express"),
       bodyParser       = require("body-parser"),
       methodOverride   = require("method-override"),
       flash            = require("connect-flash"),
-      secrets          = require("./secrets"),
+      secrets          = require("./lib/secrets"),
       middleware       = require("./middleware"),
       moment           = require("moment"),
 
 // MongoDB & Models
       mongoose         = require("mongoose"),
       User             = require("./models/user"),
-      seedDB           = require("./seeds"),
+      seedDB           = require("./lib/seeds"),
 
 // Authentication
       passport         = require("passport"),
@@ -98,8 +98,6 @@ app.listen(port, hostname, function () {
 
 //  Access Cloud9 website here:   
 //  https://63dcbade7414481f8c2640d0eca49682.vfs.cloud9.us-east-1.amazonaws.com/
-
-
 
 
 
