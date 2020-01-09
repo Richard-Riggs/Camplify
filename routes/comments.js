@@ -4,7 +4,8 @@ const express = require("express"),
       router  = express.Router(),
       Campground = require("../models/campground"),
       Comment = require("../models/comment"),
-      middleware = require("../middleware");
+      middleware = require("../middleware"),
+      database = require("../lib/database");
 
 // ------------------ Comments Routes --------------------
 
@@ -26,8 +27,6 @@ router.route('/campgrounds/:id/comments')
     .post([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
         
         // Lookup campground using ID
-        console.log(req.body.comment.rating);
-        console.log(typeof req.body.comment.rating);
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
                 req.flash('error', `Error: ${error.message}.`);
@@ -49,6 +48,7 @@ router.route('/campgrounds/:id/comments')
                         
                         // Associate new comment with campground                    
                         campground.comments.push(comment);
+                        campground.averageRating = database.addRating(campground, comment);
                         campground.commentCount = campground.comments.length;
                         campground.save();
                         
@@ -100,19 +100,26 @@ router.get("/campgrounds/:id/comments/:comment_id/edit",
 router.put("/campgrounds/:id/comments/:comment_id",
            [middleware.isLoggedIn, middleware.checkCommentOwnership],
            function(req, res) {
-    
-    // Lookup comment by ID and update with data from request
-    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(error, comment) {
-        
-        // Redirect back to form if there's an error updating comment
+               
+    Campground.findById(req.params.id, function(error, campground) {
         if (error) {
             req.flash('error', `Error: ${error.message}.`);
-            res.redirect('back');
-        }
-        else {
+            res.redirect('/campgrounds/');
+        } else {
             
-            // Redirect to campground show page after successful comment update
-            res.redirect(`/campgrounds/${req.params.id}`);
+            Comment.findById(req.params.comment_id, function(error, comment) {
+                if (error) {
+                    req.flash('error', `Error: ${error.message}.`);
+                    res.redirect('back');
+                } else {
+                    campground.averageRating = database.updateRating(campground, comment, Number(req.body.comment.rating));
+                    campground.save();
+                    comment.text = req.body.comment.text;
+                    comment.rating = req.body.comment.rating;
+                    comment.save();
+                    res.redirect(`/campgrounds/${req.params.id}`);
+                }
+            });
         }
     });
 });
@@ -131,12 +138,12 @@ router.delete('/campgrounds/:id/comments/:comment_id',
         } else {
 
             // Lookup comment by ID and delete
-            Comment.findByIdAndDelete(req.params.comment_id, function(error) {
+            Comment.findById(req.params.comment_id, function(error, comment) {
                 if (error) {
                     req.flash('error', `Error: ${error.message}.`);
                 } else {
-
-                    // Update associated campground
+                    comment.remove();
+                    campground.averageRating = database.removeRating(campground, comment);
                     campground.comments.pull(req.params.comment_id);
                     campground.commentCount = campground.comments.length;
                     campground.save();

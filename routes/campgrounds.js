@@ -4,7 +4,7 @@ const express        = require("express"),
       router         = express.Router(),
       Campground     = require("../models/campground"),
       middleware     = require("../middleware"),
-      dbSortQuery    = require("../lib/dbQueries").dbSortQuery;
+      dbSortQuery    = require("../lib/database").dbSortQuery,
       ejsFunctions   = require("../lib/ejsFunctions");
 
 

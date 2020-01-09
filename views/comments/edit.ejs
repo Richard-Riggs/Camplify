@@ -10,6 +10,13 @@
     
     <form class="mt-3" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
       <div class="form-group">
+        <select name="comment[rating]">
+            <option value=1 <%= (comment.rating === 1) ? "selected": "" %> >1</option>
+            <option value=2 <%= (comment.rating === 2) ? "selected": "" %> >2</option>
+            <option value=3 <%= (comment.rating === 3) ? "selected": "" %> >3</option>
+            <option value=4 <%= (comment.rating === 4) ? "selected": "" %> >4</option>
+            <option value=5 <%= (comment.rating === 5) ? "selected": "" %> >5</option>
+        </select>
         <input type="text" class="form-control" name="comment[text]" id="campgroundName" value="<%= comment.text %>">
       </div>
       <button type="submit" class="btn btn-primary btn-block">Submit</button>
