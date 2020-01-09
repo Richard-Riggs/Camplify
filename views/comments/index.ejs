@@ -1,0 +1,112 @@
+<% include ../partials/header %>
+<% include ../partials/navbar %>
+
+<div class="container">
+
+<div class="card mt-3">
+    <div class="card-header align-items-middle container-fluid">
+        <div class="row align-items-center">
+            <h5 class="float-left pl-3 m-0">Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></h5>
+            <% let alreadyReviewed = false; %>
+            <% comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+                <a class="btn btn-info float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
+            <% } %>
+        </div>
+
+
+    </div>
+    <ul class="list-group list-group-flush">
+        <% comments.forEach(function(comment){ %>
+            <li class="list-group-item">
+                <h6 class="d-inline">
+                    
+                    <%= comment.author.username %>
+                    <span>
+                        <% for (let i = 0; i < comment.rating; i++) { %>
+                            &#9733;
+                        <% } %>
+                    </span>
+                </h6>
+                <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
+                <p class="mb-0 mt-1"><%= comment.text %></p>
+                
+                <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                
+                <a class="btn btn-sm btn-warning"
+                   href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
+                   Edit
+                </a>
+                <form class="delete-form"
+                      action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                      method="POST">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                
+                <% } %>
+                
+            </li>
+        <% }); %>
+    </ul>
+    
+    <!-- Index Pagination -->
+    <nav aria-label="Page navigation">
+        <% if (pages && pages > 1) { %>
+            <ul class="pagination justify-content-center">
+
+            <!-- First Page button (disabled if on first page) -->
+            <% if (current == 1) { %>
+                <li class="page-item disabled"><a class="page-link">First</a></li>
+            <% } else { %>
+                <li><a class="page-link" href="<%= queryString({page: 1}) %>">First</a></li>
+            <% } %>
+
+            <!-- Previous Page button (disabled if on first page) -->
+            <% if (current == 1) { %>
+                <li class="page-item disabled"><a class="page-link">«</a></li>
+            <% } else { %>
+                <li><a class="page-link" href="<%= queryString({page: (Number(current) - 1)}) %>">
+                «</a></li>
+            <% } %>
+
+            <!-- Previous pages ellipses (if there are 5+ previous pages) -->
+            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+            <% if (i !== 1) { %>
+                <li class="page-item disabled"><a class="page-link">...</a></li>
+            <% } %>
+
+            <!-- Display up to 9 page links (up to 4 before, current, and 4 after) -->
+            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                <li class="active"><a class="page-link"><%= i %></a></li>
+                <% } else { %>
+                    <li><a class="page-link" href="<%= queryString({page: i}) %>"><%= i %></a></li>
+                <% } %>
+            <% } %>
+
+            <!-- Next pages ellipses (if there are 5+ subsequent pages) -->
+            <% if (pages > Number(current) + 4) { %>
+                <li class="page-item disabled"><a class="page-link">...</a></li>
+            <% } %>
+
+            <!-- Next page button (disabled if on the last page) -->
+            <% if (current == pages) { %>
+                <li class="page-item disabled"><a class="page-link">»</a></li>
+            <% } else { %>
+                <li><a class="page-link" href="<%= queryString({page: (Number(current) + 1)}) %>">»</a></li>
+            <% } %>
+
+            <!-- Last page button (disabled if on the last page) -->
+            <% if (current == pages) { %>
+                <li class="page-item disabled"><a class="page-link">Last</a></li>
+            <% } else { %>
+                <li><a class="page-link" href="<%= queryString({page: pages}) %>">Last</a></li>
+            <% } %>
+        </ul>
+        <% } %>
+    </nav>
+    
+</div>
+
+</div>
+
+<% include ../partials/footer %>
