@@ -12,7 +12,8 @@
     
     <form class="mt-3" action="/campgrounds/<%= campground._id %>/comments" method="POST">
       <div class="form-group">
-        <select name="comment[rating]">
+        <label for="rating">Rating (1-5)</label>
+        <select id="rating" name="comment[rating]">
             <option value=1>1</option>
             <option value=2>2</option>
             <option value=3>3</option>
