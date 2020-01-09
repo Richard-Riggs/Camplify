@@ -22,7 +22,8 @@ const campgroundSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ],
-    commentCount: Number
+    commentCount: Number,
+    averageRating: Number
 });
 
 

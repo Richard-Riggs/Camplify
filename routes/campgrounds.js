@@ -61,7 +61,8 @@ router.route("/campgrounds")
                     id: req.user._id,
                     username: req.user.username
                 },
-                commentCount: 0
+                commentCount: 0,
+                averageRating: 0
                 
             }, function(error, campground) {
                 if (error) {

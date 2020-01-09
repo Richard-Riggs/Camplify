@@ -26,20 +26,20 @@ router.route('/campgrounds/:id/comments')
     .post([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
         
         // Lookup campground using ID
+        console.log(req.body.comment.rating);
+        console.log(typeof req.body.comment.rating);
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
                 req.flash('error', `Error: ${error.message}.`);
                 res.redirect('/campgrounds');
-            }
-            else {
+            } else {
                 
                 // Create new comment document
                 Comment.create(req.body.comment, (error, comment) => {
                     if (error) {
                         req.flash('error', `Error: ${error.message}.`);
                         res.redirect('back');
-                    }
-                    else {
+                    } else {
                         
                         // Add username and ID to comment
                         comment.author.id = req.user._id;
