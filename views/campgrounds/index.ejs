@@ -36,6 +36,17 @@
                     <img class="card-img-top camp-index-img" src="<%= campground.image %>">
                     <div class="card-header">
                         <h4 class="camp-index-title text-center align-top m-0"><%= campground.name%></h4>
+                        <p>
+                                <span>
+                                    <% if (!campground.commentCount) { %>
+                                        <em>No ratings</em>
+                                    <% } else {%>
+                                        <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
+                                            &#9733;
+                                        <% } %>
+                                    <% } %>
+                                </span>
+                        </p>
                     </div>
                     <div class="card-body camp-index-body m-2">
                         <p class="card-text"><%= campground.description %></p>

@@ -84,12 +84,12 @@ app.use(campgroundRoutes)
 //===================== START SERVER ====================
 
 //          AWS Cloud9 ENVIRONMENT
-// const hostname = '0.0.0.0',
-//       port = 8080;
+const hostname = '0.0.0.0',
+      port = 8080;
 
 //          LOCAL ENVIRONMENT
-const hostname = '127.0.0.1';
-const port = 3000;
+// const hostname = '127.0.0.1';
+// const port = 3000;
 // Access local website here:   http://127.0.0.1:3000/
 
 app.listen(port, hostname, function () {

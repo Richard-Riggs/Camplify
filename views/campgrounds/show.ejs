@@ -60,7 +60,14 @@
 
                     <% campground.comments.forEach(function(comment){ %>
                         <li class="list-group-item">
-                            <h6 class="d-inline"><%= comment.author.username %></h6>
+                            <h6 class="d-inline">
+                                <%= comment.author.username %>
+                                <span>
+                                    <% for (let i = 0; i < comment.rating; i++) { %>
+                                        &#9733;
+                                    <% } %>
+                                </span>
+                            </h6>
                             <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
                             <p class="mb-0 mt-1"><%= comment.text %></p>
                             

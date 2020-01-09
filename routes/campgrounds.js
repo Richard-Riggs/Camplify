@@ -4,7 +4,7 @@ const express        = require("express"),
       router         = express.Router(),
       Campground     = require("../models/campground"),
       middleware     = require("../middleware"),
-      dbSortQuery    = require("../lib/dbQueries").dbSortQuery;
+      dbSortQuery    = require("../lib/database").dbSortQuery,
       ejsFunctions   = require("../lib/ejsFunctions");
 
 
@@ -61,7 +61,8 @@ router.route("/campgrounds")
                     id: req.user._id,
                     username: req.user.username
                 },
-                commentCount: 0
+                commentCount: 0,
+                averageRating: 0
                 
             }, function(error, campground) {
                 if (error) {
