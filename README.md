@@ -32,7 +32,7 @@ GENERAL FEATURES
 - Add footer to all pages
 - Consistent use of var vs let
 - Consistent use of anonymous function OR arrow notation
-- Implement user ratings (1-5 stars)
+- X - Implement user ratings (1-5 stars) [Completed 1/5/2020]
 - Implement campground locations
 - Implement pagination features
 - Sanitize all inputs
@@ -45,7 +45,7 @@ LANDING PAGE
 
 INDEX PAGE
 - Abbreviate card description
-- Include average rating on card
+- X - Include average rating on card [Completed 1/9/2020]
 - Include city/state for each card
 - X - Add pagination (show 12 campground cards/page) [Completed 1/5/2020]
 - X - Include sort-by feature (newest, most reviewed, highest reviewed) [Completed 1/7/2020]
@@ -56,7 +56,7 @@ SHOW PAGE
 - Include GPS/map info in sidebar
 - Show city/state (perhaps as card subtitle)
 - Update/remove unused sidebar tabs
-- Display rating (1-5 stars) for each campground
+- X - Display rating (1-5 stars) for each campground [Completed 1/9/2020]
 - Update review display
 - Include review pagination
 - Add page footer
@@ -68,7 +68,7 @@ CAMPGROUND NEW/EDIT FORM
 - Verify that image URL is valid
 
 COMMENT NEW/EDIT
-- Include and require 1-5 star rating
+- X - Include and require 1-5 star rating [Completed 1/9/2020]
 - Set all form fields as required
 - Set max limit for comment length
   
