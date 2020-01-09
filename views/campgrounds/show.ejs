@@ -38,6 +38,14 @@
 
                 <!-- Card Body -->
                 <div class="card-body py-3">
+                    <p>
+                        <span>
+                            <% for (let i = 0; i < campground.averageRating; i++) { %>
+                                &#9733;
+                            <% } %>
+                        </span>
+                        - <%= campground.commentCount %> <%= campground.commentCount === 1 ? "Review": "Reviews" %>
+                    </p>
                     <p class="card-text"><%= campground.description %></p>
                     <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small></p>
                 </div>
@@ -58,9 +66,10 @@
                 </div>
                 <ul class="list-group list-group-flush">
 
-                    <% campground.comments.forEach(function(comment){ %>
+                    <% for (let i = 0; i < campground.comments.length && i < 5; i++){ %>
                         <li class="list-group-item">
                             <h6 class="d-inline">
+                                <% let comment = campground.comments[i]; %>
                                 <%= comment.author.username %>
                                 <span>
                                     <% for (let i = 0; i < comment.rating; i++) { %>
@@ -86,9 +95,11 @@
                             <% } %>
                             
                         </li>
-                    <% }); %>
-                    
+                    <% }; %>
+                
                 </ul>
+                
+                <a href="/campgrounds/<%= campground._id %>/comments/">See All Reviews</a>
             </div>
         </div>
     </div>

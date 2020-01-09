@@ -5,9 +5,55 @@ const express = require("express"),
       Campground = require("../models/campground"),
       Comment = require("../models/comment"),
       middleware = require("../middleware"),
-      database = require("../lib/database");
+      database = require("../lib/database"),
+      ejsFunctions = require("../lib/ejsFunctions");
 
 // ------------------ Comments Routes --------------------
+
+// INDEX ROUTE
+router.get('/campgrounds/:id/comments', (req, res) => {
+
+
+    Campground.findById(req.params.id, function(error, campground) {
+        if (error) {
+            req.flash('error', `Error: ${error.message}.`);
+            res.redirect('/campgrounds');            
+        } else {
+            
+            let perPage = 8;
+            let pageQuery = parseInt(req.query.page);
+            let pageNumber = pageQuery ? pageQuery : 1;            
+            
+            Comment
+                .find({_id: {$in: campground.comments}})
+                .sort({ createdAt: 'descending'})
+                .skip((perPage * pageNumber) - perPage)
+                .limit(perPage)
+                .exec(function (error, comments) {
+                    Comment.countDocuments({_id: {$in: campground.comments}}).exec(function (error, count) {
+                        if (error) {
+                            req.flash('error', `Error: ${error.message}.`);
+                            res.redirect('/');
+                        } else {
+                            res.render("comments/index", {
+                                campground: campground,
+                                comments: comments,
+                                current: pageNumber,
+                                pages: Math.ceil(count / perPage),
+                                queryString: ejsFunctions.queryString,
+                            });
+                        }
+                    });
+            });        
+                        
+        }
+        
+
+        
+    });
+
+});
+
 
 router.route('/campgrounds/:id/comments/new')                             // New
     .get([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
