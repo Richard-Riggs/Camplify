@@ -74,3 +74,16 @@ body {
     height: 400px;
     width: 100%;
 }
+
+
+/* This styling fixes the default styling for the map control buttons on the Google Maps display*/
+
+.gm-style-mtc label {
+    margin-bottom: 0 !important;
+}
+
+.gm-style-mtc img {
+    transform: translateY(0) !important;
+    margin-bottom: 2px !important;
+    margin-right: 3px !important;
+}

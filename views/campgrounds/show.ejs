@@ -6,12 +6,7 @@
         
     <!-- Sidebar -->
         <div class="col-md-3">
-            <h4 class="text-center pb-1">Yelp Camp</h4>
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Info 1</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Info 2</a>
-                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Info 3</a>
-            </div>
+
             <div id="map"></div>
         </div>
         
@@ -140,7 +135,9 @@
           map = new google.maps.Map(document.getElementById('map'), {
               zoom: 8,
               center: center,
-              scrollwheel: false
+              scrollwheel: false,
+              streetViewControl: false,
+
           }),
           contentString =
               `<strong><%= campground.name %><br />
@@ -157,6 +154,7 @@
       infowindow.open(map, marker);
     });
   }
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCODv1xY28AoyCZZU3U2yLWirTRc6PJ3_c&callback=initMap"></script>
 
