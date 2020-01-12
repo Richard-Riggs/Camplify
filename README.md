@@ -33,7 +33,7 @@ GENERAL FEATURES
 - Consistent use of var vs let
 - Consistent use of anonymous function OR arrow notation
 - X - Implement user ratings (1-5 stars) --------------------------------[Completed 1/5/2020]
-- Implement campground locations
+- X - Implement campground locations-------------------------------------[Completed 1/12/2020]
 - X - Implement pagination features -------------------------------------[Completed 1/5/2020]
 - Sanitize all inputs
 - Generate campgrounds & reviews
@@ -53,7 +53,7 @@ INDEX PAGE
 - Add page footer
 
 SHOW PAGE
-- Include GPS/map info in sidebar
+- X - Include GPS/map info in sidebar -----------------------------------[Completed 1/12/2020]
 - Show city/state (perhaps as card subtitle)
 - Update/remove unused sidebar tabs
 - X - Display rating (1-5 stars) for each campground --------------------[Completed 1/9/2020]
