@@ -23,12 +23,23 @@
       <div class="form-group">
         <textarea class="form-control" name="description" id="textarea" rows="2" placeholder="Description"></textarea>
       </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input class="form-control" type="text" name="location" id="location" placeholder="Yosemite National Park, CA">
+        </div>
+
       <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
     
         </div>
     </div>
 </div>
-
 <a href="/campgrounds">Go Back</a>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCODv1xY28AoyCZZU3U2yLWirTRc6PJ3_c&libraries=places"></script>
+<script>
+    const input = document.getElementById('location');
+    autocomplete = new google.maps.places.Autocomplete(input);
+</script>
+
 <% include ../partials/footer %>

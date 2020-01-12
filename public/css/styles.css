@@ -69,3 +69,8 @@ body {
     position: relative;
     bottom: 2px;
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+}

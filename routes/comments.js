@@ -44,14 +44,9 @@ router.get('/campgrounds/:id/comments', (req, res) => {
                             });
                         }
                     });
-            });        
-                        
+            });
         }
-        
-
-        
     });
-
 });
 
 
@@ -184,20 +179,17 @@ router.delete('/campgrounds/:id/comments/:comment_id',
         } else {
 
             // Lookup comment by ID and delete
-            Comment.findById(req.params.comment_id, function(error, comment) {
-                if (error) {
-                    req.flash('error', `Error: ${error.message}.`);
-                } else {
-                    comment.remove();
+            Comment.findByIdAndDelete(req.params.comment_id, function(error, comment) {
+                if (error) {req.flash('error', `Error: ${error.message}.`);}
+                else {
                     campground.averageRating = database.removeRating(campground, comment);
                     campground.comments.pull(req.params.comment_id);
                     campground.commentCount = campground.comments.length;
                     campground.save();
                     req.flash('success', 'Comment has been deleted');
                 }
+                res.redirect(`/campgrounds/${req.params.id}`);
             });
-            // Redirect to campground show page
-            res.redirect(`/campgrounds/${req.params.id}`);
         }
     });
 });

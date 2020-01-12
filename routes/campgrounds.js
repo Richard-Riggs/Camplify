@@ -5,8 +5,14 @@ const express        = require("express"),
       Campground     = require("../models/campground"),
       middleware     = require("../middleware"),
       dbSortQuery    = require("../lib/database").dbSortQuery,
-      ejsFunctions   = require("../lib/ejsFunctions");
-
+      ejsFunctions   = require("../lib/ejsFunctions"),
+      secrets        = require("../lib/secrets"),
+      geocoder       = require('node-geocoder')({
+                            provider: 'google',
+                            httpAdapter: 'https',
+                            apiKey: secrets.geocoderAPIkey,
+                            formatter: null
+      });
 
 // ------------------ Campgrounds Routes --------------------
 
@@ -50,29 +56,40 @@ router.route("/campgrounds")
 
     // CREATE ROUTE
     .post(middleware.isLoggedIn, (req, res) => {
-        Campground.create(
-            {
-                name: req.body.name,
-                image: req.body.image,
-                description: req.body.description,
-                price: req.body.price,
-                createdAt: Date(),
-                author: {
-                    id: req.user._id,
-                    username: req.user.username
-                },
-                commentCount: 0,
-                averageRating: 0
-                
-            }, function(error, campground) {
-                if (error) {
-                    req.flash('error', `Error: ${error.message}.`);
-                }
-                else {
-                    req.flash('success', 'Successfully created campground!');
-                }
-                res.redirect("/campgrounds");
-            });
+        geocoder.geocode(req.body.location, function (error, data) {
+            if (error || !data.length) {
+                req.flash('error', 'Failed to find location.');
+                res.redirect('/campgrounds/new');
+            } else {
+                Campground.create({
+                    name: req.body.name,
+                    image: req.body.image,
+                    description: req.body.description,
+                    price: req.body.price,
+                    createdAt: Date(),
+                    author: {
+                        id: req.user._id,
+                        username: req.user.username
+                    },
+                    location: data[0].formattedAddress,
+                    lat: data[0].latitude,
+                    long: data[0].longitude,
+                    commentCount: 0,
+                    averageRating: 0
+                }, function(error, campground) {
+                    if (error) {
+                        req.flash('error', `Error: ${error.message}.`);
+                        res.redirect('/campgrounds');
+                    }
+                    else {
+                        req.flash('success', 'Successfully created campground!');
+                        res.redirect(`/campgrounds/${campground._id}`);
+                    }
+                });
+            }
+
+        });
+
     });
 
 
@@ -101,14 +118,29 @@ router.route('/campgrounds/:id')
 
     // UPDATE ROUTE
     .put([middleware.isLoggedIn, middleware.checkCampgroundOwnership], function(req, res) {
-        Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(error, updatedCampground) {
-            if (error) {
-                req.flash('error', `Error: ${error.message}.`);
-                res.redirect('/campgrounds');
-            }
-            else {
-                req.flash('success', 'Successfully updated campground.');
-                res.redirect(`/campgrounds/${req.params.id}`);
+        geocoder.geocode(req.body.location, function (error, data) {
+            if (error || !data.length) {
+                req.flash('error', 'Failed to find location.');
+                res.redirect(`/campgrounds/${req.params.id}/edit`);
+            } else {
+                Campground.findByIdAndUpdate(req.params.id, {
+                    name: req.body.name,
+                    image: req.body.image,
+                    description: req.body.description,
+                    price: req.body.price,
+                    location: data[0].formattedAddress,
+                    lat: data[0].latitude,
+                    long: data[0].longitude,
+                }, function(error, updatedCampground) {
+                    if (error) {
+                        req.flash('error', `Error: ${error.message}.`);
+                        res.redirect('/campgrounds');
+                    }
+                    else {
+                        req.flash('success', 'Successfully updated campground.');
+                        res.redirect(`/campgrounds/${req.params.id}`);
+                    }
+                });
             }
         });
     })
