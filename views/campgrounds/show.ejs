@@ -6,7 +6,6 @@
         
     <!-- Sidebar -->
         <div class="col-md-3">
-
             <div id="map"></div>
         </div>
         
@@ -49,60 +48,65 @@
                     <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small></p>
                 </div>
             </div>
-            
-    <!-- Reviews -->
-            <div class="card mt-3">
-                <div class="card-header align-items-middle container-fluid">
-                    <div class="row align-items-center">
-                        <h5 class="float-left pl-3 m-0">Reviews</h5>
-                        <% let alreadyReviewed = false; %>
-                        <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                            <a class="btn btn-info float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
-                        <% } %>
-                    </div>
-
-
-                </div>
-                <ul class="list-group list-group-flush">
-
-                    <% for (let i = 0; i < campground.comments.length && i < 5; i++){ %>
-                        <li class="list-group-item">
-                            <h6 class="d-inline">
-                                <% let comment = campground.comments[i]; %>
-                                <%= comment.author.username %>
-                                <span>
-                                    <% for (let i = 0; i < comment.rating; i++) { %>
-                                        &#9733;
-                                    <% } %>
-                                </span>
-                            </h6>
-                            <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
-                            <p class="mb-0 mt-1"><%= comment.text %></p>
-                            
-                            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                            
-                            <a class="btn btn-sm btn-warning"
-                               href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
-                               Edit
-                            </a>
-                            <form class="delete-form"
-                                  action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
-                                  method="POST">
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                            
-                            <% } %>
-                            
-                        </li>
-                    <% } %>
-                
-                </ul>
-                
-                <a href="/campgrounds/<%= campground._id %>/comments/">See All Reviews</a>
-            </div>
         </div>
     </div>
+    <div class="row justify-content-end">
+    <!-- Reviews -->
+        <div class="col-md-9">
+            <div class="card mt-3">
+                            <div class="card-header align-items-middle container-fluid">
+                                <div class="row align-items-center">
+                                    <h5 class="float-left pl-3 m-0">Reviews</h5>
+                                    <% let alreadyReviewed = false; %>
+                                    <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+                                        <a class="btn btn-info float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
+                                    <% } %>
+                                </div>
+
+
+                            </div>
+                            <ul class="list-group list-group-flush">
+
+                                <% for (let i = 0; i < campground.comments.length && i < 5; i++){ %>
+                                    <li class="list-group-item">
+                                        <h6 class="d-inline">
+                                            <% let comment = campground.comments[i]; %>
+                                            <%= comment.author.username %>
+                                            <span>
+                                                <% for (let i = 0; i < comment.rating; i++) { %>
+                                                    &#9733;
+                                                <% } %>
+                                            </span>
+                                        </h6>
+                                        <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
+                                        <p class="mb-0 mt-1"><%= comment.text %></p>
+
+                                        <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+
+                                        <a class="btn btn-sm btn-warning"
+                                           href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
+                                           Edit
+                                        </a>
+                                        <form class="delete-form"
+                                              action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                              method="POST">
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+
+                                        <% } %>
+
+                                    </li>
+                                <% } %>
+
+                            </ul>
+
+                            <a href="/campgrounds/<%= campground._id %>/comments/">See All Reviews</a>
+                        </div>
+        </div>
+
+    </div>
 </div>
+
 
 <!-- Delete Campground Modal -->
 <div class="modal fade " id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModel" aria-hidden="true">
