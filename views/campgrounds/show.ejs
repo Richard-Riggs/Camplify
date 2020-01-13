@@ -5,8 +5,21 @@
     <div class="row">
         
     <!-- Sidebar -->
-        <div class="col-md-3">
-            <div id="map"></div>
+        <div class="col-md-3 text-center d-flex flex-column">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <h3><%= campground.name %></h3>
+              </li>
+              <li class="list-group-item">
+                  <h6>Price: $<%= campground.price %>/night</h6>
+              </li>
+                <li class="list-group-item">
+                    Visit Website
+                </li>
+              <li class="list-group-item text-left rounded-0"><%= campground.location %></li>
+
+            </ul>
+            <div id="map" class="rounded-bottom border border-top-0"></div>
         </div>
         
     <!-- Campground Info -->
@@ -17,9 +30,25 @@
 
                 <!-- Card Header -->
                 <div class="card-header space-between">
-                    <a class="lead" href=""><strong><%= campground.name %></strong></a>
+                    <span class="lead" href=""><strong><%= campground.name %></strong></span>
                     <div>
-                        <span>$<%= campground.price %>/night</span>
+                        <span>
+                            <span id="average-rating">
+                                <% for (let i = 0; i < campground.averageRating; i++) { %>
+                                    &#9733;
+                                <% } %>
+                            </span>
+                            <small>
+                                <% if (campground.commentCount) { %>
+                                    <a href="/campgrounds/<%= campground._id %>/comments/">
+                                <% } %>
+                              <%= campground.commentCount ? ` ${campground.commentCount} `: "No " %>
+                              <%= campground.commentCount === 1 ? "Review": "Reviews" %>
+                                <% if (campground.commentCount) { %>
+                                    </a>
+                                <% } %>
+                            </small>
+                        </span>
                         <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
                             <div class="btn-group btn-group-sm ml-3" role="group" aria-label="Basic example">
                                 <a class="btn btn-info" href='/campgrounds/<%= campground._id %>/edit'><img src="/images/icons/pencil.svg" width="15" height="15" alt=""></a>
@@ -33,17 +62,6 @@
 
                 <!-- Card Body -->
                 <div class="card-body py-3">
-                    <p>
-                        <span>
-                            <% for (let i = 0; i < campground.averageRating; i++) { %>
-                                &#9733;
-                            <% } %>
-                        </span>
-                        <small>
-                          <%= campground.commentCount ? ` - ${campground.commentCount} `: "No " %>
-                          <%= campground.commentCount === 1 ? "Review": "Reviews" %>
-                        </small>
-                    </p>
                     <p class="card-text"><%= campground.description %></p>
                     <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small></p>
                 </div>
@@ -137,7 +155,7 @@
           long = <%= campground.long %>,
           center = {lat: lat, lng: long },
           map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 8,
+              zoom: 6,
               center: center,
               scrollwheel: false,
               streetViewControl: false,

@@ -47,6 +47,10 @@ body {
     height: auto;
 }
 
+#average-rating {
+    margin-right: 5px;
+}
+
 .delete-form {
     display: inline-block;
 }
@@ -71,8 +75,10 @@ body {
 }
 
 #map {
-    height: 100%;
+    /*height: 100px;*/
     width: 100%;
+    flex-grow: 1;
+    /*border: 1px solid black;*/
 }
 
 
