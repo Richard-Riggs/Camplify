@@ -1,13 +1,40 @@
+/* 
+Colors:
+    Base Green: #1a4c1a
+    Dark Base: #2b3b2b
+    Light Base: #2e852e
+    Lighter Base: #d1dbd2 (equivalent to rgba(26, 76, 26, 0.20))
+*/
+
+
 body {
     padding-top: 56px;
+    color: #303630;
     /*background-color: #f2f2f2;*/
     /*background-color: rgba(0, 51, 0, 0.15)*/
 }
 
+a {
+    color: inherit;
+    transition: 0.1s;
+}
+
+a:hover {
+    color: inherit;
+}
+
+.light-green {
+    background-color: #d1dbd2;
+    color: #303630;
+}
+
 #navbar {
-    background: none;
+    color: #d1dbd2;
+    background-color: #1a4c1a;
+}
+
+#navbar a:hover {
     color: white;
-    /*background-color: #003300;*/
 }
 
 /*#index-container {*/
@@ -15,12 +42,16 @@ body {
 /*}*/
 
 #index-header {
+    color: #1a4c1a;
     background-color: white;
-    color: #0d260d;
+}
+
+.card {
+    border: 1px solid #d1dbd2;
 }
 
 .card-header{
-    background-color: #f2f2f2;
+
 }
 
 .card-body {
@@ -34,13 +65,20 @@ body {
     object-position: 50% 75%;
 }
 
+.camp-index-header span {
+    height: 26px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
 .camp-index-body {
     padding: 10px;
 }
 
 .camp-index-title {
-    line-height: 35px;
     vertical-align: middle;
+
 }
 
 .camp-show-title {
@@ -51,8 +89,16 @@ body {
     margin-right: 5px;
 }
 
+#reviews-section {
+    margin-bottom: 100px;
+}
+
 .delete-form {
     display: inline-block;
+}
+
+.delete-form .btn {
+    border-radius: 0 0.2rem 0.2rem 0;
 }
 
 .space-between {
@@ -69,18 +115,38 @@ body {
     vertical-align: center;
 }
 
-.user-button img {
+.btn-group img {
     position: relative;
     bottom: 2px;
+    margin-right: 3px;
 }
 
 #map {
     /*height: 100px;*/
     width: 100%;
     flex-grow: 1;
-    /*border: 1px solid black;*/
+
 }
 
+.list-group-item {
+    border: 1px solid #d1dbd2;
+}
+
+#new-review-btn {
+    color: white;
+    border-radius: 20px;
+    background-color: #2e852e;
+    padding-top: 5px;
+}
+
+#new-review-btn:hover {
+    background-color: #1a4c1a;
+}
+
+#new-review-btn img {
+    margin-right: 5px;
+
+}
 
 /* This styling fixes the default styling for the map control buttons on the Google Maps display*/
 

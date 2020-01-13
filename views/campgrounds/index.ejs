@@ -4,7 +4,7 @@
 <div id="index-container" class="container">
 
     <!-- Index Header -->
-    <div id="index-header" class="jumbotron my-4">
+    <div id="index-header" class="jumbotron my-4 pb-0">
       <h1 class="display-4 text-center">Welcome to YelpCamp!</h1>
       <p class="lead text-center">Your adventure starts here</p>
 
@@ -34,22 +34,23 @@
             <div class="campground-index-card col-lg-4 col-sm-6 mb-4">
                 <div class="card shadow">
                     <img class="card-img-top camp-index-img" src="<%= campground.image %>">
-                    <div class="card-header">
-                        <h4 class="camp-index-title text-center align-top m-0"><%= campground.name%></h4>
-                        <p>
-                                <span>
-                                    <% if (!campground.commentCount) { %>
-                                        <em>No ratings</em>
-                                    <% } else {%>
-                                        <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
-                                            &#9733;
-                                        <% } %>
-                                    <% } %>
-                                </span>
-                        </p>
+                    <div class="card-header camp-index-header px-3 d-flex justify-content-between light-green">
+                        <h5 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h5>
+                        
+                        <span class="flex-shrink-0 flex-grow-0 align-middle">
+                            <% if (!campground.commentCount) { %>
+                                <em>No ratings</em>
+                            <% } else {%>
+                                <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
+                                    &#9733;
+                                <% } %>
+                            <% } %>
+                        </span>
                     </div>
                     <div class="card-body camp-index-body m-2">
                         <p class="card-text">
+
+   
                             <% let words = campground.description.split(" "); %>
                             <% let limit = 15; %>
                             <% for (let i = 0; i < limit; i++) { %>
