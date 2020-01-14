@@ -14,12 +14,13 @@
                   <h6>Price: $<%= campground.price %>/night</h6>
               </li>
                 <li class="list-group-item">
-                    Visit Website
+                    <a href="<%= campground.image %>">Visit Website</a>
                 </li>
               <li class="list-group-item text-left rounded-0"><%= campground.location %></li>
 
             </ul>
-            <div id="map" class="rounded-bottom border border-top-0"></div>
+
+            <div id="map" class="rounded-bottom border border-top-0 flex-grow-1"></div>
         </div>
         
     <!-- Campground Info -->
@@ -84,13 +85,13 @@
                             <h5 class="float-left pl-3 m-0">Reviews</h5>
                             <% let alreadyReviewed = false; %>
                             <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                                <a id="new-review-btn" class="btn float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""> Add New Review</a>
+                                <a class=" btn float-right ml-auto mr-2 new-btn rounded-pill" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""> Add New Review</a>
                             <% } %>
                         </div>
                     </div>
                             <ul class="list-group list-group-flush">
 
-                                <% for (let i = 0; i < campground.comments.length && i < 5; i++){ %>
+                                <% for (let i = 0; i < campground.comments.length && i < 3; i++){ %>
                                     <li class="list-group-item">
                                         
                                         <div class="d-flex justify-content-between">

@@ -1,7 +1,7 @@
 /* 
 Colors:
     Base Green: #1a4c1a
-    Dark Base: #2b3b2b
+    NEW Base: #2b3b2b
     Light Base: #2e852e
     Lighter Base: #d1dbd2 (equivalent to rgba(26, 76, 26, 0.20))
 */
@@ -30,7 +30,7 @@ a:hover {
 
 #navbar {
     color: #d1dbd2;
-    background-color: #1a4c1a;
+    background-color: #2b3b2b;
 }
 
 #navbar a:hover {
@@ -41,21 +41,19 @@ a:hover {
 /*    background-color: white;*/
 /*}*/
 
+/* ----------------- CAMPGROUND INDEX STYLES -------------- */
+
 #index-header {
     color: #1a4c1a;
     background-color: white;
 }
 
+.dropdown {
+    display: inline-block;
+}
+
 .card {
     border: 1px solid #d1dbd2;
-}
-
-.card-header{
-
-}
-
-.card-body {
-
 }
 
 .camp-index-img {
@@ -71,7 +69,6 @@ a:hover {
     margin-bottom: auto;
 }
 
-
 .camp-index-body {
     padding: 10px;
 }
@@ -80,6 +77,8 @@ a:hover {
     vertical-align: middle;
 
 }
+
+/*------------------------------------------------------------- */
 
 .camp-show-title {
     height: auto;
@@ -122,30 +121,31 @@ a:hover {
 }
 
 #map {
-    /*height: 100px;*/
     width: 100%;
-    flex-grow: 1;
-
+    border: 1px solid #d1dbd2;
 }
 
 .list-group-item {
     border: 1px solid #d1dbd2;
 }
 
-#new-review-btn {
+.new-btn {
     color: white;
-    border-radius: 20px;
-    background-color: #2e852e;
+    background-color: #405940;
     padding-top: 5px;
 }
 
-#new-review-btn:hover {
-    background-color: #1a4c1a;
+.new-btn:hover {
+    color: white;
+    background-color: #326732;
 }
 
-#new-review-btn img {
+.new-btn img {
     margin-right: 5px;
+}
 
+.new-btn.round {
+    border-radius: 20px;
 }
 
 /* This styling fixes the default styling for the map control buttons on the Google Maps display*/
@@ -158,4 +158,14 @@ a:hover {
     transform: translateY(0) !important;
     margin-bottom: 2px !important;
     margin-right: 3px !important;
+}
+
+/* ----------------- LOGIN STYLES ------------------- */
+
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80vh;
 }
