@@ -28,7 +28,7 @@
 
         </div>
         <a class="btn new-btn rounded-pill btn-md" href="/campgrounds/new" role="button">
-            <img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""> Add New Campground
+            <img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""><span class="h-100"> Add New Campground</span>
         </a>
 
     </div>
@@ -40,15 +40,15 @@
 
         <!-- Campground Card -->
         <% campgrounds.forEach((campground) => { %>
-            <div class="campground-index-card col-lg-4 col-sm-6 mb-4">
-                <div class="card hover-shadow">
-                    <img class="card-img-top camp-index-img" src="<%= campground.image %>">
+            <div class="campground-index-card col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 hover-shadow rounded-0">
+                    <img class="card-img-top camp-index-img rounded-0" src="<%= campground.image %>">
                     <div class="card-header camp-index-header px-3 d-flex justify-content-between light-green">
                         <h5 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h5>
                         
                         <span class="flex-shrink-0 flex-grow-0 align-middle">
                             <% if (!campground.commentCount) { %>
-                                <em>No ratings</em>
+                                <em>No rating</em>
                             <% } else {%>
                                 <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
                                     &#9733;
@@ -56,19 +56,23 @@
                             <% } %>
                         </span>
                     </div>
-                    <div class="card-body camp-index-body text-center m-2">
+                    <div class="card-body camp-index-body text-center m-2 d-flex flex-column justify-content-between">
                         <p class="card-text text-left">
 
    
                             <% let words = campground.description.split(" "); %>
                             <% let limit = 15; %>
                             <% for (let i = 0; i < limit; i++) { %>
-                                <%= words[i] %>
+                                <%= (i === (limit - 1) && (words.length > limit)) ? `${words[i]}...` : words[i] %>
                             <% } %>
-                            <%= ((words.length > limit) ? "...": "") %>
+
                         </p>
-                        <div>
+                        <div class="text-center d-flex justify-content-between align-items-center">
                             <a href='/campgrounds/<%= campground._id %>' class="btn new-btn card-link px-4">More Info</a>
+                            <form class="favorite-form" action='/campgrounds/<%= campground._id %>/favorites'>
+                                <input class="favorite-empty" type="submit" value="">
+                            </form>
+                            
                         </div>
 
                     </div>

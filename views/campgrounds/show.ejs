@@ -1,13 +1,13 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
-<div class="container mt-2">
+<div class="container mt-5">
     <div class="row">
         
     <!-- Sidebar -->
         <div class="col-md-3 text-center d-flex flex-column">
-            <ul class="list-group">
-              <li class="list-group-item light-green">
+            <ul class="list-group ">
+              <li class="list-group-item rounded-0 light-green">
                   <h3><%= campground.name %></h3>
               </li>
               <li class="list-group-item">
@@ -20,14 +20,14 @@
 
             </ul>
 
-            <div id="map" class="rounded-bottom border border-top-0 flex-grow-1"></div>
+            <div id="map" class=" border border-top-0 flex-grow-1"></div>
         </div>
         
     <!-- Campground Info -->
         <div class="col-md-9">
             
-            <div class="card">
-                <img src="<%= campground.image %>" class="card-img-top">
+            <div class="card rounded-0">
+                <img src="<%= campground.image %>" class="card-img-top rounded-0">
 
                 <!-- Card Header -->
                 <div class="card-header space-between light-green">
@@ -79,7 +79,7 @@
         
     <!-- Reviews -->
         <div class="col-md-9">
-            <div id="reviews-section" class="card mt-3">
+            <div id="reviews-section" class="card mt-3 rounded-0">
                     <div class="card-header align-items-middle container-fluid light-green">
                         <div class="row align-items-center">
                             <h5 class="float-left pl-3 m-0">Reviews</h5>

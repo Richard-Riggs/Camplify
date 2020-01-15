@@ -13,8 +13,8 @@ html {
 body {
     padding-top: 56px;
     color: #303630;
-    /*background-color: #f2f2f2;*/
-    /*background-color: rgba(0, 51, 0, 0.15)*/
+    font-family: 'PT Sans', sans-serif;
+
 }
 
 a {
@@ -54,6 +54,11 @@ a:hover {
 #index-header {
     color: #1a4c1a;
     background-color: white;
+    
+}
+
+#index-header h1 {
+    font-family: 'Raleway', sans-serif;
 }
 
 .dropdown {
@@ -91,7 +96,25 @@ a:hover {
 
 .camp-index-title {
     vertical-align: middle;
+}
 
+.favorite-form {
+    height: 30px;
+}
+
+.favorite-empty {
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0) !important;
+    width: 30px;
+    height: 30px;
+    background-image: url("/images/icons/heart-outline.png");
+    background-size: 100%;
+    transition: 0.2s;
+}
+
+.favorite-empty:hover {
+    background-image: url("/images/icons/heart-solid.png");
 }
 
 /*------------------------------------------------------------- */
@@ -148,7 +171,7 @@ a:hover {
 .new-btn {
     color: white;
     background-color: #405940;
-    padding-top: 5px;
+    padding-top: 4px;
 }
 
 .new-btn:hover {
@@ -159,6 +182,10 @@ a:hover {
 .new-btn img {
     top: 0;
     margin-right: 5px;
+}
+
+.new-btn span {
+    vertical-align: middle;
 }
 
 .new-btn.round {
@@ -185,6 +212,10 @@ a:hover {
 
 #login .row {
     height: calc(90vh - 56px);
+}
+
+#login form {
+    
 }
 
 #login img {
