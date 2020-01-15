@@ -4,26 +4,35 @@
 <div id="index-container" class="container">
 
     <!-- Index Header -->
-    <div id="index-header" class="jumbotron my-4">
+    <div id="index-header" class="jumbotron my-4 pb-0 pt-5">
       <h1 class="display-4 text-center">Welcome to YelpCamp!</h1>
       <p class="lead text-center">Your adventure starts here</p>
 
-      <p>Explore our hand-picked campgrounds from across America</p>
-      <a class="btn btn-primary btn-md" href="/campgrounds/new" role="button">Add New Campground</a>
+      <p>Explore user-submitted campgrounds from across America</p>
       <hr class="my-4">
 
     <!-- Index Sort Buttons -->
-    <div class="dropdown text-right">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= sortName[sortQuery] %>
-      </a>
+    <div class="d-flex justify-content-between">
 
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="<%= queryString({sort: 'recent', page: current}) %>">Most Recent</a>
-        <a class="dropdown-item" href="<%= queryString({sort: 'rating', page: current}) %>">Highest Rated</a>
-        <a class="dropdown-item" href="<%= queryString({sort: 'reviews', page: current}) %>">Most Reviewed</a>
-      </div>
+        <div>
+
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= sortName[sortQuery] %>
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="<%= queryString({sort: 'recent', page: current}) %>">Most Recent</a>
+            <a class="dropdown-item" href="<%= queryString({sort: 'rating', page: current}) %>">Highest Rated</a>
+            <a class="dropdown-item" href="<%= queryString({sort: 'reviews', page: current}) %>">Most Reviewed</a>
+          </div>
+
+        </div>
+        <a class="btn new-btn rounded-pill btn-md" href="/campgrounds/new" role="button">
+            <img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""><span class="h-100"> Add New Campground</span>
+        </a>
+
     </div>
+
 
     </div>
     
@@ -31,26 +40,41 @@
 
         <!-- Campground Card -->
         <% campgrounds.forEach((campground) => { %>
-            <div class="campground-index-card col-lg-4 col-sm-6 mb-4">
-                <div class="card shadow">
-                    <img class="card-img-top camp-index-img" src="<%= campground.image %>">
-                    <div class="card-header">
-                        <h4 class="camp-index-title text-center align-top m-0"><%= campground.name%></h4>
-                        <p>
-                                <span>
-                                    <% if (!campground.commentCount) { %>
-                                        <em>No ratings</em>
-                                    <% } else {%>
-                                        <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
-                                            &#9733;
-                                        <% } %>
-                                    <% } %>
-                                </span>
-                        </p>
+            <div class="campground-index-card col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 hover-shadow rounded-0">
+                    <img class="card-img-top camp-index-img rounded-0" src="<%= campground.image %>">
+                    <div class="card-header camp-index-header px-3 d-flex justify-content-between light-green">
+                        <h5 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h5>
+                        
+                        <span class="flex-shrink-0 flex-grow-0 align-middle">
+                            <% if (!campground.commentCount) { %>
+                                <em>No rating</em>
+                            <% } else {%>
+                                <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
+                                    &#9733;
+                                <% } %>
+                            <% } %>
+                        </span>
                     </div>
-                    <div class="card-body camp-index-body m-2">
-                        <p class="card-text"><%= campground.description %></p>
-                        <a href='/campgrounds/<%= campground._id %>' class="card-link">More Info</a>
+                    <div class="card-body camp-index-body text-center m-2 d-flex flex-column justify-content-between">
+                        <p class="card-text text-left">
+
+   
+                            <% let words = campground.description.split(" "); %>
+                            <% let limit = 15; %>
+                            <% for (let i = 0; i < limit; i++) { %>
+                                <%= (i === (limit - 1) && (words.length > limit)) ? `${words[i]}...` : words[i] %>
+                            <% } %>
+
+                        </p>
+                        <div class="text-center d-flex justify-content-between align-items-center">
+                            <a href='/campgrounds/<%= campground._id %>' class="btn new-btn card-link px-4">More Info</a>
+                            <form class="favorite-form" action='/campgrounds/<%= campground._id %>/favorites'>
+                                <input class="favorite-empty" type="submit" value="">
+                            </form>
+                            
+                        </div>
+
                     </div>
                 </div>
             </div>

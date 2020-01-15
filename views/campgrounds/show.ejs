@@ -1,113 +1,149 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
-<div class="container mt-2">
+<div class="container mt-5">
     <div class="row">
         
     <!-- Sidebar -->
-        <div class="col-md-3">
-            <h4 class="text-center pb-1">Yelp Camp</h4>
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Info 1</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Info 2</a>
-                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Info 3</a>
-            </div>
-            <div id="map"></div>
+        <div class="col-md-3 text-center d-flex flex-column">
+            <ul class="list-group ">
+              <li class="list-group-item rounded-0 light-green">
+                  <h3><%= campground.name %></h3>
+              </li>
+              <li class="list-group-item">
+                  <h6>Price: $<%= campground.price %>/night</h6>
+              </li>
+                <li class="list-group-item">
+                    <a href="<%= campground.image %>">Visit Website</a>
+                </li>
+              <li class="list-group-item text-left rounded-0"><%= campground.location %></li>
+
+            </ul>
+
+            <div id="map" class=" border border-top-0 flex-grow-1"></div>
         </div>
         
     <!-- Campground Info -->
         <div class="col-md-9">
             
-            <div class="card">
-                <img src="<%= campground.image %>" class="card-img-top">
+            <div class="card rounded-0">
+                <img src="<%= campground.image %>" class="card-img-top rounded-0">
 
                 <!-- Card Header -->
-                <div class="card-header space-between">
-                    <a class="lead" href=""><strong><%= campground.name %></strong></a>
+                <div class="card-header space-between light-green">
+                    <span class="lead" href=""><strong><%= campground.name %></strong></span>
                     <div>
-                        <span>$<%= campground.price %>/night</span>
-                        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                            <div class="btn-group btn-group-sm ml-3" role="group" aria-label="Basic example">
-                                <a class="btn btn-info" href='/campgrounds/<%= campground._id %>/edit'><img src="/images/icons/pencil.svg" width="15" height="15" alt=""></a>
-                                <button type="button" class="btn btn-danger user-button" data-toggle="modal" data-target="#deleteModel">
-                                    <img src="/images/icons/trash.svg" width="15" height="15" alt="">
-                                </button>
-                            </div>
-                        <% } %>
+                        <span>
+                            <span id="average-rating">
+                                <% for (let i = 0; i < campground.averageRating; i++) { %>
+                                    &#9733;
+                                <% } %>
+                            </span>
+                            <small>
+                                <% if (campground.commentCount) { %>
+                                    <a href="/campgrounds/<%= campground._id %>/comments/">
+                                <% } %>
+                              <%= campground.commentCount ? ` ${campground.commentCount} `: "No " %>
+                              <%= campground.commentCount === 1 ? "Review": "Reviews" %>
+                                <% if (campground.commentCount) { %>
+                                    </a>
+                                <% } %>
+                            </small>
+                        </span>
+                        
                     </div>
                 </div>
 
                 <!-- Card Body -->
                 <div class="card-body py-3">
-                    <p>
-                        <span>
-                            <% for (let i = 0; i < campground.averageRating; i++) { %>
-                                &#9733;
-                            <% } %>
-                        </span>
-                        <small>
-                          <%= campground.commentCount ? ` - ${campground.commentCount} `: "No " %>
-                          <%= campground.commentCount === 1 ? "Review": "Reviews" %>
-                        </small>
-                    </p>
                     <p class="card-text"><%= campground.description %></p>
-                    <p class="card-text text-right"><small class="text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small></p>
-                </div>
-            </div>
-            
-    <!-- Reviews -->
-            <div class="card mt-3">
-                <div class="card-header align-items-middle container-fluid">
-                    <div class="row align-items-center">
-                        <h5 class="float-left pl-3 m-0">Reviews</h5>
-                        <% let alreadyReviewed = false; %>
-                        <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                            <a class="btn btn-info float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
+                    <div class="d-flex">
+                        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                <a class="btn btn-info" href='/campgrounds/<%= campground._id %>/edit'><img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">
+                                    <img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete
+                                </button>
+                            </div>
                         <% } %>
+                        <div class="ml-auto align-text-bottom">
+                            <small class="card-text text-muted align-bottom" style="line-height: 100%"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small>
+                        </div>
                     </div>
-
-
+                    
                 </div>
-                <ul class="list-group list-group-flush">
-
-                    <% for (let i = 0; i < campground.comments.length && i < 5; i++){ %>
-                        <li class="list-group-item">
-                            <h6 class="d-inline">
-                                <% let comment = campground.comments[i]; %>
-                                <%= comment.author.username %>
-                                <span>
-                                    <% for (let i = 0; i < comment.rating; i++) { %>
-                                        &#9733;
-                                    <% } %>
-                                </span>
-                            </h6>
-                            <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
-                            <p class="mb-0 mt-1"><%= comment.text %></p>
-                            
-                            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                            
-                            <a class="btn btn-sm btn-warning"
-                               href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
-                               Edit
-                            </a>
-                            <form class="delete-form"
-                                  action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
-                                  method="POST">
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                            
-                            <% } %>
-                            
-                        </li>
-                    <% } %>
-                
-                </ul>
-                
-                <a href="/campgrounds/<%= campground._id %>/comments/">See All Reviews</a>
             </div>
         </div>
     </div>
+    <div class="row justify-content-end">
+        
+    <!-- Reviews -->
+        <div class="col-md-9">
+            <div id="reviews-section" class="card mt-3 rounded-0">
+                    <div class="card-header align-items-middle container-fluid light-green">
+                        <div class="row align-items-center">
+                            <h5 class="float-left pl-3 m-0">Reviews</h5>
+                            <% let alreadyReviewed = false; %>
+                            <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+                                <a class=" btn float-right ml-auto mr-2 new-btn rounded-pill" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""> Add New Review</a>
+                            <% } %>
+                        </div>
+                    </div>
+                            <ul class="list-group list-group-flush">
+
+                                <% for (let i = 0; i < campground.comments.length && i < 3; i++){ %>
+                                    <li class="list-group-item">
+                                        
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h6 class="d-inline">
+                                                <% let comment = campground.comments[i]; %>
+                                                <%= comment.author.username %>
+                                                    <span class=ml-2>
+                                                        <% for (let i = 0; i < comment.rating; i++) { %>
+                                                            &#9733;
+                                                        <% } %>
+                                                    </span>
+                                            </h6>
+                                            </div>
+
+                                            <div>
+                                                
+                                                <small><%= moment(comment.createdAt).fromNow() %></small>
+                                                                                      
+                                            </div>
+                                        </div>
+                                        <p class="mb-0 mt-1"><%= comment.text %></p>
+                                            
+                                        <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                                            <div class="btn-group btn-group-sm mt-2 float-left" role="group" aria-label="">
+                                                <a class="btn btn-info"
+                                                   href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
+                                                   <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit
+                                                </a>
+                                                <form class=" delete-form"
+                                                      action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                      method="POST">
+                                                    <button class="btn btn-sm btn-danger"><img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete</button>
+                                                </form>
+                                            </div>
+                                        <% } %>
+
+                                    </li>
+                                <% } %>
+                            <li class="list-group-item text-center">
+                                <a href="/campgrounds/<%= campground._id %>/comments/"><h5>See All Reviews</h5></a>
+                            </li>
+
+                            </ul>
+
+                            
+                        </div>
+        </div>
+
+    </div>
 </div>
+
 
 <!-- Delete Campground Modal -->
 <div class="modal fade " id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModel" aria-hidden="true">
@@ -138,9 +174,11 @@
           long = <%= campground.long %>,
           center = {lat: lat, lng: long },
           map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 8,
+              zoom: 6,
               center: center,
-              scrollwheel: false
+              scrollwheel: false,
+              streetViewControl: false,
+
           }),
           contentString =
               `<strong><%= campground.name %><br />
@@ -157,6 +195,7 @@
       infowindow.open(map, marker);
     });
   }
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCODv1xY28AoyCZZU3U2yLWirTRc6PJ3_c&callback=initMap"></script>
 

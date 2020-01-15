@@ -1,30 +1,80 @@
+/* 
+Colors:
+    Base Green: #1a4c1a
+    NEW Base: #2b3b2b
+    Light Base: #2e852e
+    Lighter Base: #d1dbd2 (equivalent to rgba(26, 76, 26, 0.20))
+*/
+
+html {
+    height: 100%;
+}
+
 body {
     padding-top: 56px;
-    /*background-color: #f2f2f2;*/
-    /*background-color: rgba(0, 51, 0, 0.15)*/
+    color: #303630;
+    font-family: 'PT Sans', sans-serif;
+
+}
+
+a {
+    color: inherit;
+    transition: 0.1s;
+}
+
+a:hover {
+    color: inherit;
+}
+
+.light-green {
+    background-color: #d1dbd2;
+    color: #303630;
 }
 
 #navbar {
-    background: none;
+    color: #d1dbd2;
+    background-color: #2b3b2b;
+}
+
+#navbar img {
+    width: 26px;
+    height: 26px;
+}
+
+#navbar a:hover {
     color: white;
-    /*background-color: #003300;*/
 }
 
 /*#index-container {*/
 /*    background-color: white;*/
 /*}*/
 
+/* ----------------- CAMPGROUND INDEX STYLES -------------- */
+
 #index-header {
+    color: #1a4c1a;
     background-color: white;
-    color: #0d260d;
+    
 }
 
-.card-header{
-    background-color: #f2f2f2;
+#index-header h1 {
+    font-family: 'Raleway', sans-serif;
 }
 
-.card-body {
+.dropdown {
+    display: inline-block;
+}
 
+.card {
+    border: 1px solid #d1dbd2;
+}
+
+.hover-shadow{
+    transition: 0.1s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .camp-index-img {
@@ -34,21 +84,59 @@ body {
     object-position: 50% 75%;
 }
 
+.camp-index-header span {
+    height: 26px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .camp-index-body {
     padding: 10px;
 }
 
 .camp-index-title {
-    line-height: 35px;
     vertical-align: middle;
 }
+
+.favorite-form {
+    height: 30px;
+}
+
+.favorite-empty {
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0) !important;
+    width: 30px;
+    height: 30px;
+    background-image: url("/images/icons/heart-outline.png");
+    background-size: 100%;
+    transition: 0.2s;
+}
+
+.favorite-empty:hover {
+    background-image: url("/images/icons/heart-solid.png");
+}
+
+/*------------------------------------------------------------- */
 
 .camp-show-title {
     height: auto;
 }
 
+#average-rating {
+    margin-right: 5px;
+}
+
+#reviews-section {
+    margin-bottom: 100px;
+}
+
 .delete-form {
     display: inline-block;
+}
+
+.delete-form .btn {
+    border-radius: 0 0.2rem 0.2rem 0;
 }
 
 .space-between {
@@ -65,12 +153,82 @@ body {
     vertical-align: center;
 }
 
-.user-button img {
+.btn-group img {
     position: relative;
     bottom: 2px;
+    margin-right: 3px;
 }
 
 #map {
-    height: 400px;
     width: 100%;
+    border: 1px solid #d1dbd2;
+}
+
+.list-group-item {
+    border: 1px solid #d1dbd2;
+}
+
+.new-btn {
+    color: white;
+    background-color: #405940;
+    padding-top: 4px;
+}
+
+.new-btn:hover {
+    color: white;
+    background-color: #326732;
+}
+
+.new-btn img {
+    top: 0;
+    margin-right: 5px;
+}
+
+.new-btn span {
+    vertical-align: middle;
+}
+
+.new-btn.round {
+    border-radius: 20px;
+}
+
+/* This styling fixes the default styling for the map control buttons on the Google Maps display*/
+
+.gm-style-mtc label {
+    margin-bottom: 0 !important;
+}
+
+.gm-style-mtc img {
+    transform: translateY(0) !important;
+    margin-bottom: 2px !important;
+    margin-right: 3px !important;
+}
+
+/* ----------------- LOGIN STYLES ------------------- */
+
+#login {
+    height: 100%;
+}
+
+#login .row {
+    height: calc(90vh - 56px);
+}
+
+#login form {
+    
+}
+
+#login img {
+    width: 80px;
+    height: 80px;
+}
+
+#login .form-control:nth-of-type(1) {
+    border-radius: 0.25rem 0.25rem 0 0;
+    border-color: #d1dbd2;
+}
+
+#login .form-control:nth-of-type(2) {
+    border-radius: 0 0 0.25rem 0.25rem;
+    border-color: #d1dbd2;
 }
