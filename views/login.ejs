@@ -1,26 +1,28 @@
 <% include partials/header %>
 <% include partials/navbar %>
 
-<div class="form-container">
 
-    <form style="max-width: 330px" class="text-center">
-        <h1 class="mb-3 font-weight-normal">Log in</h1>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+
+
+
+
+<div id="login" class="container">
+    <div class="row align-items-center justify-content-center">
+        <form class="col-10 col-sm-8 col-md-6 col-lg-3 m-auto text-center" action="/login" method="POST">
+
+            <img src="/images/icons/tent-solid.svg" alt="">
+            <h1 class="mt-1">Log In</h1>
+            <div class="form-group mt-4">
+                <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
+                <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
+            <button class="btn new-btn btn-block mt-4">Log In</button>
+        </div>
+
+        </form>
+    </div>
 
 </div>
 
 
-<h1>Log In</h1>
-
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Log In!</button>
-</form>
 
 <% include partials/footer %>

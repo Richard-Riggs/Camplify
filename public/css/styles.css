@@ -6,6 +6,9 @@ Colors:
     Lighter Base: #d1dbd2 (equivalent to rgba(26, 76, 26, 0.20))
 */
 
+html {
+    height: 100%;
+}
 
 body {
     padding-top: 56px;
@@ -33,6 +36,11 @@ a:hover {
     background-color: #2b3b2b;
 }
 
+#navbar img {
+    width: 26px;
+    height: 26px;
+}
+
 #navbar a:hover {
     color: white;
 }
@@ -54,6 +62,14 @@ a:hover {
 
 .card {
     border: 1px solid #d1dbd2;
+}
+
+.hover-shadow{
+    transition: 0.1s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .camp-index-img {
@@ -141,6 +157,7 @@ a:hover {
 }
 
 .new-btn img {
+    top: 0;
     margin-right: 5px;
 }
 
@@ -162,10 +179,25 @@ a:hover {
 
 /* ----------------- LOGIN STYLES ------------------- */
 
-.form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 80vh;
+#login {
+    height: 100%;
+}
+
+#login .row {
+    height: calc(90vh - 56px);
+}
+
+#login img {
+    width: 80px;
+    height: 80px;
+}
+
+#login .form-control:nth-of-type(1) {
+    border-radius: 0.25rem 0.25rem 0 0;
+    border-color: #d1dbd2;
+}
+
+#login .form-control:nth-of-type(2) {
+    border-radius: 0 0 0.25rem 0.25rem;
+    border-color: #d1dbd2;
 }
