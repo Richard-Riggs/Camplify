@@ -1,0 +1,47 @@
+//======================= MODULES =======================
+
+const express = require("express"),
+      router  = express.Router(),
+      Campground = require("../models/campground"),
+      Comment = require("../models/comment"),
+      middleware = require("../middleware"),
+      database = require("../lib/database"),
+      ejsFunctions = require("../lib/ejsFunctions");
+
+// TODO: Check if user has already favorited before adding as favorite
+
+// CREATE FAVORITE
+router.post('/campgrounds/:id/favorites', middleware.isLoggedIn, (req, res) => {
+
+    User.findById(req.user._id, (error, user) => {
+        if (error) {
+            req.flash('error', `Error: ${error.message}.`);
+            return res.redirect('back');
+        } else {
+
+            Campground.findById(req.params.id, (error, campground) => {
+                if (error) {
+                    req.flash('error', `Error: ${error.message}.`);
+                    return res.redirect('back');
+                } else {
+                    console.log('Found user and campground:')
+                    console.log(user);
+                    console.log(campground);
+                }
+            })
+        }
+    });
+
+
+    switch (req.body.statusRequest) {
+        case "favorite":
+            return res.send({result: "favorited"});
+        case "unfavorite":
+            return res.send({result: "unfavorited"});
+        default: return res.send(null);
+    }
+
+});
+
+
+module.exports = router;

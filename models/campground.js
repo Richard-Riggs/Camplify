@@ -25,6 +25,14 @@ const campgroundSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ],
+
+    userFavs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+
     commentCount: Number,
     averageRating: Number
 });

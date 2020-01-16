@@ -102,18 +102,25 @@ a:hover {
     height: 30px;
 }
 
-.favorite-empty {
+.favorite-btn {
     border: none;
     outline: none;
     background-color: rgba(0, 0, 0, 0) !important;
     width: 30px;
     height: 30px;
-    background-image: url("/images/icons/heart-outline.png");
     background-size: 100%;
-    transition: 0.2s;
+    transition: 0.1s;
 }
 
-.favorite-empty:hover {
+.unfavorited {
+    background-image: url("/images/icons/heart-outline.png");
+}
+
+.unfavorited:hover {
+    background-image: url("/images/icons/heart-solid.png");
+}
+
+.favorited {
     background-image: url("/images/icons/heart-solid.png");
 }
 
