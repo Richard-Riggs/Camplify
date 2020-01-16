@@ -32,7 +32,7 @@
                 <!-- Card Header -->
                 <div class="card-header space-between light-green">
                     <span class="lead" href=""><strong><%= campground.name %></strong></span>
-                    <div>
+                    <div class="d-flex">
                         <span>
                             <span id="average-rating">
                                 <% for (let i = 0; i < campground.averageRating; i++) { %>
@@ -50,6 +50,11 @@
                                 <% } %>
                             </small>
                         </span>
+                        
+                        <form class="favorite-form d-flex align-items-center text-center ml-2" action='/campgrounds/<%= campground._id %>/favorites'>
+                            <input class="favorite-btn <%= (currentUser && currentUser.campFavs.includes(campground._id)) ? "favorited" : "unfavorited" %>" type="submit" value="">
+                            <span class="ml-2 mb-1 d-flex"><small><%= campground.userFavs.length %></small></span>
+                        </form>    
                         
                     </div>
                 </div>
@@ -167,6 +172,31 @@
     </div>
   </div>
 </div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div id="login" class="m-4">
+            <div class="align-items-center justify-content-center">
+                <form class=" text-center" action="/login" method="POST">
+                    <button type="button" class="close align-middle" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>             
+                    <img src="/images/icons/tent-solid.svg" alt="">
+                    <h3 class="mt-1">Log In</h1>
+                    <div class="form-group mt-4">
+                        <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
+                        <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
+                        <button class="btn new-btn btn-block mt-4">Log In</button>
+                    </div>
+                </form>
+            </div>
+        </div>      
+    </div>
+  </div>
+</div>
+
 
 <script>
   function initMap() {

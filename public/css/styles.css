@@ -103,7 +103,7 @@ a:hover {
 }
 
 .favorite-form {
-    height: 30px;
+    
 }
 
 .favorite-form span {
@@ -119,6 +119,16 @@ a:hover {
     height: 30px;
     background-size: 100%;
     transition: 0.1s;
+}
+
+.card-header .favorite-btn {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
+}
+
+.card-header .favorite-btn small {
+    font-size: 20px !important;
 }
 
 .unfavorited {

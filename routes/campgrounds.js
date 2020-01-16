@@ -20,11 +20,11 @@ router.route("/campgrounds")
 
 // INDEX ROUTE
 .get(function (req, res) {
-    let perPage = 12;
+    let perPage = 6;
     let pageQuery = parseInt(req.query.page);
     let pageNumber = pageQuery ? pageQuery : 1;
-    let sorts = ['recent', 'reviews', 'rating'];
-    let sortQuery = (sorts.includes(req.query.sort)) ? req.query.sort : 'recent';
+    let sorts = ['recent', 'reviews', 'rating', 'favorited'];
+    let sortQuery = (sorts.includes(req.query.sort)) ? req.query.sort : 'rating';
 
     Campground
         .find({})
@@ -46,7 +46,8 @@ router.route("/campgrounds")
                         sortName: {
                             recent: 'Most Recent',
                             reviews: 'Most Reviewed',
-                            rating: 'Highest Rating'
+                            rating: 'Highest Rated',
+                            favorited: 'Most Favorited'
                         }
                     });
                 }
@@ -75,6 +76,7 @@ router.route("/campgrounds")
                     lat: data[0].latitude,
                     long: data[0].longitude,
                     commentCount: 0,
+                    userFavCount: 0,
                     averageRating: 0
                 }, function(error, campground) {
                     if (error) {
