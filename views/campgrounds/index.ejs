@@ -72,7 +72,7 @@
                             <a href='/campgrounds/<%= campground._id %>' class="btn new-btn card-link px-4">More Info</a>
                                 
                             <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>
-                                <span class="mr-1 align-top"><strong><%= campground.userFavs.length %></strong></span>
+                                <span class="mr-1 align-top"><strong class="count"><%= campground.userFavs.length %></strong></span>
                                 <input class="favorite-btn <%= (currentUser && currentUser.campFavs.includes(campground._id)) ? "favorited" : "unfavorited" %>" type="submit" value="">
                             </form>                                
 
@@ -154,7 +154,7 @@
                 <form class=" text-center" action="/login" method="POST">
                     <button type="button" class="close align-middle" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
-                    </button>             
+                    </button>
                     <img src="/images/icons/tent-solid.svg" alt="">
                     <h3 class="mt-1">Log In</h1>
                     <div class="form-group mt-4">
