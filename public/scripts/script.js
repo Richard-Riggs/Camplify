@@ -16,18 +16,18 @@ $(function () {
         }
 
 
-        $.post(url, {statusRequest: statusRequest}).done(function(data) {
-            console.log(data);
-            if (data['result'] === "favorited") {
-                button.removeClass('unfavorited');
-                button.addClass('favorited');
-            } else if (data['result'] === "unfavorited") {
-                button.removeClass('favorited');
-                button.addClass('unfavorited');
-            } else {
-                console.log('Error: There was an error communicating with the server.')
-            }
-
+        $.post(url, {statusRequest: statusRequest})
+        
+            .done(function(data) {
+                if (data['result'] === "favorited") {
+                    button.removeClass('unfavorited');
+                    button.addClass('favorited');
+                } else if (data['result'] === "unfavorited") {
+                    button.removeClass('favorited');
+                    button.addClass('unfavorited');
+                } else {
+                    $('#login-modal').modal('show');
+                }
         })
     });
 });

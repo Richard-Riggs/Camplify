@@ -45,6 +45,10 @@ a:hover {
     color: white;
 }
 
+.flash {
+    margin-top: 65px;
+}
+
 /*#index-container {*/
 /*    background-color: white;*/
 /*}*/
@@ -100,6 +104,11 @@ a:hover {
 
 .favorite-form {
     height: 30px;
+}
+
+.favorite-form span {
+    font-size: 1.25rem;
+    color: #b30047;
 }
 
 .favorite-btn {
@@ -238,4 +247,18 @@ a:hover {
 #login .form-control:nth-of-type(2) {
     border-radius: 0 0 0.25rem 0.25rem;
     border-color: #d1dbd2;
+}
+
+#login-modal .modal-content {
+    max-width: 350px;
+}
+
+#login-modal .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 50px;
+    width: 50px;
+    font-size: 40px;
+    outline: none;
 }
