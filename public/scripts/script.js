@@ -14,7 +14,7 @@ $(function () {
         } else if (button.hasClass('favorited')) {
             statusRequest = 'unfavorite';
         }
-        $.post(url, {statusRequest: statusRequest, modal: true})
+        $.post(url, {statusRequest: statusRequest})
             .done(function(data) {
                 if (data['result'] === "favorited") {
                     button.removeClass('unfavorited');
@@ -29,22 +29,27 @@ $(function () {
                 }
         })
     });
-
+    
+    // Handles logins through the login modal
+    // Shows the error message if there's an error, refreshes page if login is successful
     $('#login-modal').find('form').submit(function (event) {
         event.preventDefault();
+        $('#login-modal-error-msg').html('');
         let form = $(this),
             url = form.attr("action");
         $.post(url, form.serialize(), function(data) {
             if (data['errorMsg']) {
-                console.log(data.errorMsg);
+                $('#login-modal-error-msg').html(data['errorMsg']);
             } 
             else {
-
                 window.location.href = window.location['href'];
-                // newHTML = $.parseHTML(data);
-                // $('html').html(data);
             }
         });
+    });
+    
+    // Removes error message from login modal when closed
+    $('#login-modal').on('hidden.bs.modal', function(event) {
+        $('#login-modal-error-msg').html('');
         return true;
     });
 

@@ -70,7 +70,7 @@ router.route('/login')
             if (relPath === '/login') {
                 return res.redirect('/campgrounds');
             } else {
-                return res.send({});
+                return res.send({login: 'success'});
             }
         });
       })(req, res, next);

@@ -133,19 +133,24 @@ a:hover {
 
 .unfavorited {
     background-image: url("/images/icons/heart-outline.png");
+    transition: 0.1s;
 }
 
 .unfavorited:hover {
     background-image: url("/images/icons/heart-solid.png");
+    transition: 0.1s;
 }
 
 .favorited {
     background-image: url("/images/icons/heart-solid.png");
+    transition: 0.1s;    
 }
 
-.invalid-message {
-    min-height: 24px;
+.favorited:hover {
+    background-image: url("/images/icons/heart-solid-dark.png");
+    transition: 0.1s;
 }
+
 
 /*------------------------------------------------------------- */
 
@@ -275,4 +280,8 @@ a:hover {
     width: 50px;
     font-size: 40px;
     outline: none;
+}
+
+#login-modal-error-msg {
+    min-height: 24px;
 }

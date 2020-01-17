@@ -9,9 +9,8 @@ const express = require("express"),
       database = require("../lib/database"),
       ejsFunctions = require("../lib/ejsFunctions");
 
-// TODO: Check if user has already favorited before adding as favorite
 
-// CREATE FAVORITE
+// TOGGLE (CREATE / DESTROY) FAVORITE
 router.post('/campgrounds/:id/favorites', middleware.isLoggedIn, (req, res) => {
 
     User.findById(req.user._id, (error, user) => {
@@ -46,7 +45,6 @@ router.post('/campgrounds/:id/favorites', middleware.isLoggedIn, (req, res) => {
                     }
                 }
             })
-            
         }
     });
     
