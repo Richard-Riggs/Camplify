@@ -29,6 +29,7 @@ command in the command line:
 ======== TODO ========
 
 GENERAL FEATURES
+- Add user profile
 - Add footer to all pages
 - Consistent use of var vs let
 - Consistent use of anonymous function OR arrow notation
@@ -38,24 +39,32 @@ GENERAL FEATURES
 - Sanitize all inputs
 - Generate campgrounds & reviews
 
+USER PROFILE
+- Show user favorites
+- Show user reviews
+- Show user campgrounds
+- Enable other users to visit account
+- Add user image
+- Option to change user password
+- Option to delete account
+
 LANDING PAGE
 - Add section(s) for features
 - Change images on background slideshow
 - Add page footer
 
 INDEX PAGE
-- Abbreviate card description
+- X - Abbreviate card description ---------------------------------------[Completed 1/17/2020]
 - X - Include average rating on card ------------------------------------[Completed 1/9/2020]
-- Include city/state for each card
-- X - Add pagination (show 12 campground cards/page) [Completed 1/5/2020]
+- X - Add pagination (show 6 campground cards/page) ---------------------[Completed 1/5/2020]
 - X - Include sort-by feature (newest, most reviewed, highest reviewed)  [Completed 1/7/2020]
 - Update index header
 - Add page footer
 
 SHOW PAGE
 - X - Include GPS/map info in sidebar -----------------------------------[Completed 1/12/2020]
-- Show city/state (perhaps as card subtitle)
-- Update/remove unused sidebar tabs
+- X - Show city/state (perhaps as card subtitle) ------------------------[Completed 1/12/2020]
+- X - Update/remove unused sidebar tabs----------------------------------[Completed 1/12/2020]
 - X - Display rating (1-5 stars) for each campground --------------------[Completed 1/9/2020]
 - Update review display
 - X - Include review pagination -----------------------------------------[Completed 1/9/2020]
