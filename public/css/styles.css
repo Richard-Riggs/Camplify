@@ -143,6 +143,10 @@ a:hover {
     background-image: url("/images/icons/heart-solid.png");
 }
 
+.invalid-message {
+    min-height: 24px;
+}
+
 /*------------------------------------------------------------- */
 
 .camp-show-title {

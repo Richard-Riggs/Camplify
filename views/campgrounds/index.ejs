@@ -147,20 +147,25 @@
 
 <!-- Login Modal -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+
+  <div class="modal-dialog modal-dialog-centered align-items-center justify-content-center" role="document">
+
+    <div class="modal-content ">
         <div id="login" class="m-4">
             <div class="align-items-center justify-content-center">
-                <form class=" text-center" action="/login" method="POST">
+                <form class="text-center" action="/login" method="POST">
                     <button type="button" class="close align-middle" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                     <img src="/images/icons/tent-solid.svg" alt="">
-                    <h3 class="mt-1">Log In</h1>
-                    <div class="form-group mt-4">
-                        <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
-                        <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
-                        <button class="btn new-btn btn-block mt-4">Log In</button>
+                    <h3 class="mt-1 mb-0">Log In</h1>
+                    <div class="invalid-message text-danger"></div>
+                    <div class="mt-1">
+                        <div class="form-group mb-4">
+                            <input class="form-control shadow-none is-invalid" type="text" name="username" placeholder="Username">
+                            <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
+                        </div>
+                        <button class="btn new-btn btn-block mt-1">Log In</button>
                     </div>
                 </form>
             </div>
