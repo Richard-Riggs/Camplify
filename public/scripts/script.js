@@ -31,8 +31,21 @@ $(function () {
     });
 
     $('#login-modal').find('form').submit(function (event) {
-        $(this).append('<input type="hidden" name="field_name" value="value" />');
+        event.preventDefault();
+        let form = $(this),
+            url = form.attr("action");
+        $.post(url, form.serialize(), function(data) {
+            if (data['errorMsg']) {
+                console.log(data.errorMsg);
+            } 
+            else {
+
+                window.location.href = window.location['href'];
+                // newHTML = $.parseHTML(data);
+                // $('html').html(data);
+            }
+        });
         return true;
-    })
+    });
 
 });

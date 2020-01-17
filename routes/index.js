@@ -36,16 +36,46 @@ router.route('/register')
 
 router.route('/login')
 
-    .get(middleware.isLoggedOut, function(req, res) {                                 // Show login form
+    .get(middleware.isLoggedOut, function(req, res) {              // Show login form
         res.render('login');
     })
 
-    .post([middleware.isLoggedOut,
-        passport.authenticate("local", {                        // Log in user
-        successRedirect: 'back',
-        failureRedirect: 'back',
-        failureFlash: 'Invalid username or password.'
-    })], function(req, res){});
+    // .post([middleware.isLoggedOut, middleware.validateLogin,
+    //     passport.authenticate("local", {                          // Log in user
+    //     successRedirect: '/campgrounds',
+    //     failureRedirect: 'back',
+    //     failureFlash: 'Invalid username or password.'
+    // })], function(req, res){});
+    
+    .post([middleware.isLoggedOut, function(req, res, next) {
+      passport.authenticate('local', function(error, user, info) {
+        let relPath = req.headers.referer.replace(req.headers.origin, "");
+        if (error) {
+            req.flash('error', error);
+            res.redirect('back');
+        }
+        if (!user) {
+            if (relPath === '/login') {
+                req.flash('error', 'Error: Invalid credentials');
+                return res.redirect('back');
+            } else { return res.send({errorMsg: 'Invalid credentials'}) }
+        }
+        req.logIn(user, function(error) {
+            if (error) {
+                if (relPath === '/login') {
+                    req.flash('error', 'Error: There was a problem logging in.');
+                    return res.redirect('back');
+                } else { return res.send({errorMsg: 'Error: There was a problem logging in'}) }                
+            }
+            if (relPath === '/login') {
+                return res.redirect('/campgrounds');
+            } else {
+                return res.send({});
+            }
+        });
+      })(req, res, next);
+    }], function(req, res){});
+    
 
 router.route('/logout')                                          // Log user out
     .get(function(req, res) {

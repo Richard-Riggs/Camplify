@@ -116,7 +116,3 @@ module.exports.userAlreadyReviewed = function (req, res, next) {
         }
     })
 };
-
-module.exports.validateLogin = function (req, res, next) {
-
-};
