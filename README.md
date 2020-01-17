@@ -29,6 +29,7 @@ command in the command line:
 ======== TODO ========
 
 GENERAL FEATURES
+- Implement image uploads
 - Add user profile
 - Add footer to all pages
 - Consistent use of var vs let
@@ -40,6 +41,7 @@ GENERAL FEATURES
 - Generate campgrounds & reviews
 
 USER PROFILE
+- Present user profile picture
 - Show user favorites
 - Show user reviews
 - Show user campgrounds
@@ -47,6 +49,7 @@ USER PROFILE
 - Add user image
 - Option to change user password
 - Option to delete account
+- Option to change profile picture
 
 LANDING PAGE
 - Add section(s) for features
