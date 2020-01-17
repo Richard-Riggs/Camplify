@@ -25,6 +25,16 @@ const campgroundSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ],
+
+    userFavs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+
+    // userFavCount, commentCount, and averageRating are used to make sorting more efficient
+    userFavCount: Number,
     commentCount: Number,
     averageRating: Number
 });

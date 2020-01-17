@@ -24,6 +24,7 @@
             <a class="dropdown-item" href="<%= queryString({sort: 'recent', page: current}) %>">Most Recent</a>
             <a class="dropdown-item" href="<%= queryString({sort: 'rating', page: current}) %>">Highest Rated</a>
             <a class="dropdown-item" href="<%= queryString({sort: 'reviews', page: current}) %>">Most Reviewed</a>
+            <a class="dropdown-item" href="<%= queryString({sort: 'favorited', page: current}) %>">Most Favorited</a>
           </div>
 
         </div>
@@ -53,12 +54,12 @@
                                 <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
                                     &#9733;
                                 <% } %>
+                                (<a href="/campgrounds/<%= campground._id %>/comments"><%= campground.commentCount %></a>)
                             <% } %>
                         </span>
                     </div>
                     <div class="card-body camp-index-body text-center m-2 d-flex flex-column justify-content-between">
                         <p class="card-text text-left">
-
    
                             <% let words = campground.description.split(" "); %>
                             <% let limit = 15; %>
@@ -69,10 +70,12 @@
                         </p>
                         <div class="text-center d-flex justify-content-between align-items-center">
                             <a href='/campgrounds/<%= campground._id %>' class="btn new-btn card-link px-4">More Info</a>
-                            <form class="favorite-form" action='/campgrounds/<%= campground._id %>/favorites'>
-                                <input class="favorite-empty" type="submit" value="">
-                            </form>
-                            
+                                
+                            <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>
+                                <span class="mr-1 align-top"><strong class="count"><%= campground.userFavs.length %></strong></span>
+                                <input class="favorite-btn <%= (currentUser && currentUser.campFavs.includes(campground._id)) ? "favorited" : "unfavorited" %>" type="submit" value="">
+                            </form>                                
+
                         </div>
 
                     </div>
@@ -140,7 +143,34 @@
         <% } %>
     </nav>
 
-
-
 </div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered align-items-center justify-content-center" role="document">
+    <div class="modal-content ">
+        <div id="login" class="mx-4 mt-4 mb-3">
+            <div class="align-items-center justify-content-center">
+                <form class="text-center" action="/login" method="POST">
+                    <button type="button" class="close align-middle" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <img src="/images/icons/tent-solid.svg" alt="">
+                    <h3 class="mt-1 mb-0">Log In</h1>
+                    <div id="login-modal-error-msg" class="text-danger"></div>
+                    <div class="mt-1">
+                        <div class="form-group mb-4">
+                            <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
+                            <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
+                        </div>
+                        <button class="btn new-btn btn-block mt-1">Log In</button>
+                        <p class="mb-0 mt-3">New user? <a href="/register" class="text-success">Create an account</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>      
+    </div>
+  </div>
+</div>
+
 <% include ../partials/footer %>

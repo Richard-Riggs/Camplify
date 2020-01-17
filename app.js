@@ -22,13 +22,14 @@ const express          = require("express"),
       campgroundRoutes = require("./routes/campgrounds"),
       commentRoutes    = require("./routes/comments"),
       indexRoutes      = require("./routes/index"),
-
+      favorites        = require("./routes/favorites"),
       testRoutes       = require("./routes/test"); //###############################
 
 //===================== EXPRESS SETUP ====================
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}))
+   .use(bodyParser.json())
    .use(express.static(`${__dirname}/public`))
    .use(methodOverride('_method'))
    .set("view engine", "ejs");
@@ -78,7 +79,8 @@ mongoose.set('useUnifiedTopology', true)
 app.use(campgroundRoutes)
    .use(commentRoutes)
    .use(indexRoutes)
-   .use(testRoutes);
+   .use(testRoutes) //##########################################
+   .use(favorites);
 
 
 //===================== START SERVER ====================

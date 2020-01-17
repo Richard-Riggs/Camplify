@@ -45,6 +45,10 @@ a:hover {
     color: white;
 }
 
+.flash {
+    margin-top: 65px;
+}
+
 /*#index-container {*/
 /*    background-color: white;*/
 /*}*/
@@ -99,23 +103,54 @@ a:hover {
 }
 
 .favorite-form {
-    height: 30px;
+    
 }
 
-.favorite-empty {
+.favorite-form span {
+    font-size: 1.25rem;
+    color: #b30047;
+}
+
+.favorite-btn {
     border: none;
     outline: none;
     background-color: rgba(0, 0, 0, 0) !important;
     width: 30px;
     height: 30px;
-    background-image: url("/images/icons/heart-outline.png");
     background-size: 100%;
-    transition: 0.2s;
+    transition: 0.1s;
 }
 
-.favorite-empty:hover {
-    background-image: url("/images/icons/heart-solid.png");
+.card-header .favorite-btn {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
 }
+
+.card-header .favorite-btn small {
+    font-size: 20px !important;
+}
+
+.unfavorited {
+    background-image: url("/images/icons/heart-outline.png");
+    transition: 0.1s;
+}
+
+.unfavorited:hover {
+    background-image: url("/images/icons/heart-solid.png");
+    transition: 0.1s;
+}
+
+.favorited {
+    background-image: url("/images/icons/heart-solid.png");
+    transition: 0.1s;    
+}
+
+.favorited:hover {
+    background-image: url("/images/icons/heart-solid-dark.png");
+    transition: 0.1s;
+}
+
 
 /*------------------------------------------------------------- */
 
@@ -231,4 +266,22 @@ a:hover {
 #login .form-control:nth-of-type(2) {
     border-radius: 0 0 0.25rem 0.25rem;
     border-color: #d1dbd2;
+}
+
+#login-modal .modal-content {
+    max-width: 350px;
+}
+
+#login-modal .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 50px;
+    width: 50px;
+    font-size: 40px;
+    outline: none;
+}
+
+#login-modal-error-msg {
+    min-height: 24px;
 }
