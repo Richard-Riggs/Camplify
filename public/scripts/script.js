@@ -1,5 +1,6 @@
 // All scripts go inside this function
 $(function () {
+
     // Sends post request for favorite button without refreshing page
     $('.favorite-form').submit(function(event) {
         event.preventDefault();
@@ -31,7 +32,7 @@ $(function () {
     });
     
     // Handles logins through the login modal
-    // Shows the error message if there's an error, refreshes page if login is successful
+    // Shows an error message if there's an error, refreshes page if login is successful
     $('#login-modal').find('form').submit(function (event) {
         event.preventDefault();
         $('#login-modal-error-msg').html('');

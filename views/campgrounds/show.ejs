@@ -7,19 +7,17 @@
     <!-- Sidebar -->
         <div class="col-md-3 text-center d-flex flex-column">
             <ul class="list-group ">
-              <li class="list-group-item rounded-0 light-green">
+                <li class="list-group-item rounded-0 light-green">
                   <h3><%= campground.name %></h3>
-              </li>
-              <li class="list-group-item">
-                  <h6>Price: $<%= campground.price %>/night</h6>
-              </li>
-                <li class="list-group-item">
-                    <a href="<%= campground.image %>">Visit Website</a>
                 </li>
-              <li class="list-group-item text-left rounded-0"><%= campground.location %></li>
-
+                <li class="list-group-item">
+                    Submitted by <a href="/users/<%= campground.author.username %>"><%= campground.author.username %></a>
+                </li>
+                <li class="list-group-item">
+                  <h6>Price: $<%= campground.price %>/night</h6>
+                </li>
+                <li class="list-group-item text-left rounded-0"><%= campground.location %></li>
             </ul>
-
             <div id="map" class=" border border-top-0 flex-grow-1"></div>
         </div>
         

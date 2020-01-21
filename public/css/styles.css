@@ -4,6 +4,11 @@ Colors:
     NEW Base: #2b3b2b
     Light Base: #2e852e
     Lighter Base: #d1dbd2 (equivalent to rgba(26, 76, 26, 0.20))
+
+
+    POTENTIAL PALETTE: http://paletton.com/#uid=72P0u0k8G9g6Pmi8dgEg48nlP75
+    POTENTIAL HEADER COLOR: #b8c7c7
+    POTENTIAL CARD BUTTON COLOR: #142828
 */
 
 html {
@@ -34,6 +39,7 @@ a:hover {
 #navbar {
     color: #d1dbd2;
     background-color: #2b3b2b;
+    box-shadow: 0 2px 10px rgba(0,0,0,.4);
 }
 
 #navbar img {
@@ -284,4 +290,35 @@ a:hover {
 
 #login-modal-error-msg {
     min-height: 24px;
+}
+
+/* -------------- USER PROFILE --------------- */
+
+#user-profile {
+    margin-top: 5vh;
+
+}
+
+#user-profile .list-group-item-action {
+    border-right: 1px solid #dee2e6;
+    border-bottom: 0;
+    border-top: 0;
+    border-left: 0;
+    border-radius: 0;
+}
+
+#user-profile .list-group-item-action.active {
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+}
+
+#list-campgrounds img {
+    height: 200px;
+    object-fit: cover;
+}
+
+#list-campgrounds .favorite-btn {
+    width: 20px;
+    height: 20px;
+    /*margin-bottom: 2px;*/
 }
