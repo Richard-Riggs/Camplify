@@ -84,6 +84,8 @@ app.use(campgroundRoutes)
    .use(testRoutes) //##########################################
    .use(favorites);
 
+// Error handler - must be last middleware used
+app.use(middleware.handleErrors);
 
 //===================== START SERVER ====================
 

@@ -106,11 +106,10 @@ router.route('/campgrounds/new')
 router.route('/campgrounds/:id')
 
     // SHOW ROUTE
-    .get((req, res) => {
+    .get((req, res, next) => {
         Campground.findById(req.params.id).populate("comments").exec((error, campground) => {
             if (error) {
-                req.flash('error', `Error: ${error.message}.`);
-                res.redirect('/campgrounds');
+                return next(error);
             }
             else {
                 res.render('campgrounds/show', {campground: campground});    

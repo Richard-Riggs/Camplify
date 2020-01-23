@@ -112,7 +112,16 @@ module.exports.userAlreadyReviewed = function (req, res, next) {
                 // Continue if there's no association between the user and any of the campground's reviews
                 return next();
                 }
-            })
+            });
         }
-    })
+    });
+};
+
+
+// Standard error handler for majority of errors
+module.exports.handleErrors = function(error, req, res, next) {
+    if (res.headersSent) return next(error);
+    if (error.message && error.name) req.flash('error', `${error.name}: ${error.message}.`);
+    else req.flash('error', error);
+    res.redirect('back');
 };

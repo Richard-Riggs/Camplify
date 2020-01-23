@@ -29,6 +29,7 @@ command in the command line:
 ======== TODO ========
 
 GENERAL FEATURES
+- Rework error handling with custom error handling middleware
 - Implement image uploads
 - Add user profile
 - Add footer to all pages

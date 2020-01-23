@@ -26,25 +26,30 @@ router.post('/campgrounds/:id/favorites', middleware.isLoggedIn, (req, res) => {
                 } else {
                     
                     // Remove favorite if user has already favorited the campground
-                    if (campground.userFavs.includes(user._id)) {
+                    let foundFav = user.campFavs.find(campFav => campFav.campID.equals(campground._id));
+                    if (foundFav) {
+                        user.campFavs.pull(foundFav);
+                        user.save();
                         campground.userFavs.pull(user._id);
                         campground.userFavCount = campground.userFavs.length;
                         campground.save();
-                        user.campFavs.pull(campground._id);
-                        user.save();
-                        return res.send({result: "unfavorited"})
+                        return res.send({result: "unfavorited"});
                     
                     // Add favorite if user has not favorited the campground
                     } else {
+                        let campFav = {
+                            campID: campground._id,
+                            createdAt: Date()
+                        };
+                        user.campFavs.push(campFav);
+                        user.save();                        
                         campground.userFavs.push(user._id);
                         campground.userFavCount = campground.userFavs.length;
                         campground.save();
-                        user.campFavs.push(campground._id);
-                        user.save();
-                        return res.send({result: "favorited"})
+                        return res.send({result: "favorited"});
                     }
                 }
-            })
+            });
         }
     });
     
