@@ -12,23 +12,19 @@
     <div class="row">
         <div class="col-2">
             <div class="list-group" id="user-tabs-list" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-recent" data-toggle="list" href="#recent-content" role="tab" aria-controls="list recent activity">Recent Activity</a>
-                <a class="list-group-item list-group-item-action" id="list-campgrounds" data-toggle="list" href="#campgrounds-content" role="tab" aria-controls="list campgrounds">Campgrounds</a>
-                <a class="list-group-item list-group-item-action" id="list-reviews" data-toggle="list" href="#reviews-content" role="tab" aria-controls="list reviews">Reviews</a>
-                <a class="list-group-item list-group-item-action" id="list-favorites" data-toggle="list" href="#favorites-content" role="tab" aria-controls="list favorites">Favorites</a>
+                <a class="list-group-item list-group-item-action <%= (userTab === 'list-recent') ? 'active': '' %>" id="list-recent" data-toggle="list" href="#recent-content" role="tab" aria-controls="list recent activity">Recent Activity</a>
+                <a class="list-group-item list-group-item-action <%= (userTab === 'list-campgrounds') ? 'active': '' %>" id="list-campgrounds" data-toggle="list" href="#campgrounds-content" role="tab" aria-controls="list campgrounds">Campgrounds</a>
+                <a class="list-group-item list-group-item-action <%= (userTab === 'list-reviews') ? 'active': '' %>" id="list-reviews" data-toggle="list" href="#reviews-content" role="tab" aria-controls="list reviews">Reviews</a>
+                <a class="list-group-item list-group-item-action <%= (userTab === 'list-favorites') ? 'active': '' %>" id="list-favorites" data-toggle="list" href="#favorites-content" role="tab" aria-controls="list favorites">Favorites</a>
             </div>
         </div>
 
         <div class="col-10">
             <div class="tab-content" id="user-tabs-content">
-                <div class="tab-pane fade show active" id="recent-content" role="tabpanel" aria-labelledby="recent activity"></div>
-                <div class="tab-pane fade" id="campgrounds-content" role="tabpanel" aria-labelledby="user campgrounds"></div>
-                <div class="tab-pane fade" id="reviews-content" role="tabpanel" aria-labelledby="user reviews"></div>
-
-                <!-- User Favorites -->
-                <div class="tab-pane fade" id="favorites-content" role="tabpanel" aria-labelledby="user favorites">
-
-                </div>
+                <div class="tab-pane fade <%= (userTab === 'list-recent') ? 'show active': '' %>" id="recent-content" role="tabpanel" aria-labelledby="recent activity"></div>
+                <div class="tab-pane fade <%= (userTab === 'list-campgrounds') ? 'show active': '' %>" id="campgrounds-content" role="tabpanel" aria-labelledby="user campgrounds"></div>
+                <div class="tab-pane fade <%= (userTab === 'list-reviews') ? 'show active': '' %>" id="reviews-content" role="tabpanel" aria-labelledby="user reviews"></div>
+                <div class="tab-pane fade <%= (userTab === 'list-favorites') ? 'show active': '' %>" id="favorites-content" role="tabpanel" aria-labelledby="user favorites"></div>
             </div>
         </div>
 

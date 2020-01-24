@@ -54,16 +54,25 @@ $(function () {
         return true;
     });
 
-    // User Profile
+    // USER PROFILE
+    
+    const URLpath = window.location.pathname;
+    
+    // Populate content for active tab on page load
+    let currentTab = $('#user-tabs-list .active')[0];
+    console.log(currentTab.id);
+    if (currentTab) {
+        $.get(URLpath, {tabID: currentTab.id, update: true}).done(function(htmlData) {
+            $(currentTab.hash).html($.parseHTML(htmlData));
+        });
+    }
+
+    // Populate content for clicked tab
     $('#user-tabs-list a').on('click', function (event) {
         let tabID = event.target.id;
-        let URL = event.target.pathname;
         let contentID = event.target.hash;
-
-        $.get(URL, {tabID: tabID, update: true}).done(function(data) {
-            let htmlData = $.parseHTML(data);
-            console.log(htmlData);
-            $(contentID).html(data);
+        $.get(URLpath, {tabID: tabID, update: true}).done(function(htmlData) {
+            $(contentID).html(htmlData);
         });
         return true;
     });

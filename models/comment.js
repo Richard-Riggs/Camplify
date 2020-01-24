@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const commentSchema = mongoose.Schema({
+    docType: { type: String, default: 'comment' },
     text: String,
     createdAt: {type: Date},
     rating: Number,

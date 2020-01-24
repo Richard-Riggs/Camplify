@@ -296,7 +296,6 @@ a:hover {
 
 #user-profile {
     margin-top: 5vh;
-
 }
 
 #user-profile .list-group-item-action {
@@ -312,13 +311,40 @@ a:hover {
     border-right: none;
 }
 
-#list-campgrounds img {
-    height: 200px;
+/* Recent Activity Tab*/
+#recent-content li {
+    box-sizing: border-box;
+    border-bottom: 2px solid #dee2e6;
+    border-right: 0;
+    border-top: 0;
+    border-left: 0;
+    transition: 0.05s;
+}
+
+#recent-content li:last-of-type {
+    border: 0;
+}
+
+
+#recent-content li:hover {
+    background-color: #e2e9e9;
+}
+
+#recent-content li img {
+    height: 80px;
+    width: 120px;
     object-fit: cover;
 }
 
-#list-campgrounds .favorite-btn {
+/* User Campgrounds Tab */
+
+#campgrounds-content img {
+    height: 200px;
+    object-fit: cover;
+}
+#campgrounds-content .favorite-btn {
     width: 20px;
     height: 20px;
     /*margin-bottom: 2px;*/
 }
+
