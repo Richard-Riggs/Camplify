@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
     campFavs: [{
         campID: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "Campground"
         },
         createdAt: Date
     }]

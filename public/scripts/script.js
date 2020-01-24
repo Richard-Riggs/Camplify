@@ -54,4 +54,17 @@ $(function () {
         return true;
     });
 
+    // User Profile
+    $('#user-tabs-list a').on('click', function (event) {
+        let tabID = event.target.id;
+        let URL = event.target.pathname;
+        let contentID = event.target.hash;
+
+        $.get(URL, {tabID: tabID, update: true}).done(function(data) {
+            let htmlData = $.parseHTML(data);
+            console.log(htmlData);
+            $(contentID).html(data);
+        });
+        return true;
+    });
 });
