@@ -4,6 +4,7 @@ const express = require("express"),
       User = require("../models/user"),
       Campground = require("../models/campground"),
       Comment = require("../models/comment"),
+      passport = require("passport"),
       middleware = require("../middleware");
 
 
@@ -16,7 +17,7 @@ router.get('/users/:username', (req, res, next) => {
         else {
             // If the GET request is an update, send only the requested data
             // If the GET request is not an update, render the page and include update request
-            let userTab = req.query.tabID ? String(req.query.tabID) : 'list-recent';
+            let userTab = req.query.tab ? String(req.query.tab) : 'list-recent';
             let update = req.query.update;
             let currentPage = req.query.currentPage ? Number(req.query.currentPage) : 1;
             let perPage = 10;
@@ -144,7 +145,7 @@ router.put('/users/:username', [
         }, function(error, updatedUser){
             if (error) return next(error);
             else {
-                req.flash('success', 'Settings saved');
+                req.flash('success', 'Settings saved')
                 res.redirect('back');
             }
         });
