@@ -4,7 +4,6 @@ const express = require("express"),
       User = require("../models/user"),
       Campground = require("../models/campground"),
       Comment = require("../models/comment"),
-      passport = require("passport"),
       middleware = require("../middleware");
 
 
@@ -19,13 +18,16 @@ router.get('/users/:username', (req, res, next) => {
             // If the GET request is not an update, render the page and include update request
             let userTab = req.query.tabID ? String(req.query.tabID) : 'list-recent';
             let update = req.query.update;
-            let pageNum = 1;
+            let currentPage = req.query.currentPage ? Number(req.query.currentPage) : 1;
             let perPage = 10;
-            let firstItem = (pageNum - 1) * perPage; // Index floor - included in array slices
-            let lastItem = pageNum * perPage;        // Index ceiling - NOT included in array slices
+            let firstItem = (currentPage - 1) * perPage; // Index floor - included in array slices
+            let lastItem = currentPage * perPage;        // Index ceiling - NOT included in array slices
             // let userTabs = ['list-activity-list', 'list-campgrounds-list', 'list-reviews-list', 'list-favorites-list'];
             if (!update) {
-                return res.render('users/show', {user: user, userTab: userTab});
+                return res.render('users/show', {
+                    user: user,
+                    userTab: userTab
+                });
             } else {
                 switch (userTab) {
                     
@@ -42,11 +44,12 @@ router.get('/users/:username', (req, res, next) => {
                                         });
                                         return res.render('partials/user-recent', {
                                             user: user,
+                                            currentPage: currentPage,
+                                            maxPage: Math.ceil(recentActivities.length / perPage),
                                             recentActivities: recentActivities.slice(firstItem, lastItem)
                                         });
                                     }                                    
                                 });
-
                             }
                         });
                         break;
@@ -55,12 +58,21 @@ router.get('/users/:username', (req, res, next) => {
                         Campground
                             .find({ "author.id": user._id })
                             .sort({ createdAt: 'descending'})
-                            .skip((perPage * pageNum) - perPage)
+                            .skip((perPage * currentPage) - perPage)
                             .limit(perPage)
                             .exec(function (error, campgrounds) {
                                 if (error) return next(error);
                                 else {
-                                    return res.render('partials/user-campgrounds', {campgrounds: campgrounds});
+                                    Campground.countDocuments().exec(function (error, count) {
+                                        if (error) return next(error);
+                                        else {
+                                            return res.render('partials/user-campgrounds', {
+                                                campgrounds: campgrounds,
+                                                currentPage: currentPage,
+                                                maxPage: Math.ceil(count / perPage)
+                                            });                                            
+                                        }
+                                    });
                                 }
                             });
                         break;
@@ -69,15 +81,22 @@ router.get('/users/:username', (req, res, next) => {
                         Comment
                             .find({ "author.id": user._id })
                             .sort({ createdAt: 'descending'})
-                            .skip((perPage * pageNum) - perPage)
+                            .skip((perPage * currentPage) - perPage)
                             .limit(perPage)
                             .populate("campground")
                             .exec( function(error, comments) {
                                 if (error) return next(error);
                                 else {
-                                    return res.render('partials/user-reviews', {
-                                        user: user,
-                                        comments: comments
+                                    Comment.countDocuments().exec(function (error, count) {
+                                        if (error) return next(error);
+                                        else {
+                                            return res.render('partials/user-reviews', {
+                                                user: user,
+                                                comments: comments,
+                                                currentPage: currentPage,
+                                                maxPage: Math.ceil(count / perPage)
+                                            });                                            
+                                        }
                                     });
                                 }
                             });
@@ -90,10 +109,20 @@ router.get('/users/:username', (req, res, next) => {
                         });
                         return res.render('partials/user-favorites', {
                             user: user,
-                            favs: favs.slice(firstItem, lastItem)
+                            favs: favs.slice(firstItem, lastItem),
+                            currentPage: currentPage,
+                            maxPage: Math.ceil(favs.length / perPage)
                         });
                         break;
-                        
+                    
+                    case 'list-settings':
+                        if (req.user._id.equals(user._id)) {
+                            res.render('partials/user-settings', {user: user});
+                        } else {
+                            req.flash('warning', "You are not authorized to access this user's settings");
+                            res.redirect('back');
+                        }
+                    
                     default:
                         break;
                         // code
@@ -101,6 +130,24 @@ router.get('/users/:username', (req, res, next) => {
             }
         }
     });
+});
+
+// UPDATE USER ROUTE
+router.put('/users/:username', [
+    middleware.isLoggedIn,
+    middleware.checkProfileOwnership ],
+    function(req, res, next) {
+        User.findOneAndUpdate({ username: req.params.username }, {
+            settings: {
+                profileVisibility: req.body.profileVisibility
+            }
+        }, function(error, updatedUser){
+            if (error) return next(error);
+            else {
+                req.flash('success', 'Settings saved');
+                res.redirect('back');
+            }
+        });
 });
 
 module.exports = router;

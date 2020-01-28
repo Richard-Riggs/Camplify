@@ -2,7 +2,8 @@
 $(function () {
 
     // Sends post request for favorite button without refreshing page
-    $('.favorite-form').submit(function(event) {
+    $('body').on("submit", ".favorite-form", function(event) {
+        console.log('reached');
         event.preventDefault();
         let form = $(this),
             url = form.attr( "action" ),
@@ -53,26 +54,53 @@ $(function () {
         $('#login-modal-error-msg').html('');
         return true;
     });
+    
+    // Adds functionality for back button
+    $('body').on('click', '.back-button', function(event) {
+        window.history.back();
+    });
 
     // USER PROFILE
     
     const URLpath = window.location.pathname;
-    
+    let currentTab = $('#user-tabs-list .active')[0].id,
+        currentContent = $(`#${currentTab}`)[0].hash,
+        currentPage = 1;
+
+    console.log(currentContent);
+
     // Populate content for active tab on page load
-    let currentTab = $('#user-tabs-list .active')[0];
-    console.log(currentTab.id);
     if (currentTab) {
-        $.get(URLpath, {tabID: currentTab.id, update: true}).done(function(htmlData) {
-            $(currentTab.hash).html($.parseHTML(htmlData));
+        $.get(URLpath, {tabID: currentTab, update: true}).done(function(htmlData) {
+            $(currentContent).html($.parseHTML(htmlData));
         });
     }
 
-    // Populate content for clicked tab
+    // Populate content for clicked tab, set page to 1
     $('#user-tabs-list a').on('click', function (event) {
-        let tabID = event.target.id;
-        let contentID = event.target.hash;
-        $.get(URLpath, {tabID: tabID, update: true}).done(function(htmlData) {
-            $(contentID).html(htmlData);
+        currentTab = event.target.id,
+        currentContent = event.target.hash,
+        currentPage = 1;
+        $.get(URLpath, {
+            currentPage: currentPage,
+            tabID: currentTab,
+            update: true
+        }).done(function(htmlData) {
+            $(currentContent).html(htmlData);
+        });
+        return true;
+    });
+    
+    // Handles pagination for user profile tabs
+    $('body').on("click", ".page-navigation li:not(.disabled):not(.active) a", function(event) {
+        console.log(event.target.attributes["data-page-number"].value);
+        currentPage = Number(event.target.attributes["data-page-number"].value);
+        $.get(URLpath, {
+            currentPage: currentPage,
+            tabID: currentTab.id,
+            update: true
+        }).done(function(htmlData) {
+                $(currentContent).html(htmlData);
         });
         return true;
     });

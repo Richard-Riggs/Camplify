@@ -74,7 +74,7 @@ SHOW PAGE
 - Update review display
 - X - Include review pagination -----------------------------------------[Completed 1/9/2020]
 - Add page footer
-  
+
 CAMPGROUND NEW/EDIT FORM
 - Update form styling
 - Set all form fields as required
@@ -85,6 +85,6 @@ COMMENT NEW/EDIT
 - X - Include and require 1-5 star rating -------------------------------[Completed 1/9/2020]
 - Set all form fields as required
 - Set max limit for comment length
-  
+
 LOGIN/REGISTER FORMS
 - Update form styling

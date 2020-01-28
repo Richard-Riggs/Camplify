@@ -12,7 +12,10 @@ const UserSchema = new mongoose.Schema({
             ref: "Campground"
         },
         createdAt: Date
-    }]
+    }],
+    settings: {
+        profileVisibility: {type: String, default: 'public'}
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose);

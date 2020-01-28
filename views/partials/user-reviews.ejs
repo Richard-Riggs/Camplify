@@ -1,7 +1,95 @@
 <ul class="list-group">
     <% comments.forEach( function(comment) { %>
-            <li class="list-group-item">
-                <%= comment.campground.name %>
+            <li class="list-group-item container-fluid">
+                <div class="row">
+                    <div class="col-auto">
+                        <img class="rounded" src="<%= comment.campground.image %>" alt="Image of <%= comment.campground.name %>">
+                    </div>
+                    <div class="col container-fluid d-flex flex-column justify-content-between">
+                        <div class="row">
+                            <div class="col text-left">
+                                <h5><strong><em><%= comment.campground.name %></em> Review&nbsp;&nbsp;</strong>
+                                    <% for (let i = 0; i < comment.campground.averageRating; i++) { %>
+                                        &#9733;
+                                    <% } %>
+                                </h5>
+                            </div>
+                            <div class="col text-right">
+                                <small><em><%= moment(comment.createdAt).fromNow() %></em></small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-justify m-0">
+                                    <% let words = comment.campground.description.split(" "); %>
+                                    <% let limit = 25; %>
+                                    <% for (let i = 0; i < limit; i++) { %>
+                                        <%= (i === (limit - 1) && (words.length > limit)) ? `${words[i]}...` : words[i] %>
+                                    <% } %>
+                                    <a href='/campgrounds/<%= comment.campground._id %>' class="float-right text-success"><strong><u>View Campground</u></strong></a>
+                                </p>
+                                
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
             </li>
     <% }); %>
 </ul>
+
+<!-- Index Pagination -->
+<nav class="page-navigation" aria-label="Page navigation">
+    <% if (maxPage && maxPage > 1) { %>
+        <ul class="pagination justify-content-center">
+
+        <!-- First Page button (disabled if on first page) -->
+        <% if (currentPage == 1) { %>
+            <li class="page-item disabled"><a class="page-link">First</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="1" href="#">First</a></li>
+        <% } %>
+
+        <!-- Previous Page button (disabled if on first page) -->
+        <% if (currentPage == 1) { %>
+            <li class="page-item disabled"><a class="page-link">«</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="<%= currentPage - 1 %>" href="#">«</a></li>
+        <% } %>
+
+        <!-- Previous pages ellipses (if there are 5+ previous pages) -->
+        <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %>
+        <% if (i !== 1) { %>
+            <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+
+        <!-- Display up to 9 page links (up to 4 before, current, and 4 after) -->
+        <% for (; i <= (Number(currentPage) + 4) && i <= maxPage; i++) { %>
+            <% if (i == currentPage) { %>
+                <li class="active"><a class="page-link"><%= i %></a></li>
+            <% } else { %>
+                <li><a class="page-link" data-page-number="<%= i %>" href="#"><%= i %></a></li>
+            <% } %>
+        <% } %>
+
+        <!-- Next pages ellipses (if there are 5+ subsequent pages) -->
+        <% if (maxPage > Number(currentPage) + 4) { %>
+            <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+
+        <!-- Next page button (disabled if on the last page) -->
+        <% if (currentPage == maxPage) { %>
+            <li class="page-item disabled"><a class="page-link">»</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="<%= currentPage + 1 %>" href="#">»</a></li>
+        <% } %>
+
+        <!-- Last page button (disabled if on the last page) -->
+        <% if (currentPage == maxPage) { %>
+            <li class="page-item disabled"><a class="page-link">Last</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="<%= maxPage %>" href="#">Last</a></li>
+        <% } %>
+
+    </ul>
+    <% } %>
+</nav>

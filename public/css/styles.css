@@ -303,16 +303,21 @@ a:hover {
     border-bottom: 0;
     border-top: 0;
     border-left: 0;
-    border-radius: 0;
+    border-radius: 5px 0 0 5px;
+}
+
+#user-profile .list-group-item-action:nth-of-type(5) {
+    border-top: 1px solid #dee2e6;
 }
 
 #user-profile .list-group-item-action.active {
-    border-radius: 5px 0 0 5px;
     border-right: none;
 }
 
 /* Recent Activity Tab*/
-#recent-content li {
+#recent-content .list-group li, 
+#reviews-content .list-group li,
+#favorites-content .list-group li {
     box-sizing: border-box;
     border-bottom: 2px solid #dee2e6;
     border-right: 0;
@@ -321,16 +326,22 @@ a:hover {
     transition: 0.05s;
 }
 
-#recent-content li:last-of-type {
+#recent-content .list-group li:last-of-type,
+#reviews-content .list-group li:last-of-type,
+#favorites-content .list-group li:last-of-type {
     border: 0;
 }
 
 
-#recent-content li:hover {
+#recent-content .list-group li:hover,
+#reviews-content .list-group li:hover,
+#favorites-content .list-group li:hover {
     background-color: #e2e9e9;
 }
 
-#recent-content li img {
+#recent-content .list-group li img, 
+#reviews-content .list-group li img,
+#favorites-content .list-group li img {
     height: 80px;
     width: 120px;
     object-fit: cover;
