@@ -71,7 +71,7 @@ $(function () {
 
     // Populate content for active tab on page load
     if (currentTab) {
-        $.get(URLpath, {tabID: currentTab, update: true}).done(function(htmlData) {
+        $.get(URLpath, {tab: currentTab, update: true}).done(function(htmlData) {
             $(currentContent).html($.parseHTML(htmlData));
         });
     }
@@ -83,7 +83,7 @@ $(function () {
         currentPage = 1;
         $.get(URLpath, {
             currentPage: currentPage,
-            tabID: currentTab,
+            tab: currentTab,
             update: true
         }).done(function(htmlData) {
             $(currentContent).html(htmlData);
@@ -97,7 +97,7 @@ $(function () {
         currentPage = Number(event.target.attributes["data-page-number"].value);
         $.get(URLpath, {
             currentPage: currentPage,
-            tabID: currentTab.id,
+            tab: currentTab.id,
             update: true
         }).done(function(htmlData) {
                 $(currentContent).html(htmlData);

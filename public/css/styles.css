@@ -47,7 +47,7 @@ a:hover {
     height: 26px;
 }
 
-#navbar a:hover {
+#navbar li > a:hover {
     color: white;
 }
 

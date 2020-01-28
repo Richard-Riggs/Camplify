@@ -16,6 +16,26 @@
           <li class="nav-item">
             <a class="nav-link" href="/campgrounds">Campgrounds</a>
           </li>
+          
+          <% if (currentUser) { %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-recent">Recent Activity</a>
+              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-campgrounds">Campgrounds</a>
+              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-reviews">Reviews</a>  
+              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-favorites">Favorites</a>              
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-settings">Settings</a>
+            </div>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Profile</a>
+          </li>          
+          <% } %>
         </ul>
     
         <ul class="navbar-nav">
