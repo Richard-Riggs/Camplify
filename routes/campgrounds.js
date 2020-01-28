@@ -7,12 +7,38 @@ const express        = require("express"),
       dbSortQuery    = require("../lib/database").dbSortQuery,
       ejsFunctions   = require("../lib/ejsFunctions"),
       secrets        = require("../lib/secrets"),
+      multer         = require("multer"),
+      cloudinary     = require("cloudinary"),
       geocoder       = require('node-geocoder')({
                             provider: 'google',
                             httpAdapter: 'https',
                             apiKey: secrets.geocoderAPIkey,
                             formatter: null
       });
+
+// ----------------- Image Upload Config ------------------
+
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+
+cloudinary.config({ 
+  cloud_name: secrets.CLOUDINARY_CLOUDNAME, 
+  api_key: secrets.CLOUDINARY_API_KEY, 
+  api_secret: secrets.CLOUDINARY_API_SECRET
+});
 
 // ------------------ Campgrounds Routes --------------------
 
@@ -56,38 +82,41 @@ router.route("/campgrounds")
 })
 
     // CREATE ROUTE
-    .post(middleware.isLoggedIn, (req, res) => {
+    .post([middleware.isLoggedIn, upload.single('image')], (req, res) => {
         geocoder.geocode(req.body.location, function (error, data) {
             if (error || !data.length) {
                 req.flash('error', 'Failed to find location.');
                 res.redirect('/campgrounds/new');
             } else {
-                Campground.create({
-                    name: req.body.name,
-                    image: req.body.image,
-                    description: req.body.description,
-                    price: req.body.price,
-                    createdAt: Date(),
-                    author: {
-                        id: req.user._id,
-                        username: req.user.username
-                    },
-                    location: data[0].formattedAddress,
-                    lat: data[0].latitude,
-                    long: data[0].longitude,
-                    commentCount: 0,
-                    userFavCount: 0,
-                    averageRating: 0
-                }, function(error, campground) {
-                    if (error) {
-                        req.flash('error', `Error: ${error.message}.`);
-                        res.redirect('/campgrounds');
-                    }
-                    else {
-                        req.flash('success', 'Successfully created campground!');
-                        res.redirect(`/campgrounds/${campground._id}`);
-                    }
+                cloudinary.uploader.upload(req.file.path, function(result) {
+                    Campground.create({
+                        name: req.body.name,
+                        image: result.secure_url,
+                        description: req.body.description,
+                        price: req.body.price,
+                        createdAt: Date(),
+                        author: {
+                            id: req.user._id,
+                            username: req.user.username
+                        },
+                        location: data[0].formattedAddress,
+                        lat: data[0].latitude,
+                        long: data[0].longitude,
+                        commentCount: 0,
+                        userFavCount: 0,
+                        averageRating: 0
+                    }, function(error, campground) {
+                        if (error) {
+                            req.flash('error', `Error: ${error.message}.`);
+                            res.redirect('/campgrounds');
+                        }
+                        else {
+                            req.flash('success', 'Successfully created campground!');
+                            res.redirect(`/campgrounds/${campground._id}`);
+                        }
+                    });                    
                 });
+
             }
 
         });
