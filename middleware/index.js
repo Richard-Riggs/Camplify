@@ -1,6 +1,7 @@
 // MODULES
 const Campground = require("../models/campground"),
-      Comment    = require("../models/comment");
+      Comment    = require("../models/comment"),
+      User       = require("../models/user");
 
 // Pass user object to response templates
 module.exports.passUserObjectToTemplate = function(req, res, next){
@@ -112,7 +113,32 @@ module.exports.userAlreadyReviewed = function (req, res, next) {
                 // Continue if there's no association between the user and any of the campground's reviews
                 return next();
                 }
-            })
+            });
         }
-    })
+    });
+};
+
+
+// Standard error handler for majority of errors
+module.exports.handleErrors = function(error, req, res, next) {
+    if (res.headersSent) return next(error);
+    if (error.message && error.name) req.flash('error', `${error.name}: ${error.message}.`);
+    else req.flash('error', error);
+    res.redirect('back');
+};
+
+
+// Check if user profile belongs to the current user
+module.exports.checkProfileOwnership = function(req, res, next) {
+    User.findOne({ username: req.params.username }, function(error, user) {
+        if (error) return next(error);
+        else {
+            if( user._id.equals(req.user._id)) {
+                return next();
+            } else {
+                req.flash('warning', "You are not authorized to access this user's settings.");
+                return res.redirect('back');
+            }
+        }
+    });
 };

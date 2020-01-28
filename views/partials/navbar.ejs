@@ -28,7 +28,7 @@
                 </li>
             <% } else { %>
                 <li class="nav-item">
-                    <a class="nav-link mr-2" href="#">Signed in as <%= currentUser.username %></a>
+                    <a class="nav-link mr-2" href="/users/<%= currentUser.username %>">Signed in as <%= currentUser.username %></a>
                 </li>
                 <li>
                     <a href='/logout'><button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</button></a>

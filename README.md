@@ -29,6 +29,7 @@ command in the command line:
 ======== TODO ========
 
 GENERAL FEATURES
+- Rework error handling with custom error handling middleware
 - Implement image uploads
 - Add user profile
 - Add footer to all pages
@@ -42,6 +43,7 @@ GENERAL FEATURES
 
 USER PROFILE
 - Present user profile picture
+- Show recent activity
 - Show user favorites
 - Show user reviews
 - Show user campgrounds
@@ -65,14 +67,14 @@ INDEX PAGE
 - Add page footer
 
 SHOW PAGE
-- X - Include GPS/map info in sidebar -----------------------------------[Completed 1/12/2020]
+- X - Include GPS/map info in sidebar   ------------------------------------[Completed 1/12/2020]
 - X - Show city/state (perhaps as card subtitle) ------------------------[Completed 1/12/2020]
-- X - Update/remove unused sidebar tabs----------------------------------[Completed 1/12/2020]
+- X - Update/remove unused sidebar tabs -------------------------------[Completed 1/12/2020]
 - X - Display rating (1-5 stars) for each campground --------------------[Completed 1/9/2020]
 - Update review display
 - X - Include review pagination -----------------------------------------[Completed 1/9/2020]
 - Add page footer
-  
+
 CAMPGROUND NEW/EDIT FORM
 - Update form styling
 - Set all form fields as required
@@ -83,6 +85,6 @@ COMMENT NEW/EDIT
 - X - Include and require 1-5 star rating -------------------------------[Completed 1/9/2020]
 - Set all form fields as required
 - Set max limit for comment length
-  
+
 LOGIN/REGISTER FORMS
 - Update form styling

@@ -73,7 +73,7 @@
                                 
                             <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>
                                 <span class="mr-1 align-top"><strong class="count"><%= campground.userFavs.length %></strong></span>
-                                <input class="favorite-btn <%= (currentUser && currentUser.campFavs.includes(campground._id)) ? "favorited" : "unfavorited" %>" type="submit" value="">
+                                <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">
                             </form>                                
 
                         </div>

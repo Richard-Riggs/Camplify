@@ -1,0 +1,147 @@
+<ul class="list-group">
+    <% recentActivities.forEach( function(activity) { %>
+    
+        <% if (activity.docType === 'campFav') { %>
+            <li class="list-group-item container-fluid">
+                <div class="row">
+                    <div class="col-auto">
+                        <img class="rounded" src="<%= activity.campID.image %>" alt="Image of <%= activity.campID.name %>">
+                    </div>
+                    <div class="col container-fluid d-flex flex-column justify-content-between">
+                        <div class="row">
+                            <div class="col text-left">
+                                <h5><strong><%= user.username %> favorited <em><%= activity.campID.name %></em></strong></h5>
+                            </div>
+                            <div class="col text-right">
+                                <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small><em>Heart icon goes here</em></small>
+                            </div>                               
+                            <div class="col text-right">
+                                <a href='/campgrounds/<%= activity.campID._id %>' class="btn new-btn card-link px-4">View Campground</a>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </li>
+        
+        <% } else if (activity.docType === 'campground') { %>
+            <li class="list-group-item container-fluid">
+                <div class="row">
+                    <div class="col-auto">
+                        <img class="rounded" src="<%= activity.image %>" alt="Image of <%= activity.name %>">
+                    </div>
+                    <div class="col container-fluid d-flex flex-column justify-content-between">
+                        <div class="row">
+                            <div class="col text-left">
+                                <h5><strong><%= user.username %> posted <em><%= activity.name %></em></strong></h5>
+                            </div>
+                            <div class="col text-right">
+                                <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small><em>Post icon goes here</em></small>
+                            </div>                               
+                            <div class="col text-right">
+                                <a href='/campgrounds/<%= activity._id %>' class="btn new-btn card-link px-4">View Campground</a>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </li>
+            
+        <% } else if (activity.docType === 'comment') { %>
+            <li class="list-group-item container-fluid">
+                <div class="row">
+                    <div class="col-auto">
+                        <img class="rounded" src="<%= activity.campground.image %>" alt="Image of <%= activity.campground.name %>">
+                    </div>
+                    <div class="col container-fluid d-flex flex-column justify-content-between">
+                        <div class="row">
+                            <div class="col text-left">
+                                <h5><strong><%= user.username %> reviewed <em><%= activity.campground.name %></em></strong></h5>
+                            </div>
+                            <div class="col text-right">
+                                <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small><em>Review stars go here</em></small>
+                            </div>                            
+                            <div class="col text-right">
+                                <a href='/campgrounds/<%= activity.campground._id %>' class="btn new-btn card-link px-4">View Campground</a>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </li>
+            
+        <% } else { %>
+            <li class="list-group-item">Nothing Found!</li>
+        <% } %>
+    
+    <% }); %>
+</ul>
+
+<!-- Index Pagination -->
+<nav class="page-navigation" aria-label="Page navigation">
+    <% if (maxPage && maxPage > 1) { %>
+        <ul class="pagination justify-content-center">
+
+        <!-- First Page button (disabled if on first page) -->
+        <% if (currentPage == 1) { %>
+            <li class="page-item disabled"><a class="page-link">First</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="1" href="#">First</a></li>
+        <% } %>
+
+        <!-- Previous Page button (disabled if on first page) -->
+        <% if (currentPage == 1) { %>
+            <li class="page-item disabled"><a class="page-link">«</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="<%= currentPage - 1 %>" href="#">«</a></li>
+        <% } %>
+
+        <!-- Previous pages ellipses (if there are 5+ previous pages) -->
+        <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %>
+        <% if (i !== 1) { %>
+            <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+
+        <!-- Display up to 9 page links (up to 4 before, current, and 4 after) -->
+        <% for (; i <= (Number(currentPage) + 4) && i <= maxPage; i++) { %>
+            <% if (i == currentPage) { %>
+                <li class="active"><a class="page-link"><%= i %></a></li>
+            <% } else { %>
+                <li><a class="page-link" data-page-number="<%= i %>" href="#"><%= i %></a></li>
+            <% } %>
+        <% } %>
+
+        <!-- Next pages ellipses (if there are 5+ subsequent pages) -->
+        <% if (maxPage > Number(currentPage) + 4) { %>
+            <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+
+        <!-- Next page button (disabled if on the last page) -->
+        <% if (currentPage == maxPage) { %>
+            <li class="page-item disabled"><a class="page-link">»</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="<%= currentPage + 1 %>" href="#">»</a></li>
+        <% } %>
+
+        <!-- Last page button (disabled if on the last page) -->
+        <% if (currentPage == maxPage) { %>
+            <li class="page-item disabled"><a class="page-link">Last</a></li>
+        <% } else { %>
+            <li><a class="page-link" data-page-number="<%= maxPage %>" href="#">Last</a></li>
+        <% } %>
+
+    </ul>
+    <% } %>
+</nav>

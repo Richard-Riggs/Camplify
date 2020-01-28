@@ -85,6 +85,7 @@ router.route('/campgrounds/:id/comments')
                         comment.author.id = req.user._id;
                         comment.author.username = req.user.username;
                         comment.createdAt = Date();
+                        comment.campground = campground._id;
                         comment.save();
                         
                         // Associate new comment with campground                    

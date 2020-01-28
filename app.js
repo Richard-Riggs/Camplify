@@ -21,6 +21,7 @@ const express          = require("express"),
 // Routes
       campgroundRoutes = require("./routes/campgrounds"),
       commentRoutes    = require("./routes/comments"),
+      userRoutes       = require("./routes/users"),
       indexRoutes      = require("./routes/index"),
       favorites        = require("./routes/favorites"),
       testRoutes       = require("./routes/test"); //###############################
@@ -79,9 +80,12 @@ mongoose.set('useUnifiedTopology', true)
 app.use(campgroundRoutes)
    .use(commentRoutes)
    .use(indexRoutes)
+   .use(userRoutes)
    .use(testRoutes) //##########################################
    .use(favorites);
 
+// Error handler - must be last middleware used
+app.use(middleware.handleErrors);
 
 //===================== START SERVER ====================
 
