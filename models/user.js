@@ -5,6 +5,8 @@ const UserSchema = new mongoose.Schema({
     docType: { type: String, default: 'user' },
     username: String,
     password: String,
+    image: String,
+    imageID: String,
     campFavs: [{
         docType: { type: String, default: 'campFav' },
         campID: {

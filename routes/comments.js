@@ -13,7 +13,7 @@ const express = require("express"),
 // INDEX ROUTE
 router.get('/campgrounds/:id/comments', (req, res) => {
 
-
+    //let campground = await Campground.findById(req.params.id);
     Campground.findById(req.params.id, function(error, campground) {
         if (error) {
             req.flash('error', `Error: ${error.message}.`);
@@ -49,8 +49,8 @@ router.get('/campgrounds/:id/comments', (req, res) => {
     });
 });
 
-
-router.route('/campgrounds/:id/comments/new')                             // New
+// NEW COMMENT ROUTE
+router.route('/campgrounds/:id/comments/new')
     .get([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
@@ -80,14 +80,14 @@ router.route('/campgrounds/:id/comments')
                         req.flash('error', `Error: ${error.message}.`);
                         res.redirect('back');
                     } else {
-                        
+
                         // Add username and ID to comment
                         comment.author.id = req.user._id;
                         comment.author.username = req.user.username;
                         comment.createdAt = Date();
                         comment.campground = campground._id;
                         comment.save();
-                        
+
                         // Associate new comment with campground                    
                         campground.comments.push(comment);
                         campground.averageRating = database.addRating(campground, comment);

@@ -16,23 +16,6 @@ router.route('/')
 
 // ------------------ Authentication Routes --------------------
 
-router.route('/register')
-    .get(middleware.isLoggedOut, function(req, res) {                              // Show register form
-        res.render('register');
-    })
-    .post(middleware.isLoggedOut, function(req, res) {                              // Register new user
-        let newUser = new User({username: req.body.username});
-        User.register(newUser, req.body.password, function(error, user) {
-            if (error) {
-                req.flash('error', `Error: ${error.message}.`);
-                return res.redirect('/register');
-            }
-            passport.authenticate('local')(req, res, function() {
-                req.flash('success', `Welcome to YelpCamp, ${user.username}!`);
-                res.redirect('/campgrounds');
-            });
-        });
-    });
 
 router.route('/login')
 
