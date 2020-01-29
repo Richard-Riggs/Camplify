@@ -30,8 +30,8 @@ command in the command line:
 
 GENERAL FEATURES
 - Rework error handling with custom error handling middleware
-- Implement image uploads
-- Add user profile
+- X - Implement image uploads -------------------------------------------[Completed 1/29/2020]
+- X - Add user profile --------------------------------------------------[Completed 1/25/2020]
 - Add footer to all pages
 - Consistent use of var vs let
 - Consistent use of anonymous function OR arrow notation
@@ -42,16 +42,16 @@ GENERAL FEATURES
 - Generate campgrounds & reviews
 
 USER PROFILE
-- Present user profile picture
-- Show recent activity
-- Show user favorites
-- Show user reviews
-- Show user campgrounds
-- Enable other users to visit account
-- Add user image
+- X - Present user profile picture --------------------------------------[Completed 1/29/2020]
+- X - Show recent activity ----------------------------------------------[Completed 1/25/2020]
+- X - Show user favorites -----------------------------------------------[Completed 1/25/2020]
+- X - Show user reviews -------------------------------------------------[Completed 1/25/2020]
+- X - Show user campgrounds ---------------------------------------------[Completed 1/25/2020]
+- X - Enable other users to visit account -------------------------------[Completed 1/25/2020]
+- X - Add user image ----------------------------------------------------[Completed 1/29/2020]
 - Option to change user password
 - Option to delete account
-- Option to change profile picture
+- X - Option to change profile picture ----------------------------------[Completed 1/29/2020]
 
 LANDING PAGE
 - Add section(s) for features
