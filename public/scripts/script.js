@@ -59,49 +59,64 @@ $(function () {
     $('body').on('click', '.back-button', function(event) {
         window.history.back();
     });
+    
+    // Clears image URL input field (and makes it unrequired) if image file field is nonempty
+    // and vice versa.
+    $('body').on('change', 'input[name=image], input[name=imageURL]', function(event) {
+        let $inputs = $('input[name=image],input[name=imageURL]');
+        if ($(this).parents(".new-form").length) {
+            $inputs.not(this).prop('required', !this.value.length);            
+        }
+        $inputs.not(this).prop('disabled', this.value.length);
+        $inputs.not(this).val('');
+    });
 
     // USER PROFILE
     
     const URLpath = window.location.pathname;
-    let currentTab = $('#user-tabs-list .active')[0].id,
-        currentContent = $(`#${currentTab}`)[0].hash,
-        currentPage = 1;
 
-    console.log(currentContent);
-
-    // Populate content for active tab on page load
-    if (currentTab) {
+    // Activates user profile functionality if user-tabs-list element exists
+    if ($('#user-tabs-list .active').length) {
+        let currentTab = $('#user-tabs-list .active')[0].id,
+            currentContent = $(`#${currentTab}`)[0].hash,
+            currentPage = 1;
+            
+        // Populate content for active tab on page load
         $.get(URLpath, {tab: currentTab, update: true}).done(function(htmlData) {
             $(currentContent).html($.parseHTML(htmlData));
         });
+                
+        // Populate content for clicked tab, set page to 1
+        $('#user-tabs-list a').on('click', function (event) {
+            currentTab = event.target.id,
+            currentContent = event.target.hash,
+            currentPage = 1;
+            $.get(URLpath, {
+                currentPage: currentPage,
+                tab: currentTab,
+                update: true
+            }).done(function(htmlData) {
+                $(currentContent).html(htmlData);
+            });
+            return true;
+        });
+        
+        // Handles pagination for user profile tabs
+        $('body').on("click", ".page-navigation li:not(.disabled):not(.active) a", function(event) {
+            console.log(event.target.attributes["data-page-number"].value);
+            currentPage = Number(event.target.attributes["data-page-number"].value);
+            $.get(URLpath, {
+                currentPage: currentPage,
+                tab: currentTab.id,
+                update: true
+            }).done(function(htmlData) {
+                    $(currentContent).html(htmlData);
+            });
+            return true;
+        });            
     }
 
-    // Populate content for clicked tab, set page to 1
-    $('#user-tabs-list a').on('click', function (event) {
-        currentTab = event.target.id,
-        currentContent = event.target.hash,
-        currentPage = 1;
-        $.get(URLpath, {
-            currentPage: currentPage,
-            tab: currentTab,
-            update: true
-        }).done(function(htmlData) {
-            $(currentContent).html(htmlData);
-        });
-        return true;
-    });
-    
-    // Handles pagination for user profile tabs
-    $('body').on("click", ".page-navigation li:not(.disabled):not(.active) a", function(event) {
-        console.log(event.target.attributes["data-page-number"].value);
-        currentPage = Number(event.target.attributes["data-page-number"].value);
-        $.get(URLpath, {
-            currentPage: currentPage,
-            tab: currentTab.id,
-            update: true
-        }).done(function(htmlData) {
-                $(currentContent).html(htmlData);
-        });
-        return true;
-    });
+
+
+
 });

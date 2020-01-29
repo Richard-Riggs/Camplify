@@ -1,5 +1,20 @@
 <h2>Settings</h2>
-<form action="/users/<%= user.username %>?_method=PUT" method="POST">
+<form action="/users/<%= user.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    
+  <fieldset class="form-group">
+    <div class="row justify-content-center">
+      <legend class="col-form-label col-sm-2 pt-0"><strong>Profile Picture</strong></legend>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL">
+        </div>
+        <div class="form-group">
+          <label for="image">Image Upload</label>
+          <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+        </div>
+      </div>
+    </div>
+  </fieldset>
     
   <fieldset class="form-group">
     <div class="row justify-content-center">

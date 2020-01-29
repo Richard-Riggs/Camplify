@@ -5,7 +5,66 @@ const express = require("express"),
       Campground = require("../models/campground"),
       Comment = require("../models/comment"),
       passport = require("passport"),
+      multer   = require("multer"),
+      cloudinary = require("cloudinary"),
+      secrets = require("../lib/secrets"),
       middleware = require("../middleware");
+
+
+// ----------------- Image Upload Config ------------------
+
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+
+cloudinary.config({ 
+  cloud_name: secrets.CLOUDINARY_CLOUDNAME, 
+  api_key: secrets.CLOUDINARY_API_KEY, 
+  api_secret: secrets.CLOUDINARY_API_SECRET
+});
+
+//------------------------------------------------------
+
+
+// NEW USER ROUTE
+router.get('/users/new', middleware.isLoggedOut, (req, res) => {res.render('users/new')});
+
+// CREATE USER ROUTE
+router.post('/users', [middleware.isLoggedOut, upload.single('image')], async (req, res, next) => {
+    try {
+        let image, imageID;
+        if (req.file) {
+            let result = await cloudinary.uploader.upload(req.file.path);
+            image = result.secure_url;
+            imageID = result.public_id;            
+        } else {
+            image = req.body.imageURL;
+            imageID = null;
+        }
+        let newUser = new User({
+            username: req.body.username,
+            image: image,
+            imageID: imageID
+        });
+        let user = await User.register(newUser, req.body.password);
+        passport.authenticate('local')(req, res, () => {
+            req.flash('success', `Welcome to YelpCamp, ${user.username}!`);
+            return res.redirect(`/users/${user.username}`);             
+        });
+    } catch(error) {return next(error)}
+});
 
 
 // SHOW USER ROUTE
@@ -136,19 +195,26 @@ router.get('/users/:username', (req, res, next) => {
 // UPDATE USER ROUTE
 router.put('/users/:username', [
     middleware.isLoggedIn,
-    middleware.checkProfileOwnership ],
-    function(req, res, next) {
-        User.findOneAndUpdate({ username: req.params.username }, {
-            settings: {
-                profileVisibility: req.body.profileVisibility
+    middleware.checkProfileOwnership,
+    upload.single('image')],
+    async function(req, res, next) {
+        try {
+            let user = await User.findOne({ username: req.params.username });
+            if (req.file) {
+              if (user.imageID) await cloudinary.uploader.destroy(user.imageID);
+              let result = await cloudinary.uploader.upload(req.file.path);
+              user.image = result.secure_url;
+              user.imageID = result.public_id;
+            } else if (req.body.imageURL) {
+              if (user.imageID) await cloudinary.uploader.destroy(user.imageID);
+              user.image = req.body.imageURL;
+              user.imageID = null;                
             }
-        }, function(error, updatedUser){
-            if (error) return next(error);
-            else {
-                req.flash('success', 'Settings saved')
-                res.redirect('back');
-            }
-        });
+            user.settings.profileVisibility = req.body.profileVisibility;
+            user.save();                    
+            req.flash('success', 'Profile settings saved');
+            return res.redirect(`/users/${req.params.username}`);
+        } catch(err) {return next(err)}
 });
 
 module.exports = router;
