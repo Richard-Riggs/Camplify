@@ -12,15 +12,15 @@
                 <div class="col-4">
                     <img src="<%= user.image %>">
                 </div>
-                <div class="col-5">
-                    <h1 class="display-4 text-center"><%= user.username %></h1>                          
+                <div class="col-4 text-center">
+                    <h1 class="display-4"><%= user.username %></h1>                          
                 </div>                
           
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-2">
+        <div class="col-md-2">
             <div class="list-group" id="user-tabs-list" role="tablist">
                 <a class="list-group-item list-group-item-action <%= (userTab === 'list-recent') ? 'active': '' %>" id="list-recent" data-toggle="list" href="#recent-content" role="tab" aria-controls="list recent activity">Recent Activity</a>
                 <a class="list-group-item list-group-item-action <%= (userTab === 'list-campgrounds') ? 'active': '' %>" id="list-campgrounds" data-toggle="list" href="#campgrounds-content" role="tab" aria-controls="list campgrounds">Campgrounds</a>
@@ -31,7 +31,7 @@
                 <% } %>
             </div>
         </div>
-        <div class="col-10">
+        <div class="col-md-10">
             <div class="tab-content" id="user-tabs-content">
                 <div class="tab-pane fade <%= (userTab === 'list-recent') ? 'show active': '' %>" id="recent-content" role="tabpanel" aria-labelledby="recent activity"></div>
                 <div class="tab-pane fade <%= (userTab === 'list-campgrounds') ? 'show active': '' %>" id="campgrounds-content" role="tabpanel" aria-labelledby="user campgrounds"></div>
