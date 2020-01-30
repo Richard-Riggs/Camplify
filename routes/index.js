@@ -3,7 +3,10 @@ const express = require("express"),
       router = express.Router(),
       User = require("../models/user"),
       passport = require("passport"),
-      middleware = require("../middleware");
+      middleware = require("../middleware"),
+      async      = require("async"),
+      nodemailer = require("nodemailer"),
+      crypto     = require("crypto");
 
 
 // ------------------ Landing Page Routes ----------------------
@@ -66,5 +69,33 @@ router.route('/logout')                                          // Log user out
         res.redirect('/campgrounds');
     });
 
+// RESET PASSWORD FORM
+router.get('/reset', (req, res) => {res.render('reset-password')});
+
+// RESET PASSWORD
+
+router.post('/forgot', (req, res, next) => {
+    async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, (err, buf) => {
+                let token = buf.toString('hex');
+                done(err, token);
+            });
+        },
+        function (token, done) {
+            User.findOne({ email: req.body.email }, (err, user) => {
+                if (!user) {
+                    req.flash('warning', 'No account with that email address exists.');
+                    return res.redirect('/forgot');
+                }
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000;
+                user.save(function(err) {
+                    done(err, token, user);
+                });
+            });
+        }
+    ])
+});
 
 module.exports = router;

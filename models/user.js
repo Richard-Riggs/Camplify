@@ -3,10 +3,13 @@ const mongoose              = require("mongoose"),
 
 const UserSchema = new mongoose.Schema({
     docType: { type: String, default: 'user' },
-    username: String,
+    username: {type: String, unique: true, required: true},
+    firstName: String,
+    lastName: String,
     password: String,
     image: String,
     imageID: String,
+    email: {type: String, unique: true, required: true},
     campFavs: [{
         docType: { type: String, default: 'campFav' },
         campID: {

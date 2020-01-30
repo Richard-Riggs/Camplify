@@ -11,6 +11,7 @@ const express = require("express"),
       middleware = require("../middleware");
 
 
+
 // ----------------- Image Upload Config ------------------
 
 const storage = multer.diskStorage({
@@ -55,6 +56,7 @@ router.post('/users', [middleware.isLoggedOut, upload.single('image')], async (r
         }
         let newUser = new User({
             username: req.body.username,
+            email: req.body.email,
             image: image,
             imageID: imageID
         });
