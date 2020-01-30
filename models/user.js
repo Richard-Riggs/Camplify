@@ -10,6 +10,8 @@ const UserSchema = new mongoose.Schema({
     image: String,
     imageID: String,
     email: {type: String, unique: true, required: true},
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     campFavs: [{
         docType: { type: String, default: 'campFav' },
         campID: {
