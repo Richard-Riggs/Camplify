@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
     email: {type: String, unique: true, required: true},
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    passwordChangeDate: Date,
     campFavs: [{
         docType: { type: String, default: 'campFav' },
         campID: {

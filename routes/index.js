@@ -27,13 +27,7 @@ router.route('/login')
         res.render('login');
     })
 
-    // .post([middleware.isLoggedOut, middleware.validateLogin,
-    //     passport.authenticate("local", {                          // Log in user
-    //     successRedirect: '/campgrounds',
-    //     failureRedirect: 'back',
-    //     failureFlash: 'Invalid username or password.'
-    // })], function(req, res){});
-    
+    // LOGIN USER
     .post([middleware.isLoggedOut, function(req, res, next) {
       passport.authenticate('local', function(error, user, info) {
         let relPath = req.headers.referer.replace(req.headers.origin, "");
@@ -55,7 +49,7 @@ router.route('/login')
                 } else { return res.send({errorMsg: 'Error: There was a problem logging in'}) }                
             }
             if (relPath === '/login') {
-                return res.redirect('/campgrounds');
+                return res.redirect(`/users/${user.username}`);
             } else {
                 return res.send({login: 'success'});
             }
@@ -199,5 +193,6 @@ router.post('/reset/:token', (req, res, next) => {
         res.redirect('/campgrounds');
     });
 });
+
 
 module.exports = router;

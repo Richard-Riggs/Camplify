@@ -199,7 +199,32 @@ router.put('/users/:username', [
     middleware.isLoggedIn,
     middleware.checkProfileOwnership,
     upload.single('image')],
+    
+    function(req, res, next) {
+        if (req.body.password) {
+            console.log('password change')
+            req.body.username = req.params.username;
+            passport.authenticate('local', function(err, user, info) {
+                if (err) { return next(err); }
+                if (!user) {
+                    console.log('bad pass');
+                    req.flash('bad pass');
+                    res.redirect('/campgrounds');
+    
+                }
+                else {
+                    console.log('good pass');
+                    next();
+                }
+            })(req, res, next);    
+        } else {
+            next()
+        }
+    },
+
     async function(req, res, next) {
+
+        
         try {
             let user = await User.findOne({ username: req.params.username });
             if (req.file) {
