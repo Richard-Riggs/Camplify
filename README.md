@@ -49,7 +49,7 @@ USER PROFILE
 - X - Show user campgrounds ---------------------------------------------[Completed 1/25/2020]
 - X - Enable other users to visit account -------------------------------[Completed 1/25/2020]
 - X - Add user image ----------------------------------------------------[Completed 1/29/2020]
-- Option to change user password
+- X - Option to change user password ------------------------------------[Completed 2/05/2020]
 - Option to delete account
 - X - Option to change profile picture ----------------------------------[Completed 1/29/2020]
 
