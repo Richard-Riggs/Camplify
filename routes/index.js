@@ -152,6 +152,7 @@ router.post('/reset/:token', (req, res, next) => {
                     }
                     if (req.body.password === req.body.confirm) {
                         user.setPassword(req.body.password, (err) => {
+                            user.passwordChangeDate = Date();
                             user.resetPasswordToken = undefined;
                             user.resetPasswordExpires = undefined;
                             user.save((err) => {

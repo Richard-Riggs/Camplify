@@ -1,7 +1,7 @@
 <form id="settings-form" action="/users/<%= user.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
 <div class="accordion mx-auto" id="settings-form">
 
-<h2 class="text-center">Settings</h2>  
+<h2 id="settings-header" class="text-center">Settings<span id="settings-success" class="ml-3 d-none">&check;</span></h2>
   
   <div class="card container-fluid border-0">
     <div class="card-header row align-items-center align-text-middle bg-transparent">
@@ -109,9 +109,9 @@
 
 
   <div class="card container-fluid border-0">
-    <div class="card-header row align-items-center align-text-middle bg-transparent">
+    <div id="password-settings-header" class="card-header row align-items-center align-text-middle bg-transparent">
       <p class="col-3 m-0"><strong>Password</strong></p>
-      <p class="col-5 m-0 setting-status" data-default="Last changed 6 months ago">Last changed 6 months ago</p>
+      <p class="col-5 m-0 setting-status" data-default="Last changed <%= moment(user.passwordChangeDate).fromNow() %>">Last changed <%= moment(user.passwordChangeDate).fromNow() %></p>
       <h2 class="col-4 mb-0 text-right">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#password-settings" aria-expanded="false" aria-controls="Show password settings">
           Change Password
@@ -123,15 +123,17 @@
           <div class="form-group">
             <label for="current-password">Current Password</label>
             <input type="password" class="form-control" name="password" id="current-password" aria-describedby="new email" autocomplete="off">
+            <div class="invalid-tooltip">Incorrect password</div>
           </div>
           <div class="form-group">
             <label for="new-password">New Password</label>
             <input type="password" class="form-control" name="newPassword" id="new-password" aria-describedby="new email" autocomplete="off">
-          </div>          
+            <div class="invalid-tooltip">New password cannot be the same as current password</div>
+          </div>
           <div class="form-group">
             <label for="confirm-password">Confirm Password</label>
             <input type="password" class="form-control" name="confirmPassword" id="confirm-password" aria-describedby="confirm email" autocomplete="off">
-            <div class="invalid-tooltip">Passwords must match</div>
+            <div class="invalid-tooltip">New password must match</div>
           </div>
       </div>
     </div>

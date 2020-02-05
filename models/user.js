@@ -4,8 +4,6 @@ const mongoose              = require("mongoose"),
 const UserSchema = new mongoose.Schema({
     docType: { type: String, default: 'user' },
     username: {type: String, unique: true, required: true},
-    firstName: String,
-    lastName: String,
     password: String,
     image: String,
     imageID: String,

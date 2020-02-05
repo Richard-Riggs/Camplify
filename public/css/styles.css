@@ -11,6 +11,10 @@ Colors:
     POTENTIAL CARD BUTTON COLOR: #142828
 */
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     height: 100%;
 }
@@ -361,6 +365,16 @@ a:hover {
 #email-settings .invalid-tooltip,
 #password-settings .invalid-tooltip {
   top: auto;
+}
+
+#settings-success {
+    display: inline-block;
+    color: green;
+    min-width: 45px;
+    height: 45px;
+    border: 1px solid green;
+    border-radius: 25px;
+    line-height: 45px;
 }
 
 /* User Campgrounds Tab */

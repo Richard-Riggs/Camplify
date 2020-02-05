@@ -169,7 +169,7 @@ $(function () {
         }
     });
     
-    // Ensure value change trigger on reset
+    // Ensure value change triggers on reset
     $('body').on('click', 'button[type=reset]', function(event) {
         $('input[type=password]').val('');
         $('input[type=email]').val('');
@@ -195,7 +195,7 @@ $(function () {
         let submitBtn = $('#settings-submit');
         let allRequired = false;
         let allValued = true;
-        
+
         passwords.each(function() {
             if ($(this).val().length) {
                 allRequired = true;
@@ -209,14 +209,24 @@ $(function () {
         if (allValued) {settingStatus.html('Change password now')}
         else {settingStatus.html(settingStatus.attr("data-default"))}
         
-        if (allValued && ($('#new-password').val() === $('#confirm-password').val())) {
+        if (
+            $('#current-password').val() &&
+            $('#current-password').val() === $('#new-password').val()
+            ) {
+                settingStatus.removeClass('text-success').addClass('text-danger');
+                $("#new-password").addClass('is-invalid');
+                passwords.not("#new-password").removeClass('is-invalid');
+                validInputs.password = false;
+                submitBtn.prop('disabled', !allowSubmit(validInputs));
+        } else if (allValued && ($('#new-password').val() === $('#confirm-password').val())) {
             settingStatus.addClass('text-success').removeClass('text-danger');
             passwords.removeClass('is-invalid');
             validInputs.password = true;
             submitBtn.prop('disabled', !allowSubmit(validInputs));
         } else if (allValued) {
             settingStatus.removeClass('text-success').addClass('text-danger');
-            passwords.addClass('is-invalid');
+            $("#confirm-password").addClass('is-invalid');
+            passwords.not("#confirm-password").removeClass('is-invalid');
             validInputs.password = false;
             submitBtn.prop('disabled', !allowSubmit(validInputs));
         } else {
@@ -271,33 +281,20 @@ $(function () {
 
     // Handles user-settings form submission
     $('#settings-content').on('submit', '#settings-form', function(event) {
-        event.preventDefault();
-        let file = $(this)[0].elements.image.files[0],
-            emails = $('input[type=email]'),
-            currentPass = $('#current-password'),
-            newPass = $('#new-password'),
-            confirmPass = $('#confirm-password');
-
-        
-        // Client-side validation
-        if (file) {
-            let fileTypes = ['image/png', 'image/gif', 'image/jpeg', 'image/jpg'];
-            if (!fileTypes.includes(file.type)) {
-                $('#image').addClass('is-invalid');
+        event.preventDefault();        
+        let actionURL = $(this).attr("action");
+        $.post(actionURL, $(this).serialize(), function(data) {
+            if (data.errorField && data.errorField === 'password') {
+                $("#current-password").addClass('is-invalid');
+                $("#password-settings-header .setting-status")
+                    .removeClass("text-success")
+                    .addClass("text-danger");
+                validInputs.password = false;
+                $('#settings-submit').prop('disabled', !allowSubmit(validInputs));
+            } else {
+                $('#settings-content').html($.parseHTML(data));
+                $('#settings-success').removeClass('d-none');
             }
-        }
-        if (emails.val()) {
-            if (emails[0].value !== emails[1].value) {
-                emails.addClass('is-invalid');
-            };
-        }
-        
-        
-        // // Server-side validation
-        // $.post(URLpath, $(this).serialize(), function(data) {
-            
-        // });
+        });
     });
-
-
 });
