@@ -6,10 +6,12 @@
 <form class="new-form" action="/users" method="POST" enctype="multipart/form-data">
     <input type="text" name="username" placeholder="username">
     <input type="password" name="password" placeholder="password">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Email Address" required>
     <div class="form-group">
       <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL" required>
     </div>
-    
+
     <div class="form-group">
       <label for="image">Image Upload</label>
       <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>

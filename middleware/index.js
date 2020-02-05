@@ -142,3 +142,9 @@ module.exports.checkProfileOwnership = function(req, res, next) {
         }
     });
 };
+
+// Validates user when user attempts to change password in settings
+// module.exports.validatePasswordChange = function(req, res, next) {
+    
+    
+// };

@@ -11,6 +11,7 @@ const express = require("express"),
       middleware = require("../middleware");
 
 
+
 // ----------------- Image Upload Config ------------------
 
 const storage = multer.diskStorage({
@@ -55,8 +56,10 @@ router.post('/users', [middleware.isLoggedOut, upload.single('image')], async (r
         }
         let newUser = new User({
             username: req.body.username,
+            email: req.body.email,
             image: image,
-            imageID: imageID
+            imageID: imageID,
+            passwordChangeDate: Date()
         });
         let user = await User.register(newUser, req.body.password);
         passport.authenticate('local')(req, res, () => {
@@ -197,6 +200,20 @@ router.put('/users/:username', [
     middleware.isLoggedIn,
     middleware.checkProfileOwnership,
     upload.single('image')],
+    
+    // Verify that current-password form field is correct
+    function(req, res, next) {
+        if (req.body.password) {
+            req.body.username = req.params.username;
+            passport.authenticate('local', function(err, user, info) {
+                if (err) return next(err);
+                if (!user) return res.json({errorField: 'password'});
+                return next();
+            })(req, res, next);    
+        } else next();
+    },
+
+    // Update user document with form data
     async function(req, res, next) {
         try {
             let user = await User.findOne({ username: req.params.username });
@@ -210,10 +227,15 @@ router.put('/users/:username', [
               user.image = req.body.imageURL;
               user.imageID = null;                
             }
+            if (
+                (req.body.newPassword && req.body.confirmPassword) &&
+                req.body.newPassword === req.body.confirmPassword ){
+                    await user.setPassword(req.body.newPassword);
+                    user.passwordChangeDate = Date();
+                }
             user.settings.profileVisibility = req.body.profileVisibility;
-            user.save();                    
-            req.flash('success', 'Profile settings saved');
-            return res.redirect(`/users/${req.params.username}`);
+            user.save();
+            return res.render('partials/user-settings', {user: user});
         } catch(err) {return next(err)}
 });
 
