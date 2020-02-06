@@ -23,7 +23,33 @@ body {
     padding-top: 56px;
     color: #303630;
     font-family: 'PT Sans', sans-serif;
+}
 
+main {
+  min-height: 100vh;
+  padding-bottom: 20vh;
+}
+
+footer {
+  width: 100%;
+  color: #8da58f;
+  background: rgb(43,59,43);
+  background: linear-gradient(180deg, rgba(43,59,43,1) 0%, rgba(51,51,51,1) 100%);  
+}
+
+footer .footer-links {
+  width: fit-content;
+}
+
+footer a {
+    width: fit-content;
+    line-height: 30px;
+    margin-left: 15px;
+}
+
+footer a:hover {
+    color: #b8c7b9;
+    text-decoration: none;
 }
 
 a {

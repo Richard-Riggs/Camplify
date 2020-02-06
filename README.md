@@ -32,7 +32,7 @@ GENERAL FEATURES
 - Rework error handling with custom error handling middleware
 - X - Implement image uploads -------------------------------------------[Completed 1/29/2020]
 - X - Add user profile --------------------------------------------------[Completed 1/25/2020]
-- Add footer to all pages
+- X - Add footer to all pages -------------------------------------------[Completed 2/6/2020]
 - Consistent use of var vs let
 - Consistent use of anonymous function OR arrow notation
 - X - Implement user ratings (1-5 stars) --------------------------------[Completed 1/5/2020]
