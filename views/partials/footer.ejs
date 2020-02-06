@@ -4,7 +4,7 @@
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
                 <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Camplify</strong></h5>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                     <a href="#">About</a>
                     <a href="#">Contact</a>
                     <a href="#">Support</a>
@@ -13,29 +13,44 @@
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
                 <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Campgrounds</strong></h5>
-                    <a href="#">Most Recent</a>
-                    <a href="#">Highest Rated</a>
-                    <a href="#">Most Reviewed</a>
-                    <a href="#">Most Favorited</a>
+                    <a href="/campgrounds?sort=recent">Most Recent</a>
+                    <a href="/campgrounds?sort=rating">Highest Rated</a>
+                    <a href="/campgrounds?sort=reviews">Most Reviewed</a>
+                    <a href="/campgrounds?sort=favorited">Most Favorited</a>
                 </div>
             </div>
+            
+        <% if (currentUser) { %>
+            <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
+                <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
+                    <h5><strong>My Account</strong></h5>                    
+                    <a href="/users/<%= currentUser.username %>?tab=list-recent">Recent Activity</a>
+                    <a href="/users/<%= currentUser.username %>?tab=list-campgrounds">Campgrounds</a>
+                    <a href="/users/<%= currentUser.username %>?tab=list-reviews">Reviews</a>
+                    <a href="/users/<%= currentUser.username %>?tab=list-favorites">Favorites</a>
+                    <a href="/users/<%= currentUser.username %>?tab=list-settings">Settings</a>
+                </div>
+            </div>
+            
+        <% } else { %>
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
                 <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Account</strong></h5>
-                    <a href="#">Sign Up</a>
-                    <a href="#">Log In</a>
+                    <a href="/users/new">Sign Up</a>
+                    <a href="/login">Log In</a>
                     <a href="#">Settings</a>                       
                 </div>
             </div>
+        <% } %>
+            
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
                 <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
-                    <h5><strong>My Profile</strong></h5>                    
-                    <a href="#">Recent Activity</a>
-                    <a href="#">Campgrounds</a>
-                    <a href="#">Reviews</a>
-                    <a href="#">Favorites</a>
+                    <h5><strong>Resources</strong></h5>
+                    <a href="#">GitHub</a>
+                    <a href="#">Assets</a>
                 </div>
             </div>
+
         </div>
         <div class="row">
             <div class="col text-center">
