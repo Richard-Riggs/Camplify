@@ -5,40 +5,50 @@
 <div id="index-container" class="container">
 
     <!-- Index Header -->
-    <div id="index-header" class="jumbotron my-4 pb-0 pt-5">
-      <h1 class="display-4 text-center">Welcome to YelpCamp!</h1>
-      <p class="lead text-center">Your adventure starts here</p>
-
-      <p>Explore user-submitted campgrounds from across America</p>
-      <hr class="my-4">
-
-    <!-- Index Sort Buttons -->
-    <div class="d-flex justify-content-between">
-
-        <div>
-
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= sortName[sortQuery] %>
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="<%= queryString({sort: 'recent', page: current}) %>">Most Recent</a>
-            <a class="dropdown-item" href="<%= queryString({sort: 'rating', page: current}) %>">Highest Rated</a>
-            <a class="dropdown-item" href="<%= queryString({sort: 'reviews', page: current}) %>">Most Reviewed</a>
-            <a class="dropdown-item" href="<%= queryString({sort: 'favorited', page: current}) %>">Most Favorited</a>
+    <div id="index-header" class="container my-0 my-md-4 py-0">
+      <div class="row justify-content-center pb-3">
+          <div class="col-6 col-md-auto d-flex justify-content-center">
+              <img id="index-logo" src="/images/icons/tent-solid.svg" alt="">              
           </div>
-
+          <div class="col-md-auto d-flex flex-column justify-content-center text-center">
+              <h1 class="display-4 header">Camplify</h1>
+              <p class="lead m-0">Your adventure starts here</p>
+          </div>
+      </div>
+      
+    <!-- Index Sort Buttons -->
+    <hr id="campgrounds-index">
+    <div class="row justify-content-between pt-0 pt-md-5">
+        
+        <div class="col-12 col-md-auto pt-1 pb-3 py-md-0 text-center">
+            <h3 class="m-0">All Campgrounds</h3>
         </div>
-        <a class="btn new-btn rounded-pill btn-md" href="/campgrounds/new" role="button">
-            <img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""><span class="h-100"> Add New Campground</span>
-        </a>
+        
+        <div class="col-12 col-md-auto d-flex justify-content-between p-0">
+            <a class="btn new-btn rounded-pill btn-md mr-3" href="/campgrounds/new" role="button">
+                <img src="/images/icons/plus-black-symbol.svg" class="align-self-center mr-1" width="15" height="15">
+                <span> New<span class="d-none d-sm-inline"> Campground</span></span>
+            </a>            
+            <div>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= sortName[sortQuery] %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="<%= queryString({sort: 'recent', page: current}) %>#campgrounds-index">Most Recent</a>
+                <a class="dropdown-item" href="<%= queryString({sort: 'rating', page: current}) %>#campgrounds-index">Highest Rated</a>
+                <a class="dropdown-item" href="<%= queryString({sort: 'reviews', page: current}) %>#campgrounds-index">Most Reviewed</a>
+                <a class="dropdown-item" href="<%= queryString({sort: 'favorited', page: current}) %>#campgrounds-index">Most Favorited</a>
+              </div>
+            </div>
+        </div>
+
 
     </div>
 
 
     </div>
     
-    <div class="row">
+    <div class="row mt-3 mt-md-0">
 
         <!-- Campground Card -->
         <% campgrounds.forEach((campground) => { %>
@@ -95,14 +105,14 @@
             <% if (current == 1) { %>
                 <li class="page-item disabled"><a class="page-link">First</a></li>
             <% } else { %>
-                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: 1}) %>">First</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: 1}) %>#campgrounds-index">First</a></li>
             <% } %>
 
             <!-- Previous Page button (disabled if on first page) -->
             <% if (current == 1) { %>
                 <li class="page-item disabled"><a class="page-link">«</a></li>
             <% } else { %>
-                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: (Number(current) - 1)}) %>">
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: (Number(current) - 1)}) %>#campgrounds-index">
                 «</a></li>
             <% } %>
 
@@ -117,7 +127,7 @@
                 <% if (i == current) { %>
                 <li class="active"><a class="page-link"><%= i %></a></li>
                 <% } else { %>
-                    <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: i}) %>"><%= i %></a></li>
+                    <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: i}) %>#campgrounds-index"><%= i %></a></li>
                 <% } %>
             <% } %>
 
@@ -130,14 +140,14 @@
             <% if (current == pages) { %>
                 <li class="page-item disabled"><a class="page-link">»</a></li>
             <% } else { %>
-                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: (Number(current) + 1)}) %>">»</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: (Number(current) + 1)}) %>#campgrounds-index">»</a></li>
             <% } %>
 
             <!-- Last page button (disabled if on the last page) -->
             <% if (current == pages) { %>
                 <li class="page-item disabled"><a class="page-link">Last</a></li>
             <% } else { %>
-                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: pages}) %>">Last</a></li>
+                <li><a class="page-link" href="<%= queryString({sort: sortQuery, page: pages}) %>#campgrounds-index">Last</a></li>
             <% } %>
 
         </ul>

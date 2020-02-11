@@ -32,9 +32,11 @@ main {
 
 footer {
   width: 100%;
-  color: #8da58f;
-  background: rgb(43,59,43);
-  background: linear-gradient(180deg, rgba(43,59,43,1) 0%, rgba(51,51,51,1) 100%);  
+  color: #d1dbd2;
+  /*background: rgb(43,59,43);*/
+  /*background: linear-gradient(180deg, rgba(43,59,43,1) 0%, rgba(51,51,51,1) 100%);  */
+  background: linear-gradient(180deg, rgba(79,106,79,1) 0%, rgba(43,59,43,1) 100%);
+  background-color: #2b3b2b;
 }
 
 footer .footer-links {
@@ -53,7 +55,7 @@ footer a:hover {
 }
 
 a {
-    color: inherit;
+    color: #d1dbd2;
     transition: 0.1s;
 }
 
@@ -62,23 +64,40 @@ a:hover {
 }
 
 .light-green {
-    background-color: #d1dbd2;
+    background-color: #b8c7c7;
     color: #303630;
 }
 
 #navbar {
     color: #d1dbd2;
-    background-color: #2b3b2b;
+    /*background-color: #2b3b2b;*/
+    /*background-color: #4f6a4f;*/
+    background: linear-gradient(0deg, rgba(79,106,79,1) 0%, rgba(43,59,43,1) 100%);
+
     box-shadow: 0 2px 10px rgba(0,0,0,.4);
 }
 
 #navbar img {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
 }
 
 #navbar li > a:hover {
     color: white;
+}
+
+#navbar .navbar-brand {
+  color: inherit;
+}
+
+#navbar hr {
+  margin: 0;
+  border-color: rgb(209, 219, 210);
+  border-color: rgba(209, 219, 210, 0.25);
+}
+
+#navbar .btn {
+  width: 90px;
 }
 
 .flash {
@@ -94,11 +113,22 @@ a:hover {
 #index-header {
     color: #1a4c1a;
     background-color: white;
-    
+}
+
+#index-logo {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
 }
 
 #index-header h1 {
-    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    /*font-family: 'Source Serif Pro', serif;*/
+    /*font-family: 'Bitter', serif;*/
+}
+
+.header {
+  font-family: 'Bitter', serif;
 }
 
 .dropdown {
@@ -240,9 +270,13 @@ a:hover {
 }
 
 .new-btn {
+    display: flex;
+    align-items: center;
     color: white;
-    background-color: #405940;
-    padding-top: 4px;
+    background-color: #142828;
+    /*padding-top: 4px;*/
+    /*vertical-align: bottom;*/
+    /*line-height: 1.6rem;*/
 }
 
 .new-btn:hover {
@@ -252,11 +286,11 @@ a:hover {
 
 .new-btn img {
     top: 0;
-    margin-right: 5px;
+    /*margin-right: 5px;*/
 }
 
 .new-btn span {
-    vertical-align: middle;
+
 }
 
 .new-btn.round {
