@@ -15,19 +15,27 @@ Colors:
     box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 html {
     height: 100%;
 }
 
 body {
-    padding-top: 56px;
-    color: #303630;
-    font-family: 'PT Sans', sans-serif;
+  padding-top: 56px;
+  color: #303630;
+  font-family: 'PT Sans', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 main {
-  min-height: 100vh;
-  padding-bottom: 20vh;
+  min-height: calc(100vh - 56px);
+  /*flex-grow: 1;*/
+  padding-bottom: 10vh;
 }
 
 footer {
@@ -55,7 +63,6 @@ footer a:hover {
 }
 
 a {
-    color: #d1dbd2;
     transition: 0.1s;
 }
 
@@ -104,9 +111,16 @@ a:hover {
     margin-top: 65px;
 }
 
-/*#index-container {*/
-/*    background-color: white;*/
-/*}*/
+.image-container {
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 100%);
+}
 
 /* ----------------- CAMPGROUND INDEX STYLES -------------- */
 
@@ -115,9 +129,10 @@ a:hover {
     background-color: white;
 }
 
+
 #index-logo {
     width: 100%;
-    max-width: 200px;
+    max-width: 150px;
     height: auto;
 }
 
@@ -169,12 +184,13 @@ a:hover {
 }
 
 .favorite-form {
-    
+    position: relative;
+    top: 1px;
 }
 
 .favorite-form span {
     font-size: 1.25rem;
-    color: #b30047;
+    color: #ff0066;
 }
 
 .favorite-btn {
@@ -187,15 +203,16 @@ a:hover {
     transition: 0.1s;
 }
 
+.card-header .favorite-form span {
+  font-size: 1rem;
+}
+
 .card-header .favorite-btn {
     width: 20px;
     height: 20px;
-    margin-bottom: 2px;
+    font-size: 1rem;
 }
 
-.card-header .favorite-btn small {
-    font-size: 20px !important;
-}
 
 .unfavorited {
     background-image: url("/images/icons/heart-outline.png");
@@ -261,6 +278,7 @@ a:hover {
 }
 
 #map {
+    min-height: 200px;
     width: 100%;
     border: 1px solid #d1dbd2;
 }
@@ -285,8 +303,10 @@ a:hover {
 }
 
 .new-btn img {
-    top: 0;
-    /*margin-right: 5px;*/
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: 1px;
 }
 
 .new-btn span {
@@ -312,11 +332,11 @@ a:hover {
 /* ----------------- LOGIN STYLES ------------------- */
 
 #login {
-    height: 100%;
+    /*height: 100%;*/
 }
 
 #login .row {
-    height: calc(90vh - 56px);
+    /*height: calc(90vh - 56px);*/
 }
 
 #login form {

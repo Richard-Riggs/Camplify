@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
-                <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
+                <div class="ml-5 mr-auto mx-md-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Camplify</strong></h5>
                     <a href="/">Home</a>
                     <a href="#">About</a>
@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
-                <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
+                <div class="ml-5 mr-auto mx-md-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Campgrounds</strong></h5>
                     <a href="/campgrounds?sort=recent#campgrounds-index">Most Recent</a>
                     <a href="/campgrounds?sort=rating#campgrounds-index">Highest Rated</a>
@@ -22,7 +22,7 @@
             
         <% if (currentUser) { %>
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
-                <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
+                <div class="ml-5 mr-auto mx-md-auto d-flex flex-column footer-links text-left">
                     <h5><strong>My Account</strong></h5>                    
                     <a href="/users/<%= currentUser.username %>?tab=list-recent">Recent Activity</a>
                     <a href="/users/<%= currentUser.username %>?tab=list-campgrounds">Campgrounds</a>
@@ -34,7 +34,7 @@
             
         <% } else { %>
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
-                <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
+                <div class="ml-5 mr-auto mx-md-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Account</strong></h5>
                     <a href="/users/new">Sign Up</a>
                     <a href="/login">Log In</a>
@@ -44,7 +44,7 @@
         <% } %>
             
             <div class="col-sm-6 col-md-3 col-lg-2 d-flex flex-column align-items-sm-center pb-4 mx-lg-3">
-                <div class="mx-5 mx-sm-auto d-flex flex-column footer-links text-left">
+                <div class="ml-5 mr-auto mx-md-auto d-flex flex-column footer-links text-left">
                     <h5><strong>Resources</strong></h5>
                     <a href="#">GitHub</a>
                     <a href="#">Assets</a>
