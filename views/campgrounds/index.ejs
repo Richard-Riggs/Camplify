@@ -54,8 +54,13 @@
         <% campgrounds.forEach((campground) => { %>
             <div class="campground-index-card col-lg-4 col-md-6 mb-4">
                 <div class="card h-100 hover-shadow rounded-0">
-                    <img class="card-img-top camp-index-img rounded-0" src="<%= campground.image %>">
-                    <div class="card-header camp-index-header px-3 d-flex justify-content-between light-green">
+                    <div class="image-container">
+                       <img class="card-img-top camp-index-img rounded-0" src="<%= campground.image %>">
+                        <div class="image-overlay-bottom w-100 pt-5 pl-3 pb-2">
+                            <h4 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h4>
+                        </div>
+                    </div>
+                    <div class="card-header camp-index-header px-3 d-none justify-content-between light-green">
                         <h5 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h5>
                         
                         <span class="flex-shrink-0 flex-grow-0 align-middle">
