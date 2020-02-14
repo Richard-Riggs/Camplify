@@ -1,3 +1,4 @@
+<h4 class="text-center pb-3 d-md-none">Recent Activity</h4>
 <ul class="list-group">
     <% recentActivities.forEach( function(activity) { %>
     
@@ -16,12 +17,12 @@
                                 <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
                                 <small><em>Heart icon goes here</em></small>
                             </div>                               
-                            <div class="col text-right">
-                                <a href='/campgrounds/<%= activity.campID._id %>' class="btn new-btn card-link px-4">View Campground</a>
+                            <div class="col-auto text-right">
+                                <a href='/campgrounds/<%= activity.campID._id %>' class="btn new-btn card-link px-4 rounded-0">View Campground</a>
                             </div>
                         </div>                        
                     </div>

@@ -379,30 +379,39 @@ a:hover {
 /* -------------- USER PROFILE --------------- */
 
 #user-profile {
-    margin-top: 5vh;
+    /*margin-top: 5vh;*/
 }
 
-#user-profile .jumbotron img {
+#user-profile #profile-header img {
   object-fit: cover;
   width: 100%;
-  max-height: 300px;
-  border-radius: 10px;
+  height: 500px;
+  max-height: 50vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+
+
 #user-profile .list-group-item-action {
-    border-right: 1px solid #dee2e6;
-    border-bottom: 0;
+  font-size: 1.15rem;
+    border: 1px solid #c6d2d2;
+    /*border-color: #2b3b2b;*/
     border-top: 0;
-    border-left: 0;
-    border-radius: 5px 0 0 5px;
+    border-radius: 0;
+    /*border: none;*/
+    /*border-top: 0;*/
+    /*border-left: 0;*/
+    /*border-radius: 5px 5px 0 0;*/
 }
 
 #user-profile .list-group-item-action:nth-of-type(5) {
-    border-top: 1px solid #dee2e6;
+    /*border-left: 1px solid #dee2e6;*/
 }
 
 #user-profile .list-group-item-action.active {
-    border-right: none;
+    background-color: #546B6B;
+    border-color: #546B6B;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* Recent Activity Tab*/
