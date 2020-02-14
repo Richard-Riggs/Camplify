@@ -3,82 +3,72 @@
     <% recentActivities.forEach( function(activity) { %>
     
         <% if (activity.docType === 'campFav') { %>
-            <li class="list-group-item container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                        <img class="rounded" src="<%= activity.campID.image %>" alt="Image of <%= activity.campID.name %>">
-                    </div>
-                    <div class="col container-fluid d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <div class="col text-left">
-                                <h5><strong><%= user.username %> favorited <em><%= activity.campID.name %></em></strong></h5>
-                            </div>
-                            <div class="col text-right">
-                                <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-auto">
-                                <small><em>Heart icon goes here</em></small>
-                            </div>                               
-                            <div class="col-auto text-right">
-                                <a href='/campgrounds/<%= activity.campID._id %>' class="btn new-btn card-link px-4 rounded-0">View Campground</a>
-                            </div>
-                        </div>                        
+
+        <li class="list-group-item container-fluid px-3">
+            <div class="row align-items-sm-stretch">
+                <div class="col-4 col-sm-auto">
+                    <div class="image-container">
+                        <img src="<%= activity.campID.image %>" alt="Image of <%= activity.campID.name %>">
+                        <div class="image-overlay-bottom text-right pr-2 pt-3"><small><em>Favorite icon</em></small></div>                            
                     </div>
                 </div>
-            </li>
+                <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
+                    <div class="row px-3">
+                        <h6><strong><%= user.username %> favorited <em><%= activity.campID.name %></em></strong></h6>
+                    </div>
+                    <div class="row px-3 justify-content-between">
+                        <small class="d-flex align-items-end justify-content-end"><em><%= moment(activity.createdAt).fromNow() %></em></small>
+                        <div>
+                            <a href='/campgrounds/<%= activity.campID._id %>' class="btn green-btn card-link px-4 py-1 ml-auto rounded-0">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                        </div>                            
+                    </div>
+                </div>
+            </div>
+        </li>             
         
         <% } else if (activity.docType === 'campground') { %>
-            <li class="list-group-item container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                        <img class="rounded" src="<%= activity.image %>" alt="Image of <%= activity.name %>">
-                    </div>
-                    <div class="col container-fluid d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <div class="col text-left">
-                                <h5><strong><%= user.username %> posted <em><%= activity.name %></em></strong></h5>
-                            </div>
-                            <div class="col text-right">
-                                <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
-                            </div>
+
+            <li class="list-group-item container-fluid px-3">
+                <div class="row align-items-sm-stretch">
+                    <div class="col-4 col-sm-auto">
+                        <div class="image-container">
+                            <img src="<%= activity.image %>" alt="Image of <%= activity.name %>">
+                            <div class="image-overlay-bottom text-right pr-2 pt-3"><small><em>Camp icon</em></small></div>                            
                         </div>
-                        <div class="row justify-content-between">
-                            <div class="col-auto">
-                                <small><em>Post icon goes here</em></small>
-                            </div>                               
-                            <div class="col-auto text-right">
-                                <a href='/campgrounds/<%= activity._id %>' class="btn new-btn card-link px-4 rounded-0">View Campground</a>
-                            </div>
-                        </div>                        
+                    </div>
+                    <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
+                        <div class="row px-3">
+                            <h6><strong><%= user.username %> posted <em><%= activity.name %></em></strong></h6>
+                        </div>
+                        <div class="row px-3 justify-content-between">
+                            <small class="d-flex align-items-end justify-content-end"><em><%= moment(activity.createdAt).fromNow() %></em></small>
+                            <div>
+                                <a href='/campgrounds/<%= activity._id %>' class="btn green-btn card-link px-4 py-1 ml-auto rounded-0">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                            </div>                            
+                        </div>
                     </div>
                 </div>
-            </li>
+            </li>            
             
         <% } else if (activity.docType === 'comment') { %>
-            <li class="list-group-item container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                        <img class="rounded" src="<%= activity.campground.image %>" alt="Image of <%= activity.campground.name %>">
-                    </div>
-                    <div class="col container-fluid d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <div class="col text-left">
-                                <h5><strong><%= user.username %> reviewed <em><%= activity.campground.name %></em></strong></h5>
-                            </div>
-                            <div class="col text-right">
-                                <small><em><%= moment(activity.createdAt).fromNow() %></em></small>
-                            </div>
+            <li class="list-group-item container-fluid px-3">
+                <div class="row align-items-sm-stretch">
+                    <div class="col-4 col-sm-auto">
+                        <div class="image-container">
+                            <img src="<%= activity.campground.image %>" alt="Image of <%= activity.campground.name %>">
+                            <div class="image-overlay-bottom text-right pr-2 pt-3"><small><em>Review stars</em></small></div>                            
                         </div>
-                        <div class="row justify-content-between">
-                            <div class="col-auto">
-                                <small><em>Review stars go here</em></small>
+                    </div>
+                    <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
+                        <div class="row px-3">
+                            <h6><strong><%= user.username %> reviewed <em><%= activity.campground.name %></em></strong></h6>
+                        </div>
+                        <div class="row px-3 justify-content-between">
+                            <small class="d-flex align-items-end justify-content-end"><em><%= moment(activity.createdAt).fromNow() %></em></small>
+                            <div>
+                                <a href='/campgrounds/<%= activity.campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto rounded-0">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
                             </div>                            
-                            <div class="col-auto text-right">
-                                <a href='/campgrounds/<%= activity.campground._id %>' class="btn new-btn card-link px-4 rounded-0">View Campground</a>
-                            </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </li>

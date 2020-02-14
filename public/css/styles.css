@@ -113,12 +113,14 @@ a:hover {
 
 .image-container {
   position: relative;
+  width: fit-content;
 }
 
 .image-overlay-bottom {
   position: absolute;
   bottom: 0;
   color: white;
+  width: 100%;
   background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 100%);
 }
 
@@ -294,34 +296,52 @@ a:hover {
     border: 1px solid #d1dbd2;
 }
 
-.new-btn {
+.btn {
     display: flex;
-    align-items: center;
-    color: white;
-    background-color: #142828;
-    /*padding-top: 4px;*/
-    /*vertical-align: bottom;*/
-    /*line-height: 1.6rem;*/
+    justify-content: center;
+    align-items: center; 
+    transition: 0.3s;
+    border: 0;
+    border-radius: 0;    
 }
 
-.new-btn:hover {
-    color: white;
-    background-color: #326732;
-}
-
-.new-btn img {
+.btn img {
   width: 15px;
   height: 15px;
   position: relative;
   top: 1px;
 }
 
-.new-btn span {
+.btn.round {
+    border-radius: 20px;
+}
+
+.green-btn {
+    color: white;
+    color: rgba(255, 255, 255, 0.8);
+    /*background: rgb(83,172,83);*/
+    /*background: linear-gradient(315deg, rgba(83,172,83,1) 0%, rgba(50,103,50,1) 100%);*/
+    
+background: rgb(66,138,66);
+background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%);
 
 }
 
-.new-btn.round {
-    border-radius: 20px;
+.green-btn:hover {
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(83, 172, 83, 0.4), 0 6px 20px 0 rgba(83, 172, 83, 0.4);
+}
+
+.blue-btn {
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(45,134,134);
+  background: linear-gradient(315deg, rgba(45,134,134,1) 0%, rgba(25,77,77,1) 100%);
+}
+
+.blue-btn:hover {
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(45,134,134, 0.4), 0 6px 20px 0 rgba(45,134,134, 0.4);
 }
 
 /* This styling fixes the default styling for the map control buttons on the Google Maps display*/
@@ -449,9 +469,14 @@ a:hover {
 #recent-content .list-group li img, 
 #reviews-content .list-group li img,
 #favorites-content .list-group li img {
-    height: 80px;
-    width: 120px;
+    min-height: 75px;
+    min-width: 75px;
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    max-height: 100px;
     object-fit: cover;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .invalid-tooltip {

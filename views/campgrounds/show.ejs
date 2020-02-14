@@ -130,7 +130,7 @@
                             <h5 class="pl-3 m-0">Reviews</h5>
                             <% let alreadyReviewed = false; %>
                             <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                                <a class="btn new-btn rounded-pill btn-md mr-3" href="/campgrounds/<%= campground._id %>/comments/new">
+                                <a class="btn blue-btn btn-md mr-3" href="/campgrounds/<%= campground._id %>/comments/new">
                                     <img src="/images/icons/plus-black-symbol.svg" class="align-self-center mr-2" alt=""> Add New Review
                                 </a>
                             <% } %>
@@ -233,7 +233,7 @@
                             <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
                             <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
                         </div>
-                        <button class="btn new-btn btn-block mt-1">Log In</button>
+                        <button class="btn green-btn btn-block mt-1">Log In</button>
                         <p class="mb-0 mt-3">New user? <a href="/users/new" class="text-success">Create an account</a></p>
                     </div>
                 </form>

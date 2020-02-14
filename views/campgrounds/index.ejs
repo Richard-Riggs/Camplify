@@ -25,7 +25,7 @@
         </div>
         
         <div class="col-12 col-sm-auto d-flex justify-content-between p-0">
-            <a class="btn new-btn rounded-pill btn-md mr-3" href="/campgrounds/new" role="button">
+            <a class="btn blue-btn btn-md mr-3" href="/campgrounds/new" role="button">
                 <img src="/images/icons/plus-black-symbol.svg" class="mr-2">
                 <span> New<span class="d-none d-md-inline"> Campground</span></span>
             </a>            
@@ -85,7 +85,7 @@
 
                         </p>
                         <div class="text-center d-flex justify-content-between align-items-center">
-                            <a href='/campgrounds/<%= campground._id %>' class="btn new-btn card-link px-4">More Info</a>
+                            <a href='/campgrounds/<%= campground._id %>' class="btn green-btn card-link px-4">More Info</a>
                                 
                             <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>
                                 <span class="mr-1 align-top"><strong class="count"><%= campground.userFavs.length %></strong></span>
@@ -179,7 +179,7 @@
                             <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
                             <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password">
                         </div>
-                        <button class="btn new-btn btn-block mt-1">Log In</button>
+                        <button class="btn green-btn btn-block mt-1">Log In</button>
                         <p class="mb-0 mt-3">New user? <a href="/users/new" class="text-success">Create an account</a></p>
                     </div>
                 </form>
