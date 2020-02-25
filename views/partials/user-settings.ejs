@@ -1,20 +1,20 @@
-<form id="settings-form" action="/users/<%= user.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
+<form id="settings-form" class="mx-auto" action="/users/<%= user.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
 <div class="accordion" id="settings-form">
 
-<h2 id="settings-header" class="text-center">Settings<span id="settings-success" class="ml-3 d-none">&check;</span></h2>
+<h4 id="settings-header" class="text-center py-2 d-md-none">Settings<span id="settings-success" class="ml-3 d-none">&check;</span></h4>
   
   <div class="card container-fluid border-0">
-    <div class="card-header row align-items-center align-text-middle bg-transparent">
-      <p class="col-3 m-0"><strong>Profile Picture</strong></p>
-      <p class="col-5 m-0"></p>
-      <h2 class="col-4 mb-0 text-right">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#profile-picture" aria-expanded="true" aria-controls="Show profile picture settings">
+    <div class="card-header row justify-content-center align-items-center align-text-middle bg-transparent">
+      <p class="col-12 col-md-3 m-0 py-2"><strong>Profile Picture</strong></p>
+      <p class="col-12 col-md-5 m-0"></p>
+      <h2 class="col-12 col-md-4 mb-0 text-right">
+        <button class="btn btn-link collapsed px-0 ml-md-auto" type="button" data-toggle="collapse" data-target="#profile-picture" aria-expanded="true" aria-controls="Show profile picture settings">
           Change Profile Picture
         </button>
       </h2>
     </div>
     <div id="profile-picture" class="collapse row justify-content-center border-bottom" aria-labelledby="Profile picture settings" data-parent="#settings-form">
-      <div class="card-body col-8">
+      <div class="card-body col-12 col-md-10">
             <div class="form-group">
               <label for="imageURL">Enter Image URL</label>
               <div class="input-group">
@@ -42,23 +42,23 @@
   
     
   <div class="card container-fluid border-0">
-    <div class="card-header row align-items-center align-text-middle bg-transparent">
-      <p class="col-3 m-0"><strong>Profile Visibility</strong></p>
-      <p class="col-5 m-0 setting-status">
+    <div class="card-header row justify-content-center align-items-center align-text-middle bg-transparent">
+      <p class="col-12 col-md-3 m-0 py-2"><strong>Profile Visibility</strong></p>
+      <p class="col-12 col-md-5 m-0 setting-status">
         <% if (user.settings.profileVisibility === "public") { %>
             Public - Anyone can see your profile
         <% } else if (user.settings.profileVisibility === "private") { %>
             Private - Only you can see your profile
         <% } %>
       </p>
-      <h2 class="col-4 mb-0 text-right">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#profile-visibility" aria-expanded="true" aria-controls="Show profile visibility options">
+      <h2 class="col-12 col-md-4 mb-0 text-right">
+        <button class="btn btn-link collapsed px-0 ml-md-auto" type="button" data-toggle="collapse" data-target="#profile-visibility" aria-expanded="true" aria-controls="Show profile visibility options">
           Change Profile Visibility
         </button>
       </h2>
     </div>
     <div id="profile-visibility" class="collapse row justify-content-center border-bottom" aria-labelledby="Profile visibility options" data-parent="#settings-form">
-      <div class="card-body col-6">
+      <div class="card-body col-12 col-md-6">
         <div class="form-check">
           <input class="form-check-input" type="radio"
                  name="profileVisibility"
@@ -83,17 +83,17 @@
   
   
   <div class="card container-fluid border-0">
-    <div class="card-header row align-items-center align-text-middle bg-transparent">
-      <p class="col-3 m-0"><strong>Email Address</strong></p>
-      <p class="col-5 m-0 setting-status" data-default="<%= user.email ? user.email : ""%>"><%= user.email ? user.email : ""%></p>
-      <h2 class="col-4 mb-0 text-right">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#email-settings" aria-expanded="false" aria-controls="Show email settings">
+    <div class="card-header row justify-content-center align-items-center align-text-middle bg-transparent">
+      <p class="col-12 col-md-3 m-0 py-2"><strong>Email Address</strong></p>
+      <p class="col-12 col-md-5 m-0 setting-status" data-default="<%= user.email ? user.email : ""%>"><%= user.email ? user.email : ""%></p>
+      <h2 class="col-12 col-md-4 mb-0 text-right">
+        <button class="btn btn-link collapsed px-0 ml-md-auto" type="button" data-toggle="collapse" data-target="#email-settings" aria-expanded="false" aria-controls="Show email settings">
           Change Email Address
         </button>
       </h2>
     </div>
     <div id="email-settings" class="collapse row justify-content-center border-bottom" aria-labelledby="Email Settings" data-parent="#settings-form">
-      <div class="card-body col-8">
+      <div class="card-body col-12 col-md-10">
           <div class="form-group">
             <label for="new-email">New Email address</label>
             <input type="email" class="form-control" id="new-email" aria-describedby="new email" autocomplete="on">
@@ -109,17 +109,17 @@
 
 
   <div class="card container-fluid border-0">
-    <div id="password-settings-header" class="card-header row align-items-center align-text-middle bg-transparent">
-      <p class="col-3 m-0"><strong>Password</strong></p>
-      <p class="col-5 m-0 setting-status" data-default="Last changed <%= moment(user.passwordChangeDate).fromNow() %>">Last changed <%= moment(user.passwordChangeDate).fromNow() %></p>
-      <h2 class="col-4 mb-0 text-right">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#password-settings" aria-expanded="false" aria-controls="Show password settings">
+    <div id="password-settings-header" class="card-header row justify-content-center align-items-center align-text-middle bg-transparent">
+      <p class="col-12 col-md-3 m-0 py-2"><strong>Password</strong></p>
+      <p class="col-12 col-md-5 m-0 setting-status" data-default="Last changed <%= moment(user.passwordChangeDate).fromNow() %>">Last changed <%= moment(user.passwordChangeDate).fromNow() %></p>
+      <h2 class="col-12 col-md-4 mb-0 text-right">
+        <button class="btn btn-link collapsed px-0 ml-md-auto" type="button" data-toggle="collapse" data-target="#password-settings" aria-expanded="false" aria-controls="Show password settings">
           Change Password
         </button>
       </h2>
     </div>
     <div id="password-settings" class="collapse row justify-content-center border-bottom" aria-labelledby="Email Settings" data-parent="#settings-form">
-      <div class="card-body col-6">
+      <div class="card-body col-12 col-md-6">
           <div class="form-group">
             <label for="current-password">Current Password</label>
             <input type="password" class="form-control" name="password" id="current-password" aria-describedby="new email" autocomplete="off">
@@ -140,11 +140,11 @@
   </div>
   
   <div class="form-group form-row justify-content-center mt-5">
-    <div class="col-sm-3">
-      <button type="reset" class="btn btn-secondary btn-block">Reset Changes</button>
+    <div class="col-12 col-sm-3">
+      <button type="reset" class="btn grey-btn btn-block mb-2">Reset Changes</button>
     </div>
-    <div class="col-sm-3">
-      <button id="settings-submit" type="submit" class="btn btn-success btn-block">Save Changes</button>
+    <div class="col-12 col-sm-3">
+      <button id="settings-submit" type="submit" class="btn green-btn btn-block">Save Changes</button>
     </div>
   </div>
   

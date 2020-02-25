@@ -1,40 +1,34 @@
-<h4 class="text-center pb-3 d-md-none">Reviews</h4>
+<h4 class="text-center py-2 d-md-none">Reviews</h4>
 <ul class="list-group">
     <% comments.forEach( function(comment) { %>
-            <li class="list-group-item container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                        <img class="rounded" src="<%= comment.campground.image %>" alt="Image of <%= comment.campground.name %>">
-                    </div>
-                    <div class="col container-fluid d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <div class="col text-left">
-                                <h5><strong><em><%= comment.campground.name %></em> Review&nbsp;&nbsp;</strong>
-                                    <% for (let i = 0; i < comment.campground.averageRating; i++) { %>
-                                        &#9733;
-                                    <% } %>
-                                </h5>
-                            </div>
-                            <div class="col text-right">
-                                <small><em><%= moment(comment.createdAt).fromNow() %></em></small>
-                            </div>
+    
+            <li class="list-group-item container-fluid px-3">
+                <div class="row align-items-sm-stretch">
+                    <div class="col-4 col-sm-auto">
+                        <div class="image-container">
+                            <img src="<%= comment.campground.image %>" alt="Image of <%= comment.campground.name %>">
+                            <div class="image-overlay-bottom text-right pr-2 pt-3">
+                                <% if (comment.rating) { %>
+                                <span style="color:#ff9900"><%= comment.rating %>/5</span>
+                                <% } %>
+                                <img class="icon" src="/images/icons/bootstrap/star-fill-yellow.svg">                                
+                            </div>                            
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <p class="text-justify m-0">
-                                    <% let words = comment.campground.description.split(" "); %>
-                                    <% let limit = 25; %>
-                                    <% for (let i = 0; i < limit; i++) { %>
-                                        <%= (i === (limit - 1) && (words.length > limit)) ? `${words[i]}...` : words[i] %>
-                                    <% } %>
-                                    <a href='/campgrounds/<%= comment.campground._id %>' class="float-right text-success"><strong><u>View Campground</u></strong></a>
-                                </p>
-                                
-                            </div>
-                        </div>                        
+                    </div>
+                    <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
+                        <div class="row px-3">
+                            <h6><strong><%= user.username %> reviewed <em><%= comment.campground.name %></em></strong></h6>
+                        </div>
+                        <div class="row px-3 justify-content-between">
+                            <small class="d-flex align-items-end justify-content-end"><em><%= moment(comment.createdAt).fromNow() %></em></small>
+                            <div>
+                                <a href='/campgrounds/<%= comment.campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto rounded-0">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                            </div>                            
+                        </div>
                     </div>
                 </div>
-            </li>
+            </li>    
+    
     <% }); %>
 </ul>
 

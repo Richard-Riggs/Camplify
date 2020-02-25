@@ -1,4 +1,4 @@
-<h4 class="text-center pb-3 d-md-none">Recent Activity</h4>
+<h4 class="text-center py-2 d-md-none">Recent Activity</h4>
 <ul class="list-group">
     <% recentActivities.forEach( function(activity) { %>
     
@@ -8,8 +8,8 @@
             <div class="row align-items-sm-stretch">
                 <div class="col-4 col-sm-auto">
                     <div class="image-container">
-                        <img src="<%= activity.campID.image %>" alt="Image of <%= activity.campID.name %>">
-                        <div class="image-overlay-bottom text-right pr-2 pt-3"><small><em>Favorite icon</em></small></div>                            
+                        <img class="rounded" src="<%= activity.campID.image %>" alt="Image of <%= activity.campID.name %>">
+                        <div class="image-overlay-bottom text-right pr-2 pt-3 rounded-bottom"><img class="icon" src="/images/icons/bootstrap/heart-fill-pink.svg"></div>                            
                     </div>
                 </div>
                 <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
@@ -32,8 +32,8 @@
                 <div class="row align-items-sm-stretch">
                     <div class="col-4 col-sm-auto">
                         <div class="image-container">
-                            <img src="<%= activity.image %>" alt="Image of <%= activity.name %>">
-                            <div class="image-overlay-bottom text-right pr-2 pt-3"><small><em>Camp icon</em></small></div>                            
+                            <img class="rounded" src="<%= activity.image %>" alt="Image of <%= activity.name %>">
+                            <div class="image-overlay-bottom text-right pr-2 pt-3 rounded-bottom"><img class="icon" src="/images/icons/tent-solid-light-green.svg"></div>                            
                         </div>
                     </div>
                     <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
@@ -55,8 +55,14 @@
                 <div class="row align-items-sm-stretch">
                     <div class="col-4 col-sm-auto">
                         <div class="image-container">
-                            <img src="<%= activity.campground.image %>" alt="Image of <%= activity.campground.name %>">
-                            <div class="image-overlay-bottom text-right pr-2 pt-3"><small><em>Review stars</em></small></div>                            
+                            <img class="rounded" src="<%= activity.campground.image %>" alt="Image of <%= activity.campground.name %>">
+                            <div class="image-overlay-bottom text-right pr-2 pt-3 rounded-bottom">
+                                <% if (activity.rating) { %>
+                                <span style="color:#ff9900"><%= activity.rating %>/5</span>
+                                <% } %>
+                                <img class="icon" src="/images/icons/bootstrap/star-fill-yellow.svg">
+                                
+                            </div>                            
                         </div>
                     </div>
                     <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">

@@ -317,14 +317,10 @@ a:hover {
 }
 
 .green-btn {
-    color: white;
-    color: rgba(255, 255, 255, 0.8);
-    /*background: rgb(83,172,83);*/
-    /*background: linear-gradient(315deg, rgba(83,172,83,1) 0%, rgba(50,103,50,1) 100%);*/
-    
-background: rgb(66,138,66);
-background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%);
-
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(66,138,66);
+  background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%);
 }
 
 .green-btn:hover {
@@ -342,6 +338,18 @@ background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%)
 .blue-btn:hover {
   color: white;
   box-shadow: 0 4px 8px 0 rgba(45,134,134, 0.4), 0 6px 20px 0 rgba(45,134,134, 0.4);
+}
+
+.grey-btn {
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(82,88,96);
+  background: linear-gradient(315deg, rgba(117,126,138,1) 0%, rgba(82,88,96,1) 100%);
+}
+
+.grey-btn:hover {
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(117,126,138,0.4), 0 6px 20px 0 rgba(117,126,138,0.4);
 }
 
 /* This styling fixes the default styling for the map control buttons on the Google Maps display*/
@@ -409,6 +417,10 @@ background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%)
     /*margin-top: 5vh;*/
 }
 
+#user-profile .tab-content {
+    padding-bottom: 15vh;
+}
+
 #user-profile #profile-header img {
   object-fit: cover;
   width: 100%;
@@ -417,9 +429,8 @@ background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%)
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-
 #user-profile .list-group-item-action {
+  color: #2A2A2A;
   font-size: 1.15rem;
     border: 1px solid #c6d2d2;
     /*border-color: #2b3b2b;*/
@@ -436,9 +447,89 @@ background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%)
 }
 
 #user-profile .list-group-item-action.active {
-    background-color: #546B6B;
-    border-color: #546B6B;
+    /*background-color: #546B6B;*/
+    /*border-color: #546B6B;*/
+    color: rgba(255, 255, 255, 0.85);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.index-icon {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+#list-recent .index-icon {
+    background-image: url("/images/icons/bootstrap/clock-fill-blue.svg");
+}
+
+#list-recent.active .index-icon {
+    background-image: url("/images/icons/bootstrap/clock-fill-white.svg");
+}
+
+#list-recent.active {
+  background: rgb(45,134,134);
+  background: linear-gradient(to top left, rgba(45,134,134,1) 0%, rgba(25,77,77,1) 100%);
+  border-color: rgb(45,134,134);
+  border-left-color: rgb(25,77,77)
+}
+
+#list-campgrounds .index-icon {
+    background-image: url("/images/icons/tent-solid-green.svg");
+}
+
+#list-campgrounds.active .index-icon {
+    background-image: url("/images/icons/tent-solid-light.svg");
+}
+
+#list-campgrounds.active {
+  border-color: rgb(76,109,76);
+  background: rgb(43,59,43);
+  background: linear-gradient(135deg, rgba(43,59,43,1) 0%, rgba(79,106,79,1) 100%);
+}
+
+#list-reviews .index-icon {
+    background-image: url("/images/icons/bootstrap/star-fill-yellow.svg");
+}
+
+#list-reviews.active .index-icon {
+    background-image: url("/images/icons/bootstrap/star-fill-white.svg");
+}
+
+#list-reviews.active {
+  border-color: #ff9900;
+  background: rgb(179,107,0);
+  background: linear-gradient(135deg, rgba(179,107,0,1) 0%, rgba(255,153,0,1) 100%);  /*background: rgb(255,204,0);*/
+  /*background: linear-gradient(to top left, rgba(255,204,0,1) 0%, rgba(222,177,0,1) 100%);*/
+}
+
+#list-favorites .index-icon {
+    background-image: url("/images/icons/bootstrap/heart-fill-pink.svg");
+}
+
+#list-favorites.active .index-icon {
+    background-image: url("/images/icons/bootstrap/heart-fill-white.svg");
+}
+
+#list-favorites.active {
+  border-color: rgb(255,0,102);
+  background: rgb(179,0,71);
+  background: linear-gradient(135deg, rgba(179,0,71,1) 0%, rgba(255,0,102,1) 100%);
+}
+
+#list-settings .index-icon {
+  background-image: url("/images/icons/bootstrap/gear-fill-grey.svg");
+}
+
+#list-settings.active .index-icon {
+  background-image: url("/images/icons/bootstrap/gear-fill-white.svg");
+}
+
+#list-settings.active {
+  border-color: rgb(82,88,96);
+  background: rgb(82,88,96);
+  background: linear-gradient(135deg, rgba(44,47,52,1) 0%, rgba(82,88,96,1) 100%);
 }
 
 /* Recent Activity Tab*/
@@ -479,6 +570,16 @@ background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%)
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#recent-content .list-group li img.icon, 
+#reviews-content .list-group li img.icon,
+#favorites-content .list-group li img.icon {
+    min-width: 20px;
+    min-height: 20px;
+    width: 30px;
+    height: 30px;
+    padding-bottom: 5px;
+}
+
 .invalid-tooltip {
   background-color: rgb(220,53,69);
 }
@@ -513,5 +614,6 @@ background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%)
 /* TEST STYLES  */
 
 #settings-form {
-  max-width: 750px;
+  width: 100%;
+  max-width: 900px;
 }
