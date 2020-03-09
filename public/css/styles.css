@@ -71,7 +71,7 @@ a:hover {
 }
 
 .light-green {
-    background-color: #b8c7c7;
+    background-color: #d1d8e0;
     color: #303630;
 }
 
@@ -113,7 +113,7 @@ a:hover {
 
 .image-container {
   position: relative;
-  width: fit-content;
+  width: 100%;
 }
 
 .image-overlay-bottom {
@@ -250,12 +250,41 @@ a:hover {
     height: auto;
 }
 
+.camp-show-img {
+  max-height: 75vh;
+  max-width: 100%;
+  object-fit: cover;
+}
+
 #average-rating {
     margin-right: 5px;
 }
 
 #reviews-section {
     margin-bottom: 100px;
+}
+
+#review-index {
+  margin-top: 10vh;
+}
+
+.campground-review img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: 15px;
+}
+
+.review-star {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+.review-star.fill {
+    background-image: url("/images/icons/bootstrap/star-fill-yellow.svg");
 }
 
 .delete-form {
@@ -321,6 +350,7 @@ a:hover {
   color: rgba(255, 255, 255, 0.8);
   background: rgb(66,138,66);
   background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%);
+  border-radius: 0.25rem;
 }
 
 .green-btn:hover {
@@ -333,6 +363,7 @@ a:hover {
   color: rgba(255, 255, 255, 0.8);
   background: rgb(45,134,134);
   background: linear-gradient(315deg, rgba(45,134,134,1) 0%, rgba(25,77,77,1) 100%);
+  border-radius: 0.25rem;
 }
 
 .blue-btn:hover {
@@ -345,6 +376,7 @@ a:hover {
   color: rgba(255, 255, 255, 0.8);
   background: rgb(82,88,96);
   background: linear-gradient(315deg, rgba(117,126,138,1) 0%, rgba(82,88,96,1) 100%);
+  border-radius: 0.25rem;
 }
 
 .grey-btn:hover {
@@ -365,6 +397,11 @@ a:hover {
 }
 
 /* ----------------- LOGIN STYLES ------------------- */
+
+.form-logo {
+    width: 80px;
+    height: 80px;    
+}
 
 #login {
     /*height: 100%;*/

@@ -6,8 +6,8 @@
                 <div class="row align-items-sm-stretch">
                     <div class="col-4 col-sm-auto">
                         <div class="image-container">
-                            <img src="<%= comment.campground.image %>" alt="Image of <%= comment.campground.name %>">
-                            <div class="image-overlay-bottom text-right pr-2 pt-3">
+                            <img class="rounded" src="<%= comment.campground.image %>" alt="Image of <%= comment.campground.name %>">
+                            <div class="image-overlay-bottom rounded-bottom text-right pr-2 pt-3">
                                 <% if (comment.rating) { %>
                                 <span style="color:#ff9900"><%= comment.rating %>/5</span>
                                 <% } %>
@@ -22,13 +22,13 @@
                         <div class="row px-3 justify-content-between">
                             <small class="d-flex align-items-end justify-content-end"><em><%= moment(comment.createdAt).fromNow() %></em></small>
                             <div>
-                                <a href='/campgrounds/<%= comment.campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto rounded-0">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                                <a href='/campgrounds/<%= comment.campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
                             </div>                            
                         </div>
                     </div>
                 </div>
             </li>    
-    
+
     <% }); %>
 </ul>
 

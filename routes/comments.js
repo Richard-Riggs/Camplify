@@ -29,6 +29,7 @@ router.get('/campgrounds/:id/comments', (req, res) => {
                 .sort({ createdAt: 'descending'})
                 .skip((perPage * pageNumber) - perPage)
                 .limit(perPage)
+                .populate("author.id")
                 .exec(function (error, comments) {
                     Comment.countDocuments({_id: {$in: campground.comments}}).exec(function (error, count) {
                         if (error) {

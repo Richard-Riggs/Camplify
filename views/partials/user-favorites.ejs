@@ -6,8 +6,8 @@
             <div class="row align-items-sm-stretch">
                 <div class="col-4 col-sm-auto">
                     <div class="image-container">
-                        <img src="<%= fav.campID.image %>" alt="Image of <%= fav.campID.name %>">
-                        <div class="image-overlay-bottom text-right pr-2 pt-3"><img class="icon" src="/images/icons/bootstrap/heart-fill-pink.svg"></div>                            
+                        <img class="rounded" src="<%= fav.campID.image %>" alt="Image of <%= fav.campID.name %>">
+                        <div class="image-overlay-bottom rounded-bottom text-right pr-2 pt-3"><img class="icon" src="/images/icons/bootstrap/heart-fill-pink.svg"></div>                            
                     </div>
                 </div>
                 <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
@@ -17,7 +17,7 @@
                     <div class="row px-3 justify-content-between">
                         <small class="d-flex align-items-end justify-content-end"><em><%= moment(fav).fromNow() %></em></small>
                         <div>
-                            <a href='/campgrounds/<%= fav.campID._id %>' class="btn green-btn card-link px-4 py-1 ml-auto rounded-0">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                            <a href='/campgrounds/<%= fav.campID._id %>' class="btn green-btn card-link px-4 py-1 ml-auto">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
                         </div>                            
                     </div>
                 </div>

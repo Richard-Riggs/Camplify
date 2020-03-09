@@ -1,15 +1,16 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
-<div class="container">
+<main>
+<div id="review-index" class="container">
 
 <div class="card mt-3">
     <div class="card-header align-items-middle container-fluid">
         <div class="row align-items-center">
-            <h5 class="float-left pl-3 m-0">Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></h5>
+            <h5 class="float-left pl-3 m-0"><strong>Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></strong></h5>
             <% let alreadyReviewed = false; %>
             <% comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                <a class="btn btn-info float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
+                <a class="btn blue-btn float-right ml-auto mr-2" href="/campgrounds/<%= campground._id %>/comments/new"><img src="/images/icons/plus-black-symbol.svg" width="15" height="15" alt=""></a>
             <% } %>
         </div>
 
@@ -17,34 +18,40 @@
     </div>
     <ul class="list-group list-group-flush">
         <% comments.forEach(function(comment){ %>
-            <li class="list-group-item">
-                <h6 class="d-inline">
-                    
-                    <%= comment.author.username %>
-                    <span>
+        
+        <li class="list-group-item campground-review">
+            <div class="row px-3 justify-content-between">
+                <div class="col-auto p-0 d-flex">
+                  <img src="<%= comment.author.id.image %>" class="mr-3">
+                  <div class="d-flex flex-column flex-shrink-0 justify-content-between">
+                    <h5 class="d-inline pl-1"><strong><a href="/users/<%= comment.author.username %>"><%= comment.author.username %></a></strong></h5>
+                    <span class="d-flex">
                         <% for (let i = 0; i < comment.rating; i++) { %>
-                            &#9733;
+                            <div class="review-star fill"></div>
                         <% } %>
-                    </span>
-                </h6>
-                <small class="float-right"><%= moment(comment.createdAt).fromNow() %></small>
-                <p class="mb-0 mt-1"><%= comment.text %></p>
-                
-                <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                
-                <a class="btn btn-sm btn-warning"
-                   href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
-                   Edit
-                </a>
-                <form class="delete-form"
-                      action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
-                      method="POST">
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                </form>
-                
-                <% } %>
-                
-            </li>
+                    </span>                                                
+                  </div>
+                </div>
+                <div class="col-12 col-sm-auto d-flex flex-sm-column align-items-sm-end align-items-center p-0">
+                    <small class="d-flex  flex-shrink-1"><%= moment(comment.createdAt).fromNow() %></small>
+                    <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                        <div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">
+                            <a class="btn btn-info"
+                               href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
+                               <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit
+                            </a>
+                            <form class=" delete-form"
+                                  action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                  method="POST">
+                                <button class="btn btn-sm btn-danger"><img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete</button>
+                            </form>
+                        </div>
+                    <% } %>                                                
+                </div>
+            </div>
+            <p class="mb-0 mt-2"><%= comment.text %></p>
+        </li>
+            
         <% }); %>
     </ul>
     
@@ -108,5 +115,6 @@
 </div>
 
 </div>
+</main>
 
 <% include ../partials/footer %>

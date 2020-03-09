@@ -12,7 +12,7 @@
             
             <div class="card rounded-0">
                 <div class="image-container">
-                    <img src="<%= campground.image %>" class="card-img-top rounded-0">
+                    <img src="<%= campground.image %>" class="camp-show-img card-img-top rounded-0">
                     <!-- Card Header -->
                     <div class="container-fluid image-overlay-bottom pb-2 pt-5 d-none d-sm-block">
                         <div class="row justify-content-between w-100 m-0">
@@ -125,9 +125,9 @@
     <!-- Reviews -->
         <div class="col-lg-8 col-xl-9">
             <div id="reviews-section" class="card mt-3 rounded-0">
-                    <div class="card-header align-items-middle container-fluid light-green">
+                    <div class="card-header align-items-middle container-fluid">
                         <div class="row justify-content-between align-items-center">
-                            <h5 class="pl-3 m-0">Reviews</h5>
+                            <h4 class="pl-3 m-0"><strong>Reviews</strong></h4>
                             <% let alreadyReviewed = false; %>
                             <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
                                 <a class="btn blue-btn btn-md mr-3" href="/campgrounds/<%= campground._id %>/comments/new">
@@ -138,50 +138,47 @@
                     </div>
                             <ul class="list-group list-group-flush">
 
-                                <% for (let i = 0; i < campground.comments.length && i < 3; i++){ %>
-                                    <li class="list-group-item">
-                                        
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h6 class="d-inline">
-                                                <% let comment = campground.comments[i]; %>
-                                                <%= comment.author.username %>
-                                                    <span class=ml-2>
-                                                        <% for (let i = 0; i < comment.rating; i++) { %>
-                                                            &#9733;
-                                                        <% } %>
-                                                    </span>
-                                            </h6>
+                                <% for (let i = 0; i < campground.comments.length && i < 5; i++){ %>
+                                    <% let comment = campground.comments[i]; %>                               
+                                    <li class="list-group-item campground-review">
+                                        <div class="row px-3 justify-content-between">
+                                            <div class="col-auto p-0 d-flex">
+                                              <img src="<%= comment.author.id.image %>" class="mr-3">
+                                              <div class="d-flex flex-column flex-shrink-0 justify-content-between">
+                                                <h5 class="d-inline pl-1"><strong><a href="/users/<%= comment.author.username %>"><%= comment.author.username %></a></strong></h5>
+                                                <span class="d-flex">
+                                                    <% for (let i = 0; i < comment.rating; i++) { %>
+                                                        <div class="review-star fill"></div>
+                                                    <% } %>
+                                                </span>                                                
+                                              </div>
                                             </div>
-
-                                            <div>
-                                                
-                                                <small><%= moment(comment.createdAt).fromNow() %></small>
-                                                                                      
+                                            <div class="col-12 col-sm-auto d-flex flex-sm-column align-items-sm-end align-items-center p-0">
+                                                <small class="d-flex  flex-shrink-1"><%= moment(comment.createdAt).fromNow() %></small>
+                                                <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                                                    <div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">
+                                                        <a class="btn btn-info"
+                                                           href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
+                                                           <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit
+                                                        </a>
+                                                        <form class=" delete-form"
+                                                              action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                              method="POST">
+                                                            <button class="btn btn-sm btn-danger"><img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete</button>
+                                                        </form>
+                                                    </div>
+                                                <% } %>                                                
                                             </div>
                                         </div>
-                                        <p class="mb-0 mt-1"><%= comment.text %></p>
-                                            
-                                        <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                                            <div class="btn-group btn-group-sm mt-2 float-left" role="group" aria-label="">
-                                                <a class="btn btn-info"
-                                                   href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
-                                                   <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit
-                                                </a>
-                                                <form class=" delete-form"
-                                                      action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
-                                                      method="POST">
-                                                    <button class="btn btn-sm btn-danger"><img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete</button>
-                                                </form>
-                                            </div>
-                                        <% } %>
-
+                                        <p class="mb-0 mt-2"><%= comment.text %></p>
                                     </li>
                                 <% } %>
-                            <li class="list-group-item text-center">
-                                <a href="/campgrounds/<%= campground._id %>/comments/"><h5>See All Reviews</h5></a>
-                            </li>
-
+                                
+                                <% if (campground.comments.length >= 5) { %>
+                                  <li class="list-group-item text-center">
+                                      <a href="/campgrounds/<%= campground._id %>/comments/"><h5>See All Reviews</h5></a>
+                                  </li>
+                                <% } %>
                             </ul>
 
                             

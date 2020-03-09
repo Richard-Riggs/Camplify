@@ -137,7 +137,13 @@ router.route('/campgrounds/:id')
 
     // SHOW ROUTE
     .get((req, res, next) => {
-        Campground.findById(req.params.id).populate("comments").exec((error, campground) => {
+        Campground
+          .findById(req.params.id)
+          .populate({
+            path: "comments",
+            populate: {path: "author.id"}
+          })
+          .exec((error, campground) => {
             if (error) return next(error);
             return res.render('campgrounds/show', {campground: campground});
         });
