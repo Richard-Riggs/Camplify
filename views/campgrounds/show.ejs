@@ -130,6 +130,7 @@
                             <h4 class="pl-3 m-0"><strong>Reviews</strong></h4>
                             <% let alreadyReviewed = false; %>
                             <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-review-modal">New Review</button>
                                 <a class="btn blue-btn btn-md mr-3" href="/campgrounds/<%= campground._id %>/comments/new">
                                     <img src="/images/icons/plus-black-symbol.svg" class="align-self-center mr-2" alt=""> Add New Review
                                 </a>
@@ -156,17 +157,74 @@
                                             <div class="col-12 col-sm-auto d-flex flex-sm-column align-items-sm-end align-items-center p-0">
                                                 <small class="d-flex  flex-shrink-1"><%= moment(comment.createdAt).fromNow() %></small>
                                                 <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                                                    <div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">
-                                                        <a class="btn btn-info"
-                                                           href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
-                                                           <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit
-                                                        </a>
+                                                    <!--<div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">-->
+                                                        <!--<a class="btn btn-info"-->
+                                                        <!--   href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">-->
+                                                        <!--   <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit-->
+                                                        <!--</a>-->
+                                                        
+                                                        
+                                                    <!--</div>-->
+                                                    
+                                                    <div class="dropdown">
+                                                      <button class="btn" type="button" data-toggle="dropdown">
+                                                        <img src="/images/icons/bootstrap/three-dots.svg" width="40" height="40">
+                                                      </button>
+                                                      <div class="dropdown-menu">
+                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-review-modal">
+                                                          Edit Review
+                                                        </button>
                                                         <form class=" delete-form"
                                                               action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
                                                               method="POST">
-                                                            <button class="btn btn-sm btn-danger"><img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete</button>
+                                                            <button class="btn dropdown-item">Delete Review</button>
                                                         </form>
+                                                      </div>
                                                     </div>
+                                                    
+                                                    <!-- Edit Review Modal -->
+                                                    <div class="modal fade" id="edit-review-modal" tabindex="-1" role="dialog" aria-labelledby="Edit review modal" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h5 class="modal-title font-weight-bold">Edit Review for <%= campground.name %></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            <form class="container" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+                                                              <div class="row justify-content-center align-items-center mb-2">
+                                                                <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
+                                                                <div class="col-auto form-group d-flex flex-row-reverse m-0">
+                                                                  <input class="rating-input" id="star-5" type="radio" name="comment[rating]" value="5" <%= (comment.rating === 5) ? "checked": "" %>>
+                                                                  <label class="rating-label" for="star-5"></label>        
+                                                                  <input class="rating-input" id="star-4" type="radio" name="comment[rating]" value="4" <%= (comment.rating === 4) ? "checked": "" %>>
+                                                                  <label class="rating-label" for="star-4"></label>
+                                                                  <input class="rating-input" id="star-3" type="radio" name="comment[rating]" value="3" <%= (comment.rating === 3) ? "checked": "" %>>
+                                                                  <label class="rating-label" for="star-3"></label>      
+                                                                  <input class="rating-input" id="star-2" type="radio" name="comment[rating]" value="2" <%= (comment.rating === 2) ? "checked": "" %>>
+                                                                  <label class="rating-label" for="star-2"></label> 
+                                                                  <input class="rating-input" id="star-1" type="radio" name="comment[rating]" value="1" <%= (comment.rating === 1) ? "checked": "" %>>
+                                                                  <label class="rating-label" for="star-1"></label>
+                                                                </div>            
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col">
+                                                                      <textarea class="form-control" name="comment[text]" id="review-text" maxlength="1500"
+                                                                        rows="4" placeholder="Describe your experience at <%= campground.name %>"><%= comment.text %></textarea>                
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row mt-3 justify-content-center">
+                                                                <button type="button" class="btn grey-btn col-3 mr-3" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn green-btn col-4">Submit Review</button>           
+                                                              </div>
+                                                            </form>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>                                                    
+                                                    
                                                 <% } %>                                                
                                             </div>
                                         </div>
@@ -240,6 +298,51 @@
   </div>
 </div>
 </main>
+
+<!-- New Review Modal -->
+<div class="modal fade" id="new-review-modal" tabindex="-1" role="dialog" aria-labelledby="New review modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold">Review for <%= campground.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="container" action="/campgrounds/<%= campground._id %>/comments" method="POST">
+          <div class="row justify-content-center align-items-center mb-2">
+            <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
+            <div class="col-auto form-group d-flex flex-row-reverse m-0">
+              <input class="rating-input" id="star-5" type="radio" name="comment[rating]" value="5" required>
+              <label class="rating-label" for="star-5"></label>        
+              <input class="rating-input" id="star-4" type="radio" name="comment[rating]" value="4" required>
+              <label class="rating-label" for="star-4"></label>
+              <input class="rating-input" id="star-3" type="radio" name="comment[rating]" value="3" required>
+              <label class="rating-label" for="star-3"></label>      
+              <input class="rating-input" id="star-2" type="radio" name="comment[rating]" value="2" required>
+              <label class="rating-label" for="star-2"></label> 
+              <input class="rating-input" id="star-1" type="radio" name="comment[rating]" value="1" required>
+              <label class="rating-label" for="star-1"></label>
+            </div>            
+          </div>
+          <div class="row">
+              <div class="col">
+                  <textarea class="form-control" name="comment[text]" id="review-text" maxlength="1500"
+                    rows="4" placeholder="Describe your experience at <%= campground.name %>"></textarea>                
+              </div>
+          </div>
+          <div class="row mt-3 justify-content-center">
+            <button type="button" class="btn grey-btn col-3 mr-3" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn green-btn col-4">Submit Review</button>           
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
   function initMap() {
