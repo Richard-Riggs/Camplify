@@ -361,14 +361,14 @@ a:hover {
 .blue-btn {
   color: white;
   color: rgba(255, 255, 255, 0.8);
-  background: rgb(45,134,134);
-  background: linear-gradient(315deg, rgba(45,134,134,1) 0%, rgba(25,77,77,1) 100%);
+  background: rgb(6,68,224);
+  background: linear-gradient(135deg, rgba(6,68,224,1) 35%, rgba(0,123,255,1) 100%);
   border-radius: 0.25rem;
 }
 
 .blue-btn:hover {
   color: white;
-  box-shadow: 0 4px 8px 0 rgba(45,134,134, 0.4), 0 6px 20px 0 rgba(45,134,134, 0.4);
+  box-shadow: 0 4px 8px 0 rgba(6,68,224, 0.4), 0 6px 20px 0 rgba(6,68,224, 0.4);
 }
 
 .grey-btn {
@@ -506,10 +506,11 @@ a:hover {
 }
 
 #list-recent.active {
-  background: rgb(45,134,134);
-  background: linear-gradient(to top left, rgba(45,134,134,1) 0%, rgba(25,77,77,1) 100%);
-  border-color: rgb(45,134,134);
-  border-left-color: rgb(25,77,77)
+
+  background: rgb(6,68,224);
+  background: linear-gradient(135deg, rgba(6,68,224,1) 35%, rgba(0, 123, 255, 1) 100%);
+  border-color: rgb(0,123,255);
+  border-left-color: rgb(6,68,224)
 }
 
 #list-campgrounds .index-icon {
@@ -672,6 +673,7 @@ a:hover {
   background-size: 35px 35px;
   background-image: url("/images/icons/bootstrap/star.svg");
   margin-bottom: 0;
+  transition: 0.2s;
 }
 
 .rating-label:hover,
@@ -679,6 +681,33 @@ a:hover {
 .rating-input:checked + .rating-label,
 .rating-input:checked ~ .rating-label {
   background-image: url("/images/icons/bootstrap/star-fill-yellow.svg");    
+}
+
+.options-btn {
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-image: url("/images/icons/bootstrap/three-dots-vertical.svg");
+  opacity: 0.5;
+  border-radius: 15px;
+}
+
+.options-btn:hover {
+  opacity: 1;
+  background-color: #cccccc;
+}
+
+.new-review-icon {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-image: url("/images/icons/bootstrap/pencil.svg");
+}
+
+.campground-form {
+    max-width: 900px;
 }
 
 /*.star-container {*/

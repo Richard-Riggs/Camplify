@@ -45,17 +45,17 @@
         <ul class="navbar-nav d-flex flex-row justify-content-center">
             <% if (!currentUser) { %>
                 <li>
-                    <a href='/users/new'><button class="btn btn-outline-success mr-2 my-2 my-md-0" type="submit">Sign Up</button></a>
+                    <a href='/users/new' class="btn btn-outline-success border border-success rounded mr-2 my-2 my-md-0" type="submit">Sign Up</a>
                 </li>
                 <li>
-                    <a href='/login'><button class="btn btn-outline-primary my-2 my-md-0" type="submit">Log In</button></a>
+                    <a href='/login' class="btn btn-outline-primary border border-primary rounded my-2 my-md-0" type="submit">Log In</a>
                 </li>
             <% } else { %>
                 <li class="nav-item">
                     <a class="nav-link mr-2" href="/users/<%= currentUser.username %>">Signed in as <%= currentUser.username %></a>
                 </li>
                 <li>
-                    <a href='/logout'><button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</button></a>
+                    <a href='/logout' class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</a>
                 </li>
             <% } %>
         </ul>

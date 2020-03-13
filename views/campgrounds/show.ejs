@@ -84,16 +84,20 @@
                 <div class="card-body py-3">
                     <p class="card-text"><%= campground.description %></p>
                     <div class="d-flex">
-                        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                <a class="btn btn-info" href='/campgrounds/<%= campground._id %>/edit'><img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit</a>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">
-                                    <img src="/images/icons/trash.svg" width="15" height="15" alt=""> Delete
+                        <div class="ml-auto d-flex align-items-center">
+                            <small class="card-text text-muted"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small>
+                            <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+                            <div class="dropdown">
+                              <button class="btn options-btn ml-2" type="button" data-toggle="dropdown"></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href='/campgrounds/<%= campground._id %>/edit'>Edit</a>
+                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#deleteModel">
+                                  Delete
                                 </button>
+                              </div>
+                              
                             </div>
-                        <% } %>
-                        <div class="ml-auto align-text-bottom">
-                            <small class="card-text text-muted align-bottom" style="line-height: 100%"><em>Submitted by <%= campground.author.username %> <%= moment(campground.createdAt).fromNow() %></em></small>
+                            <% } %>
                         </div>
                     </div>
                     
@@ -130,10 +134,13 @@
                             <h4 class="pl-3 m-0"><strong>Reviews</strong></h4>
                             <% let alreadyReviewed = false; %>
                             <% campground.comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-review-modal">New Review</button>
-                                <a class="btn blue-btn btn-md mr-3" href="/campgrounds/<%= campground._id %>/comments/new">
+                                <button type="button" class="d-flex btn blue-btn round mr-2" data-toggle="modal" data-target="#new-review-modal">
+                                  <span class="new-review-icon mr-1"></span>
+                                  Write a Review
+                                </button>
+                                <!-- <a class="btn blue-btn btn-md mr-3" href="/campgrounds/<%= campground._id %>/comments/new">
                                     <img src="/images/icons/plus-black-symbol.svg" class="align-self-center mr-2" alt=""> Add New Review
-                                </a>
+                                </a> -->
                             <% } %>
                         </div>
                     </div>
@@ -151,11 +158,11 @@
                                                     <% for (let i = 0; i < comment.rating; i++) { %>
                                                         <div class="review-star fill"></div>
                                                     <% } %>
-                                                </span>                                                
+                                                </span>
                                               </div>
                                             </div>
-                                            <div class="col-12 col-sm-auto d-flex flex-sm-column align-items-sm-end align-items-center p-0">
-                                                <small class="d-flex  flex-shrink-1"><%= moment(comment.createdAt).fromNow() %></small>
+                                            <div class="col-12 col-sm-auto d-flex p-0">
+                                                <small class="d-flex pt-1 flex-shrink-1 text-muted"><%= moment(comment.createdAt).fromNow() %></small>
                                                 <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
                                                     <!--<div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">-->
                                                         <!--<a class="btn btn-info"-->
@@ -167,18 +174,14 @@
                                                     <!--</div>-->
                                                     
                                                     <div class="dropdown">
-                                                      <button class="btn" type="button" data-toggle="dropdown">
-                                                        <img src="/images/icons/bootstrap/three-dots.svg" width="40" height="40">
-                                                      </button>
+                                                      <button class="btn options-btn ml-2" type="button" data-toggle="dropdown"></button>
                                                       <div class="dropdown-menu">
                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-review-modal">
                                                           Edit Review
                                                         </button>
-                                                        <form class=" delete-form"
-                                                              action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
-                                                              method="POST">
-                                                            <button class="btn dropdown-item">Delete Review</button>
-                                                        </form>
+                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-review-modal">
+                                                          Delete Review
+                                                        </button>
                                                       </div>
                                                     </div>
                                                     
@@ -223,7 +226,32 @@
                                                           </div>
                                                         </div>
                                                       </div>
-                                                    </div>                                                    
+                                                    </div>
+                                                    
+                                                    <!-- Delete Review Modal -->
+                                                    <div class="modal fade" id="delete-review-modal" tabindex="-1" role="dialog">
+                                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModelLabel">Delete Review</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            This action cannot be undone. Do you wish to continue?
+                                                          </div>
+                                                          <div class="modal-footer justify-content-center">
+                                                              <button type="button" class="btn grey-btn mr-3" data-dismiss="modal">Cancel</button>
+                                                              <form class=" delete-form"
+                                                               action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                               method="POST">
+                                                                <button class="btn btn-danger rounded">Delete Review</button>
+                                                              </form>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
                                                     
                                                 <% } %>                                                
                                             </div>
