@@ -15,26 +15,36 @@ Colors:
     box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 html {
     height: 100%;
 }
 
 body {
-    padding-top: 56px;
-    color: #303630;
-    font-family: 'PT Sans', sans-serif;
+  padding-top: 56px;
+  color: #303630;
+  font-family: 'PT Sans', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 main {
-  min-height: 100vh;
-  padding-bottom: 20vh;
+  min-height: calc(100vh - 56px);
+  /*flex-grow: 1;*/
+  padding-bottom: 10vh;
 }
 
 footer {
   width: 100%;
-  color: #8da58f;
-  background: rgb(43,59,43);
-  background: linear-gradient(180deg, rgba(43,59,43,1) 0%, rgba(51,51,51,1) 100%);  
+  color: #d1dbd2;
+  /*background: rgb(43,59,43);*/
+  /*background: linear-gradient(180deg, rgba(43,59,43,1) 0%, rgba(51,51,51,1) 100%);  */
+  background: linear-gradient(180deg, rgba(79,106,79,1) 0%, rgba(43,59,43,1) 100%);
+  background-color: #2b3b2b;
 }
 
 footer .footer-links {
@@ -53,7 +63,6 @@ footer a:hover {
 }
 
 a {
-    color: inherit;
     transition: 0.1s;
 }
 
@@ -62,43 +71,88 @@ a:hover {
 }
 
 .light-green {
-    background-color: #d1dbd2;
+    background-color: #d1d8e0;
     color: #303630;
 }
 
 #navbar {
     color: #d1dbd2;
-    background-color: #2b3b2b;
+    /*background-color: #2b3b2b;*/
+    /*background-color: #4f6a4f;*/
+    background: linear-gradient(0deg, rgba(79,106,79,1) 0%, rgba(43,59,43,1) 100%);
+
     box-shadow: 0 2px 10px rgba(0,0,0,.4);
 }
 
 #navbar img {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
 }
 
 #navbar li > a:hover {
     color: white;
 }
 
+#navbar .navbar-brand {
+  color: inherit;
+}
+
+#navbar hr {
+  margin: 0;
+  border-color: rgb(209, 219, 210);
+  border-color: rgba(209, 219, 210, 0.25);
+}
+
+#navbar .btn {
+  width: 90px;
+}
+
 .flash {
     margin-top: 65px;
 }
 
-/*#index-container {*/
-/*    background-color: white;*/
-/*}*/
+.image-container {
+  position: relative;
+  width: 100%;
+}
+
+.image-overlay-bottom {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 100%);
+}
+
+.image-overlay-top {
+  position: absolute;
+  top: 0;
+  color: white;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 100%);
+}
 
 /* ----------------- CAMPGROUND INDEX STYLES -------------- */
 
 #index-header {
     color: #1a4c1a;
     background-color: white;
-    
+}
+
+
+#index-logo {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
 }
 
 #index-header h1 {
-    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    /*font-family: 'Source Serif Pro', serif;*/
+    /*font-family: 'Bitter', serif;*/
+}
+
+.header {
+  font-family: 'Bitter', serif;
 }
 
 .dropdown {
@@ -119,15 +173,14 @@ a:hover {
 
 .camp-index-img {
     width: 100%;
-    height: 220px;
+    height: 230px;
     object-fit: cover;
     object-position: 50% 75%;
 }
 
-.camp-index-header span {
-    height: 26px;
-    margin-top: auto;
-    margin-bottom: auto;
+.camp-index-header {
+    background-color: white;
+    border-bottom: none;
 }
 
 .camp-index-body {
@@ -139,33 +192,35 @@ a:hover {
 }
 
 .favorite-form {
-    
+    position: relative;
+    top: 1px;
 }
 
 .favorite-form span {
     font-size: 1.25rem;
-    color: #b30047;
+    color: #ff0066;
 }
 
 .favorite-btn {
     border: none;
     outline: none;
     background-color: rgba(0, 0, 0, 0) !important;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background-size: 100%;
     transition: 0.1s;
+}
+
+/* .card-header .favorite-form span {
+  font-size: 1rem;
 }
 
 .card-header .favorite-btn {
     width: 20px;
     height: 20px;
-    margin-bottom: 2px;
-}
+    font-size: 1rem;
+} */
 
-.card-header .favorite-btn small {
-    font-size: 20px !important;
-}
 
 .unfavorited {
     background-image: url("/images/icons/heart-outline.png");
@@ -194,12 +249,41 @@ a:hover {
     height: auto;
 }
 
+.camp-show-img {
+  max-height: 75vh;
+  max-width: 100%;
+  object-fit: cover;
+}
+
 #average-rating {
-    margin-right: 5px;
+    color: #ff9900;
 }
 
 #reviews-section {
     margin-bottom: 100px;
+}
+
+#review-index {
+  margin-top: 10vh;
+}
+
+.campground-review img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: 15px;
+}
+
+.review-star {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+.review-star.fill {
+    background-image: url("/images/icons/bootstrap/star-fill-yellow.svg");
 }
 
 .delete-form {
@@ -231,6 +315,7 @@ a:hover {
 }
 
 #map {
+    min-height: 200px;
     width: 100%;
     border: 1px solid #d1dbd2;
 }
@@ -239,28 +324,63 @@ a:hover {
     border: 1px solid #d1dbd2;
 }
 
-.new-btn {
-    color: white;
-    background-color: #405940;
-    padding-top: 4px;
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    transition: 0.3s;
+    border: 0;
+    border-radius: 0;    
 }
 
-.new-btn:hover {
-    color: white;
-    background-color: #326732;
+.btn img {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: 1px;
 }
 
-.new-btn img {
-    top: 0;
-    margin-right: 5px;
-}
-
-.new-btn span {
-    vertical-align: middle;
-}
-
-.new-btn.round {
+.btn.round {
     border-radius: 20px;
+}
+
+.green-btn {
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(66,138,66);
+  background: linear-gradient(315deg, rgba(66,138,66,1) 0%, rgba(41,86,41,1) 100%);
+  border-radius: 0.25rem;
+}
+
+.green-btn:hover {
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(83, 172, 83, 0.4), 0 6px 20px 0 rgba(83, 172, 83, 0.4);
+}
+
+.blue-btn {
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(6,68,224);
+  background: linear-gradient(135deg, rgba(6,68,224,1) 35%, rgba(0,123,255,1) 100%);
+  border-radius: 0.25rem;
+}
+
+.blue-btn:hover {
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(6,68,224, 0.4), 0 6px 20px 0 rgba(6,68,224, 0.4);
+}
+
+.grey-btn {
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(82,88,96);
+  background: linear-gradient(315deg, rgba(117,126,138,1) 0%, rgba(82,88,96,1) 100%);
+  border-radius: 0.25rem;
+}
+
+.grey-btn:hover {
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(117,126,138,0.4), 0 6px 20px 0 rgba(117,126,138,0.4);
 }
 
 /* This styling fixes the default styling for the map control buttons on the Google Maps display*/
@@ -277,12 +397,17 @@ a:hover {
 
 /* ----------------- LOGIN STYLES ------------------- */
 
+.form-logo {
+    width: 80px;
+    height: 80px;    
+}
+
 #login {
-    height: 100%;
+    /*height: 100%;*/
 }
 
 #login .row {
-    height: calc(90vh - 56px);
+    /*height: calc(90vh - 56px);*/
 }
 
 #login form {
@@ -325,30 +450,123 @@ a:hover {
 /* -------------- USER PROFILE --------------- */
 
 #user-profile {
-    margin-top: 5vh;
+    /*margin-top: 5vh;*/
 }
 
-#user-profile .jumbotron img {
+#user-profile .tab-content {
+    padding-bottom: 15vh;
+}
+
+#user-profile #profile-header img {
   object-fit: cover;
   width: 100%;
-  max-height: 300px;
-  border-radius: 10px;
+  height: 500px;
+  max-height: 50vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #user-profile .list-group-item-action {
-    border-right: 1px solid #dee2e6;
-    border-bottom: 0;
+  color: #2A2A2A;
+  font-size: 1.15rem;
+    border: 1px solid #c6d2d2;
+    /*border-color: #2b3b2b;*/
     border-top: 0;
-    border-left: 0;
-    border-radius: 5px 0 0 5px;
+    border-radius: 0;
+    /*border: none;*/
+    /*border-top: 0;*/
+    /*border-left: 0;*/
+    /*border-radius: 5px 5px 0 0;*/
 }
 
 #user-profile .list-group-item-action:nth-of-type(5) {
-    border-top: 1px solid #dee2e6;
+    /*border-left: 1px solid #dee2e6;*/
 }
 
 #user-profile .list-group-item-action.active {
-    border-right: none;
+    /*background-color: #546B6B;*/
+    /*border-color: #546B6B;*/
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.index-icon {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+#list-recent .index-icon {
+    background-image: url("/images/icons/bootstrap/clock-fill-blue.svg");
+}
+
+#list-recent.active .index-icon {
+    background-image: url("/images/icons/bootstrap/clock-fill-white.svg");
+}
+
+#list-recent.active {
+
+  background: rgb(6,68,224);
+  background: linear-gradient(135deg, rgba(6,68,224,1) 35%, rgba(0, 123, 255, 1) 100%);
+  border-color: rgb(0,123,255);
+  border-left-color: rgb(6,68,224)
+}
+
+#list-campgrounds .index-icon {
+    background-image: url("/images/icons/tent-solid-green.svg");
+}
+
+#list-campgrounds.active .index-icon {
+    background-image: url("/images/icons/tent-solid-light.svg");
+}
+
+#list-campgrounds.active {
+  border-color: rgb(76,109,76);
+  background: rgb(43,59,43);
+  background: linear-gradient(135deg, rgba(43,59,43,1) 0%, rgba(79,106,79,1) 100%);
+}
+
+#list-reviews .index-icon {
+    background-image: url("/images/icons/bootstrap/star-fill-yellow.svg");
+}
+
+#list-reviews.active .index-icon {
+    background-image: url("/images/icons/bootstrap/star-fill-white.svg");
+}
+
+#list-reviews.active {
+  border-color: #ff9900;
+  background: rgb(179,107,0);
+  background: linear-gradient(135deg, rgba(179,107,0,1) 0%, rgba(255,153,0,1) 100%);  /*background: rgb(255,204,0);*/
+  /*background: linear-gradient(to top left, rgba(255,204,0,1) 0%, rgba(222,177,0,1) 100%);*/
+}
+
+#list-favorites .index-icon {
+    background-image: url("/images/icons/bootstrap/heart-fill-pink.svg");
+}
+
+#list-favorites.active .index-icon {
+    background-image: url("/images/icons/bootstrap/heart-fill-white.svg");
+}
+
+#list-favorites.active {
+  border-color: rgb(255,0,102);
+  background: rgb(179,0,71);
+  background: linear-gradient(135deg, rgba(179,0,71,1) 0%, rgba(255,0,102,1) 100%);
+}
+
+#list-settings .index-icon {
+  background-image: url("/images/icons/bootstrap/gear-fill-grey.svg");
+}
+
+#list-settings.active .index-icon {
+  background-image: url("/images/icons/bootstrap/gear-fill-white.svg");
+}
+
+#list-settings.active {
+  border-color: rgb(82,88,96);
+  background: rgb(82,88,96);
+  background: linear-gradient(135deg, rgba(44,47,52,1) 0%, rgba(82,88,96,1) 100%);
 }
 
 /* Recent Activity Tab*/
@@ -379,9 +597,24 @@ a:hover {
 #recent-content .list-group li img, 
 #reviews-content .list-group li img,
 #favorites-content .list-group li img {
-    height: 80px;
-    width: 120px;
+    min-height: 75px;
+    min-width: 75px;
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    max-height: 100px;
     object-fit: cover;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#recent-content .list-group li img.icon, 
+#reviews-content .list-group li img.icon,
+#favorites-content .list-group li img.icon {
+    min-width: 20px;
+    min-height: 20px;
+    width: 30px;
+    height: 30px;
+    padding-bottom: 5px;
 }
 
 .invalid-tooltip {
@@ -409,14 +642,69 @@ a:hover {
     height: 200px;
     object-fit: cover;
 }
+
 #campgrounds-content .favorite-btn {
     width: 20px;
     height: 20px;
     /*margin-bottom: 2px;*/
 }
 
-/* TEST STYLES  */
-
 #settings-form {
-  max-width: 750px;
+  width: 100%;
+  max-width: 900px;
+}
+
+#new-review {
+    max-width: 500px;
+}
+
+.rating-input {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.rating-label {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: 35px 35px;
+  background-image: url("/images/icons/bootstrap/star.svg");
+  margin-bottom: 0;
+  transition: 0.2s;
+}
+
+.rating-label:hover,
+.rating-label:hover ~ .rating-label,
+.rating-input:checked + .rating-label,
+.rating-input:checked ~ .rating-label {
+  background-image: url("/images/icons/bootstrap/star-fill-yellow.svg");    
+}
+
+.options-btn {
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-image: url("/images/icons/bootstrap/three-dots-vertical.svg");
+  opacity: 0.5;
+  border-radius: 15px;
+}
+
+.options-btn:hover {
+  opacity: 1;
+  background-color: #cccccc;
+}
+
+.new-review-icon {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-image: url("/images/icons/bootstrap/pencil.svg");
+}
+
+.campground-form {
+    max-width: 900px;
 }

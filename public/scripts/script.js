@@ -77,15 +77,15 @@ $(function () {
                 
         // Populate content for clicked tab, set page to 1
         $('#user-tabs-list a').on('click', function (event) {
-            currentTab = event.target.id,
-            currentContent = event.target.hash,
+            currentTab = $(this)[0].id,
+            currentContent = $(this)[0].hash,
             currentPage = 1;
             $.get(URLpath, {
                 currentPage: currentPage,
                 tab: currentTab,
                 update: true
             }).done(function(htmlData) {
-                $(currentContent).html(htmlData);
+                $(currentContent).html($.parseHTML(htmlData));
             });
             return true;
         });

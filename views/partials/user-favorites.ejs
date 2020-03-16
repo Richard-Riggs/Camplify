@@ -1,30 +1,29 @@
+<h4 class="text-center py-2 d-md-none">Favorites</h4>
 <ul class="list-group">
     <% favs.forEach( function(fav) { %>
-            <li class="list-group-item container-fluid">
-                <div class="row">
-                    <div class="col-auto">
+    
+        <li class="list-group-item container-fluid px-3">
+            <div class="row align-items-sm-stretch">
+                <div class="col-4 col-sm-auto">
+                    <div class="image-container">
                         <img class="rounded" src="<%= fav.campID.image %>" alt="Image of <%= fav.campID.name %>">
-                    </div>
-                    <div class="col container-fluid d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <div class="col text-left">
-                                <h5><strong><em><%= fav.campID.name %></em></strong></h5>
-                            </div>
-                            <div class="col text-right">
-                                <small><em><%= moment(fav.createdAt).fromNow() %></em></small>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <small><em>Heart icon goes here</em></small>
-                            </div>                               
-                            <div class="col text-right">
-                                <a href='/campgrounds/<%= fav.campID._id %>' class="text-success"><strong><u>View Campground</u></strong></a>
-                            </div>
-                        </div>                        
+                        <div class="image-overlay-bottom rounded-bottom text-right pr-2 pt-3"><img class="icon" src="/images/icons/bootstrap/heart-fill-pink.svg"></div>                            
                     </div>
                 </div>
-            </li>
+                <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
+                    <div class="row px-3">
+                        <h6><strong><%= user.username %> favorited <em><%= fav.campID.name %></em></strong></h6>
+                    </div>
+                    <div class="row px-3 justify-content-between">
+                        <small class="d-flex align-items-end justify-content-end"><em><%= moment(fav).fromNow() %></em></small>
+                        <div>
+                            <a href='/campgrounds/<%= fav.campID._id %>' class="btn green-btn card-link px-4 py-1 ml-auto">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                        </div>                            
+                    </div>
+                </div>
+            </div>
+        </li>     
+            
     <% }); %>
 </ul>
 

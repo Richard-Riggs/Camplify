@@ -105,7 +105,7 @@ router.route("/campgrounds")
                     id: req.user._id,
                     username: req.user.username
                 },
-                location: data[0].formattedAddress,
+                location: `${data[0].city}, ${data[0].administrativeLevels.level1short}, ${data[0].country}`,
                 lat: data[0].latitude,
                 long: data[0].longitude,
                 commentCount: 0,
@@ -137,7 +137,13 @@ router.route('/campgrounds/:id')
 
     // SHOW ROUTE
     .get((req, res, next) => {
-        Campground.findById(req.params.id).populate("comments").exec((error, campground) => {
+        Campground
+          .findById(req.params.id)
+          .populate({
+            path: "comments",
+            populate: {path: "author.id"}
+          })
+          .exec((error, campground) => {
             if (error) return next(error);
             return res.render('campgrounds/show', {campground: campground});
         });
@@ -164,12 +170,12 @@ router.route('/campgrounds/:id')
           campground.imageID = null;
         } catch(error) {return next(error)}
       }
-      campground.name = req.body.name,
-      campground.description = req.body.description,
-      campground.price = req.body.price,
-      campground.location = data[0].formattedAddress,
-      campground.lat = data[0].latitude,
-      campground.long = data[0].longitude,
+      campground.name = req.body.name;
+      campground.description = req.body.description;
+      campground.price = req.body.price;
+      campground.location = `${data[0].city}, ${data[0].administrativeLevels.level1short}, ${data[0].country}`;
+      campground.lat = data[0].latitude;
+      campground.long = data[0].longitude;
       campground.save();                    
       req.flash('success', 'Successfully updated campground.');
       return res.redirect(`/campgrounds/${req.params.id}`);

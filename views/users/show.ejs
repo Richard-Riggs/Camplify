@@ -2,36 +2,57 @@
 <% include ../partials/navbar %>
 
 <main>
-<div id="user-profile" class="container p-0">
+<div id="user-profile" class="container mt-0 mt-sm-4">
     
     <% if (user.settings.profileVisibility === 'public' || (currentUser && currentUser._id.equals(user._id))) { %>
 
     <div class="row">
-        <div class="col-12 jumbotron container-fluid">
+        <div id="profile-header" class="col-12 container-fluid">
             <div class="row justify-content-center">
-                <div class="col-4">
+                <div class="col-lg-12 image-container mt-0 px-0">
                     <img src="<%= user.image %>">
+                    <h1 class="display-4 image-overlay-bottom d-block w-100 mb-0  pb-2 pt-5 text-center"><%= user.username %></h1> 
                 </div>
-                <div class="col-4 text-center">
-                    <h1 class="display-4"><%= user.username %></h1>                          
-                </div>                
+                <!--<div class="col-4 text-center">-->
+                                             
+                <!--</div>                -->
           
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
-            <div class="list-group" id="user-tabs-list" role="tablist">
-                <a class="list-group-item list-group-item-action <%= (userTab === 'list-recent') ? 'active': '' %>" id="list-recent" data-toggle="list" href="#recent-content" role="tab" aria-controls="list recent activity">Recent Activity</a>
-                <a class="list-group-item list-group-item-action <%= (userTab === 'list-campgrounds') ? 'active': '' %>" id="list-campgrounds" data-toggle="list" href="#campgrounds-content" role="tab" aria-controls="list campgrounds">Campgrounds</a>
-                <a class="list-group-item list-group-item-action <%= (userTab === 'list-reviews') ? 'active': '' %>" id="list-reviews" data-toggle="list" href="#reviews-content" role="tab" aria-controls="list reviews">Reviews</a>
-                <a class="list-group-item list-group-item-action <%= (userTab === 'list-favorites') ? 'active': '' %>" id="list-favorites" data-toggle="list" href="#favorites-content" role="tab" aria-controls="list favorites">Favorites</a>
+        <div class="col-12 pb-3 px-0">
+            <div class="list-group list-group-horizontal rounded-0" id="user-tabs-list" role="tablist">
+                <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center <%= (userTab === 'list-recent') ? 'active': '' %>"
+                id="list-recent" data-toggle="list" href="#recent-content" role="tab" aria-controls="list recent activity">
+                    <div class="index-icon"></div>
+                    <strong class="d-none d-md-inline ml-2">Recent</strong>
+                </a>
+                <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center <%= (userTab === 'list-campgrounds') ? 'active': '' %>"
+                id="list-campgrounds" data-toggle="list" href="#campgrounds-content" role="tab" aria-controls="list campgrounds">
+                    <div class="index-icon"></div>
+                    <strong class="d-none d-md-inline ml-2">Campgrounds</strong>
+                </a>
+                <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center <%= (userTab === 'list-reviews') ? 'active': '' %>"
+                id="list-reviews" data-toggle="list" href="#reviews-content" role="tab" aria-controls="list reviews">
+                    <div class="index-icon"></div>                    
+                    <strong class="d-none d-md-inline ml-2">Reviews</strong>
+                </a>
+                <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center <%= (userTab === 'list-favorites') ? 'active': '' %>"
+                id="list-favorites" data-toggle="list" href="#favorites-content" role="tab" aria-controls="list favorites">
+                    <div class="index-icon"></div>                    
+                    <strong class="d-none d-md-inline ml-2">Favorites</strong>
+                </a>
                 <% if (currentUser && currentUser._id.equals(user._id)) { %>
-                <a class="list-group-item list-group-item-action <%= (userTab === 'list-settings') ? 'active': '' %>" id="list-settings" data-toggle="list" href="#settings-content" role="tab" aria-controls="list settings">Settings</a>
+                <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center <%= (userTab === 'list-settings') ? 'active': '' %>"
+                id="list-settings" data-toggle="list" href="#settings-content" role="tab" aria-controls="list settings">
+                    <div class="index-icon"></div>                    
+                    <strong class="d-none d-md-inline ml-2">Settings</strong>
+                </a>
                 <% } %>
             </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-12 px-0">
             <div class="tab-content" id="user-tabs-content">
                 <div class="tab-pane fade <%= (userTab === 'list-recent') ? 'show active': '' %>" id="recent-content" role="tabpanel" aria-labelledby="recent activity"></div>
                 <div class="tab-pane fade <%= (userTab === 'list-campgrounds') ? 'show active': '' %>" id="campgrounds-content" role="tabpanel" aria-labelledby="user campgrounds"></div>
@@ -77,7 +98,7 @@
                             <input class="form-control shadow-none" type="text" name="username" placeholder="Username">
                             <input class="form-control shadow-none border-top-0" type="password" name="password" placeholder="Password" autocomplete="off">
                         </div>
-                        <button class="btn new-btn btn-block mt-1">Log In</button>
+                        <button class="btn green-btn btn-block mt-1">Log In</button>
                         <p class="mb-0 mt-3">New user? <a href="/users/new" class="text-success">Create an account</a></p>
                     </div>
                 </form>

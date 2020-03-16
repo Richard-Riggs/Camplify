@@ -1,20 +1,22 @@
 <!-- Navbar -->
-<nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+<nav id="navbar" class="navbar navbar-dark navbar-expand-md fixed-top pr-0">
     <div class="container-fluid">
-        <img src="/images/icons/tent-solid-light.svg" class="mr-2" alt="">
-      <a class="navbar-brand" href="#">YelpCamp</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        
+      <a class="navbar-brand header d-flex" href="/campgrounds"><img src="/images/icons/tent-solid-light.svg" class="mr-2" alt=""> Camplify</a>
+      <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse pl-3 pl-md-0" id="navbarSupportedContent">
           
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
+            <hr class="d-md-none">
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/campgrounds">Campgrounds</a>
+            <hr class="d-md-none">
           </li>
           
           <% if (currentUser) { %>
@@ -30,28 +32,30 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-settings">Settings</a>
             </div>
+            <hr class="d-md-none">
           </li>
           <% } else { %>
           <li class="nav-item">
             <a class="nav-link" href="/login">Profile</a>
+            <hr class="d-md-none">
           </li>          
           <% } %>
         </ul>
     
-        <ul class="navbar-nav">
+        <ul class="navbar-nav d-flex flex-row justify-content-center">
             <% if (!currentUser) { %>
                 <li>
-                    <a href='/users/new'><button class="btn btn-outline-success mr-2 my-2 my-sm-0" type="submit">Sign Up</button></a>
+                    <a href='/users/new' class="btn btn-outline-success border border-success rounded mr-2 my-2 my-md-0" type="submit">Sign Up</a>
                 </li>
                 <li>
-                    <a href='/login'><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</button></a>
+                    <a href='/login' class="btn btn-outline-primary border border-primary rounded my-2 my-md-0" type="submit">Log In</a>
                 </li>
             <% } else { %>
                 <li class="nav-item">
                     <a class="nav-link mr-2" href="/users/<%= currentUser.username %>">Signed in as <%= currentUser.username %></a>
                 </li>
                 <li>
-                    <a href='/logout'><button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</button></a>
+                    <a href='/logout' class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</a>
                 </li>
             <% } %>
         </ul>

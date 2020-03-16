@@ -1,22 +1,84 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
-<h1>Sign up!</h1>
 
-<form class="new-form" action="/users" method="POST" enctype="multipart/form-data">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="Email Address" required>
-    <div class="form-group">
-      <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL" required>
-    </div>
 
-    <div class="form-group">
-      <label for="image">Image Upload</label>
-      <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+
+<main class="d-flex flex-column justify-content-center">
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <form class="col-12 col-md-10 m-auto" action="/users" method="POST" enctype="multipart/form-data">
+          <div class="row my-4 my-md-3 mb-4 align-items-center justify-content-center">
+            <img src="/images/icons/tent-solid.svg" alt="" class="form-logo mr-sm-4">
+            <h1 class="header text-center m-0 p-sm-0 col-12 col-sm-auto">Create New Account</h1>                
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="username-input">Username</label>
+              <input id="username-input" class="form-control shadow-none" type="text" name="username" required>
+            </div>                
+            <div class="form-group col-md-4">
+              <label for="password-input">Password</label>                  
+              <input id="password-input" class="form-control shadow-none" type="password" name="password" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="password-input">Confirm Password</label>                   
+              <input id="password-confirm" class="form-control shadow-none" type="password" name="password-confirm" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <label for="email-input">Email Address</label>
+              <input type="email" id="email-input" class="form-control" name="email" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="email-confirm">Confirm Email</label>
+              <input type="email" id="email-confirm" class="form-control" name="email-confirm" required>
+            </div>
+          </div>
+
+          <p class="mb-2">Profile Picture</p>
+          <div class="form-row justify-content-between flex-md-nowrap">
+            <div class="form-group col-12 col-md-auto w-50 flex-shrink-1 mb-0">
+              <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL" required>
+            </div>
+            <span class="d-flex col-12 py-2 px-4 col-md-auto">OR</span>
+            <div class="form-group custom-file col-12 col-md-auto w-50 flex-shrink-1">
+               <label class="custom-file-label mx-1" for="image">Image Upload</label>
+               <input type="file" class="form-control-file border-0" id="image" name="image" accept="image/*" required>
+            </div>                
+          </div>
+          
+          <div class="form-row justify-content-center m-0 p-0">
+            <button class="btn btn-block col-md-3 green-btn mt-5 mx-auto">Create Account</button>            
+          </div>
+
+        </form>
     </div>
-    <button>Sign up!</button>
-</form>
+</div>
+</main>
+
+
+
+
+<!--<h1>Sign up!</h1>-->
+
+<!--<form class="new-form" action="/users" method="POST" enctype="multipart/form-data">-->
+<!--    <input type="text" name="username" placeholder="username">-->
+<!--    <input type="password" name="password" placeholder="password">-->
+<!--    <label for="email">Email</label>-->
+<!--    <input type="email" id="email" name="email" placeholder="Email Address" required>-->
+<!--    <div class="form-group">-->
+<!--      <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL" required>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="image">Image Upload</label>-->
+<!--      <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>-->
+<!--    </div>-->
+<!--    <button>Sign up!</button>-->
+<!--</form>-->
 
 <% include ../partials/footer %>

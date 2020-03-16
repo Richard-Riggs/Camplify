@@ -1,3 +1,4 @@
+<h4 class="text-center py-2 d-md-none">Campgrounds</h4>
 <% campgrounds.forEach( function (campground) { %>
         <div class="card mb-3 rounded-0 hover-shadow">
           <div class="row no-gutters">
@@ -5,46 +6,50 @@
               <img src="<%= campground.image %>" class="card-img rounded-0" alt="...">
             </div>
             <div class="col-md-8">
-              <div class="card-body d-flex flex-column justify-content-between h-100">
-                <div>
-                    <div class="d-flex justify-content-between">
-                        <h5 class="card-title"><strong><%= campground.name %></strong></h5>
-                        <div class="d-flex align-items-start text-center">
-                            <span class="">
-                                <span id="average-rating">
-                                    <% for (let i = 0; i < campground.averageRating; i++) { %>
-                                        &#9733;
-                                    <% } %>
-                                </span>
-                                <small>
-                                    <% if (campground.commentCount) { %>
-                                        <a href="/campgrounds/<%= campground._id %>/comments/">
-                                    <% } %>
-                                  <%= campground.commentCount ? ` ${campground.commentCount} `: "No " %>
-                                  <%= campground.commentCount === 1 ? "Review": "Reviews" %>
-                                    <% if (campground.commentCount) { %>
-                                        </a>
-                                    <% } %>
-                                </small>
+              <div class="card-body container-fluid d-flex flex-column justify-content-between h-100">
+
+                    
+                <div class="row justify-content-between">
+                    <h5 class="card-title mb-0 col-12 col-sm-auto"><strong><%= campground.name %></strong></h5>
+                    <div class="d-flex align-items-center text-center col-auto">
+                        <span class="d-flex align-items-center">
+                            <span class="d-flex">
+                                <% for (let i = 0; i < campground.averageRating; i++) { %>
+                                    <div class="review-star fill"></div>
+                                <% } %>
                             </span>
-                            <form class="favorite-form d-flex align-items-center text-center ml-2" action='/campgrounds/<%= campground._id %>/favorites'>
-                                <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">
-                                <span class="ml-2 mb-1 d-flex"><small class="count"><%= campground.userFavs.length %></small></span>
-                            </form>
-                        </div>
+                            <span class="mx-2">
+                                <% if (campground.commentCount) { %>
+                                  (<%= campground.commentCount %>)
+                                <% } else { %>
+                                  No Reviews                            
+                                <% } %>
+                            </span>
+                        </span>
+                        <form class="favorite-form d-flex align-items-center text-center ml-2" action='/campgrounds/<%= campground._id %>/favorites'>
+                            <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">
+                            <span class="ml-2 mb-1 d-flex"><small class="count"><%= campground.userFavs.length %></small></span>
+                        </form>
                     </div>
-                    <p class="card-text">
+                </div>
+                
+                <div class="row">
+                    <p class="col-12 card-text my-2">
                         <% let words = campground.description.split(" "); %>
                         <% let limit = 30; %>
                         <% for (let i = 0; i < limit; i++) { %>
                             <%= (i === (limit - 1) && (words.length > limit)) ? `${words[i]}...` : words[i] %>
                         <% } %>
-                    </p>
+                    </p>                
                 </div>
-                <div class="d-flex justify-content-between">
-                  <p class="card-text"><small class="text-muted"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></small></p>
-                  <a href='/campgrounds/<%= campground._id %>' class="btn new-btn card-link px-4">Go to Campground</a>
+
+
+                
+                <div class="row justify-content-between">
+                  <p class="card-text col-auto mt-auto mb-0"><small class="text-muted"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></small></p>
+                  <a href='/campgrounds/<%= campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto mr-3 mt-2 col-auto">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
                 </div>
+                
               </div>
             </div>
           </div>
