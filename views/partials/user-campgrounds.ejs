@@ -11,23 +11,20 @@
                     
                 <div class="row justify-content-between">
                     <h5 class="card-title mb-0 col-12 col-sm-auto"><strong><%= campground.name %></strong></h5>
-                    <div class="d-flex align-items-start text-center col-auto">
-                        <span class="">
-                            <span id="average-rating">
+                    <div class="d-flex align-items-center text-center col-auto">
+                        <span class="d-flex align-items-center">
+                            <span class="d-flex">
                                 <% for (let i = 0; i < campground.averageRating; i++) { %>
-                                    &#9733;
+                                    <div class="review-star fill"></div>
                                 <% } %>
                             </span>
-                            <small>
+                            <span class="mx-2">
                                 <% if (campground.commentCount) { %>
-                                    <a href="/campgrounds/<%= campground._id %>/comments/">
+                                  (<%= campground.commentCount %>)
+                                <% } else { %>
+                                  No Reviews                            
                                 <% } %>
-                              <%= campground.commentCount ? ` ${campground.commentCount} `: "No " %>
-                              <%= campground.commentCount === 1 ? "Review": "Reviews" %>
-                                <% if (campground.commentCount) { %>
-                                    </a>
-                                <% } %>
-                            </small>
+                            </span>
                         </span>
                         <form class="favorite-form d-flex align-items-center text-center ml-2" action='/campgrounds/<%= campground._id %>/favorites'>
                             <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">

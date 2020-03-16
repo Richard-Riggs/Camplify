@@ -56,25 +56,32 @@
                 <div class="card h-100 hover-shadow rounded-0">
                     <div class="image-container">
                        <img class="card-img-top camp-index-img rounded-0" src="<%= campground.image %>">
-                        <div class="image-overlay-bottom w-100 pt-5 pl-3 pb-2">
+                        <div class="image-overlay-bottom w-100 pt-5 px-3 pb-2">
                             <h4 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h4>
                         </div>
                     </div>
-                    <div class="card-header camp-index-header px-3 d-none justify-content-between light-green">
-                        <h5 class="camp-index-title align-top m-0 flex-grow-1"><%= campground.name%></h5>
+                    <div class="card-header camp-index-header d-flex px-3 py-2 justify-content-between">
                         
-                        <span class="flex-shrink-0 flex-grow-0 align-middle">
-                            <% if (!campground.commentCount) { %>
-                                <em>No rating</em>
-                            <% } else {%>
-                                <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
-                                    &#9733;
+                            <span class="d-flex align-items-center">
+                                <% if (!campground.commentCount) { %>
+                                    <em>No rating</em>
+                                <% } else {%>
+                                    <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
+                                        <div class="review-star fill"></div>
+                                    <% } %>
+                                    &nbsp;
+                                    (<a href="/campgrounds/<%= campground._id %>/comments"><%= campground.commentCount %></a>)
                                 <% } %>
-                                (<a href="/campgrounds/<%= campground._id %>/comments"><%= campground.commentCount %></a>)
-                            <% } %>
-                        </span>
+                            </span>
+                            <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>
+                                <span class="mr-1 align-top"><strong class="count"><%= campground.userFavs.length %></strong></span>
+                                <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">
+                            </form>  
+                        
+                        
                     </div>
-                    <div class="card-body camp-index-body text-center m-2 d-flex flex-column justify-content-between">
+                    <div class="card-body camp-index-body text-center mx-2 mt-0 pt-0 d-flex flex-column justify-content-between">
+
                         <p class="card-text text-left">
    
                             <% let words = campground.description.split(" "); %>
@@ -84,14 +91,8 @@
                             <% } %>
 
                         </p>
-                        <div class="text-center d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-center align-items-center">
                             <a href='/campgrounds/<%= campground._id %>' class="btn green-btn card-link px-4">More Info</a>
-                                
-                            <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>
-                                <span class="mr-1 align-top"><strong class="count"><%= campground.userFavs.length %></strong></span>
-                                <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">
-                            </form>                                
-
                         </div>
 
                     </div>

@@ -20,23 +20,18 @@
                                 <h2 class="m-0"><strong><%= campground.name %></strong></h2>
                             </div>
                             <div class="col-auto d-flex p-0 align-items-center mx-auto mx-sm-0">
-                                <span>
-                                    <span id="average-rating">
-                                        <% for (let i = 0; i < campground.averageRating; i++) { %>
-                                            &#9733;
-                                        <% } %>
-                                    </span>
-                                    <span>
-                                        <% if (campground.commentCount) { %>
-                                            (<a href="/campgrounds/<%= campground._id %>/comments/">
-                                                <%= campground.commentCount %>
-                                            </a>)
-                                        <% } else { %>
-                                                No Reviews
-                                        <% } %>
-                                    </span>
-                                </span>
-
+                                
+                                  <span id="average-rating" class="d-flex align-items-center mr-2">
+                                    <% if (campground.commentCount) { %>
+                                      <% for (let i = 0; i < campground.averageRating; i++) { %>
+                                        <div class="review-star fill"></div>
+                                      <% } %>
+                                      &nbsp;
+                                      (<%= campground.commentCount %>)
+                                    <% } else { %>
+                                      No Reviews
+                                    <% } %>                                                                   
+                                  </span>
                                 <form class="favorite-form d-flex align-items-center text-center ml-2" action='/campgrounds/<%= campground._id %>/favorites'>
                                     <input class="favorite-btn <%= (currentUser && currentUser.campFavs.find(campFav => campFav.campID.equals(campground._id))) ? "favorited" : "unfavorited" %>" type="submit" value="">
                                     <span class="ml-1 "><strong><%= campground.userFavs.length %></strong></span>
@@ -48,28 +43,26 @@
 
 
                 <!-- Card Header -->
-                <div class="card-header light-green container-fluid d-block d-sm-none">
+                <div class="card-header container-fluid d-block d-sm-none">
                     <div class="row justify-content-between w-100 m-0">
                         <div class="col-12 col-lg-auto p-0 text-center mb-2 mb-lg-0">
                             <h4 class="m-0"><strong><%= campground.name %></strong></h4>
                         </div>
-                        <div class="col-auto d-flex p-0 align-items-center mx-auto mx-lg-0">
+                        <div class="col-auto d-flex flex-nowrap p-0 align-items-center mx-auto mx-lg-0">
                             <span>
-                                <span id="average-rating">
+                                <span class="d-flex align-items-center">
+                                  <% if (campground.commentCount) { %>
                                     <% for (let i = 0; i < campground.averageRating; i++) { %>
-                                        &#9733;
+                                      <div class="review-star fill"></div>
                                     <% } %>
+                                    &nbsp;
+                                    (<%= campground.commentCount %>)
+                                  <% } else { %>
+                                    No Reviews
+                                  <% } %>
+
                                 </span>
-                                <span>
-                                    <% if (campground.commentCount) { %>
-                                        <a href="/campgrounds/<%= campground._id %>/comments/">
-                                    <% } %>
-                                  <%= campground.commentCount ? ` ${campground.commentCount} `: "No " %>
-                                  <%= campground.commentCount === 1 ? "Review": "Reviews" %>
-                                    <% if (campground.commentCount) { %>
-                                        </a>
-                                    <% } %>
-                                </span>
+                                
                             </span>
 
                             <form class="favorite-form d-flex align-items-center text-center ml-2" action='/campgrounds/<%= campground._id %>/favorites'>
