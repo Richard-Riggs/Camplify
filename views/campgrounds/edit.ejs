@@ -22,7 +22,6 @@
             <span class="input-group-text">$</span>
           </div>
         <input id="campPrice" type="number" class="form-control" name="price" placeholder="0.00" value="<%= campground.price %>" min="0.01" step="0.01" required>
-          
         </div>
       </div>
     </div>
@@ -69,8 +68,8 @@
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCODv1xY28AoyCZZU3U2yLWirTRc6PJ3_c&libraries=places"></script>
 <script>
-    const input = document.getElementById('location');
-    autocomplete = new google.maps.places.Autocomplete(input);
+  const input = document.getElementById('location');
+  autocomplete = new google.maps.places.Autocomplete(input);
 </script>
 
 

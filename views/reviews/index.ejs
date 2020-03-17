@@ -3,242 +3,183 @@
 
 <main>
 <div id="review-index" class="container">
-
-<div class="card mt-3">
+  <div class="card mt-3">
     <div class="card-header align-items-middle container-fluid">
-        <div class="row align-items-center">
-            <h5 class="float-left pl-3 m-0"><strong>Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></strong></h5>
-            <% let alreadyReviewed = false; %>
-            <% reviews.forEach((review) => {if (currentUser && review.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-                <button type="button" class="d-flex btn blue-btn round mr-2 ml-auto" data-toggle="modal" data-target="#new-review-modal">
-                    <span class="new-review-icon mr-1"></span>
-                    Write a Review
-                </button>
-            <% } %>
-        </div>
-
-
-    </div>
-    <ul class="list-group list-group-flush">
-        <% reviews.forEach(function(review){ %>
-        
-            <li class="list-group-item campground-review">
-                <div class="row px-3 justify-content-between">
-                    <div class="col-auto p-0 d-flex">
-                      <img src="<%= review.author.id.image %>" class="mr-3">
-                      <div class="d-flex flex-column flex-shrink-0 justify-content-between">
-                        <h5 class="d-inline pl-1"><strong><a href="/users/<%= review.author.username %>"><%= review.author.username %></a></strong></h5>
-                        <span class="d-flex">
-                            <% for (let i = 0; i < review.rating; i++) { %>
-                                <div class="review-star fill"></div>
-                            <% } %>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-auto d-flex p-0">
-                        <small class="d-flex pt-1 flex-shrink-1 text-muted"><%= moment(review.createdAt).fromNow() %></small>
-                        <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
-                            <!--<div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">-->
-                                <!--<a class="btn btn-info"-->
-                                <!--   href="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>/edit">-->
-                                <!--   <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit-->
-                                <!--</a>-->
-                                
-                                
-                            <!--</div>-->
-                            
-                            <div class="dropdown">
-                              <button class="btn options-btn ml-2" type="button" data-toggle="dropdown"></button>
-                              <div class="dropdown-menu">
-                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-review-modal">
-                                  Edit Review
-                                </button>
-                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-review-modal">
-                                  Delete Review
-                                </button>
-                              </div>
-                            </div>
-                            
-                            <!-- Edit Review Modal -->
-                            <div class="modal fade" id="edit-review-modal" tabindex="-1" role="dialog" aria-labelledby="Edit review modal" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title font-weight-bold">Edit Review for <%= campground.name %></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <form class="container" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
-                                      <div class="row justify-content-center align-items-center mb-2">
-                                        <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
-                                        <div class="col-auto form-group d-flex flex-row-reverse m-0">
-                                          <input class="rating-input" id="star-5" type="radio" name="review[rating]" value="5" <%= (review.rating === 5) ? "checked": "" %>>
-                                          <label class="rating-label" for="star-5"></label>        
-                                          <input class="rating-input" id="star-4" type="radio" name="review[rating]" value="4" <%= (review.rating === 4) ? "checked": "" %>>
-                                          <label class="rating-label" for="star-4"></label>
-                                          <input class="rating-input" id="star-3" type="radio" name="review[rating]" value="3" <%= (review.rating === 3) ? "checked": "" %>>
-                                          <label class="rating-label" for="star-3"></label>      
-                                          <input class="rating-input" id="star-2" type="radio" name="review[rating]" value="2" <%= (review.rating === 2) ? "checked": "" %>>
-                                          <label class="rating-label" for="star-2"></label> 
-                                          <input class="rating-input" id="star-1" type="radio" name="review[rating]" value="1" <%= (review.rating === 1) ? "checked": "" %>>
-                                          <label class="rating-label" for="star-1"></label>
-                                        </div>            
-                                      </div>
-                                      <div class="row">
-                                          <div class="col">
-                                              <textarea class="form-control" name="review[text]" id="review-text" maxlength="1500"
-                                                rows="4" placeholder="Describe your experience at <%= campground.name %>"><%= review.text %></textarea>                
-                                          </div>
-                                      </div>
-                                      <div class="row mt-3 justify-content-center">
-                                        <button type="button" class="btn grey-btn col-3 mr-3" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn green-btn col-4">Submit Review</button>           
-                                      </div>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <!-- Delete Review Modal -->
-                            <div class="modal fade" id="delete-review-modal" tabindex="-1" role="dialog">
-                              <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModelLabel">Delete Review</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    This action cannot be undone. Do you wish to continue?
-                                  </div>
-                                  <div class="modal-footer justify-content-center">
-                                      <button type="button" class="btn grey-btn mr-3" data-dismiss="modal">Cancel</button>
-                                      <form class=" delete-form"
-                                       action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                       method="POST">
-                                        <button class="btn btn-danger rounded">Delete Review</button>
-                                      </form>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                        <% } %>                                                
-                    </div>
-                </div>
-                <p class="mb-0 mt-2"><%= review.text %></p>
-            </li>
-            
-        <% }); %>
-    </ul>
-     
-    <!-- Index Pagination -->
-    <nav aria-label="Page navigation">
-        <% if (pages && pages > 1) { %>
-            <ul class="pagination justify-content-center">
-
-            <!-- First Page button (disabled if on first page) -->
-            <% if (current == 1) { %>
-                <li class="page-item disabled"><a class="page-link">First</a></li>
-            <% } else { %>
-                <li><a class="page-link" href="<%= queryString({page: 1}) %>">First</a></li>
-            <% } %>
-
-            <!-- Previous Page button (disabled if on first page) -->
-            <% if (current == 1) { %>
-                <li class="page-item disabled"><a class="page-link">«</a></li>
-            <% } else { %>
-                <li><a class="page-link" href="<%= queryString({page: (Number(current) - 1)}) %>">
-                «</a></li>
-            <% } %>
-
-            <!-- Previous pages ellipses (if there are 5+ previous pages) -->
-            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
-            <% if (i !== 1) { %>
-                <li class="page-item disabled"><a class="page-link">...</a></li>
-            <% } %>
-
-            <!-- Display up to 9 page links (up to 4 before, current, and 4 after) -->
-            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
-                <% if (i == current) { %>
-                <li class="active"><a class="page-link"><%= i %></a></li>
-                <% } else { %>
-                    <li><a class="page-link" href="<%= queryString({page: i}) %>"><%= i %></a></li>
-                <% } %>
-            <% } %>
-
-            <!-- Next pages ellipses (if there are 5+ subsequent pages) -->
-            <% if (pages > Number(current) + 4) { %>
-                <li class="page-item disabled"><a class="page-link">...</a></li>
-            <% } %>
-
-            <!-- Next page button (disabled if on the last page) -->
-            <% if (current == pages) { %>
-                <li class="page-item disabled"><a class="page-link">»</a></li>
-            <% } else { %>
-                <li><a class="page-link" href="<%= queryString({page: (Number(current) + 1)}) %>">»</a></li>
-            <% } %>
-
-            <!-- Last page button (disabled if on the last page) -->
-            <% if (current == pages) { %>
-                <li class="page-item disabled"><a class="page-link">Last</a></li>
-            <% } else { %>
-                <li><a class="page-link" href="<%= queryString({page: pages}) %>">Last</a></li>
-            <% } %>
-        </ul>
-        <% } %>
-    </nav>
-    
-</div>
-
-<!-- New Review Modal -->
-<div class="modal fade" id="new-review-modal" tabindex="-1" role="dialog" aria-labelledby="New review modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title font-weight-bold">Review for <%= campground.name %></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+      <div class="row align-items-center">
+        <h5 class="float-left pl-3 m-0"><strong>Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></strong></h5>
+        <% let alreadyReviewed = false; %>
+        <% reviews.forEach((review) => {if (currentUser && review.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+          <button type="button" class="d-flex btn blue-btn round mr-2 ml-auto" data-toggle="modal" data-target="#new-review-modal">
+            <span class="new-review-icon mr-1"></span>
+            Write a Review
           </button>
-        </div>
-        <div class="modal-body">
-          <form class="container" action="/campgrounds/<%= campground._id %>/reviews" method="POST">
-            <div class="row justify-content-center align-items-center mb-2">
-              <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
-              <div class="col-auto form-group d-flex flex-row-reverse m-0">
-                <input class="rating-input" id="star-5" type="radio" name="review[rating]" value="5" required>
-                <label class="rating-label" for="star-5"></label>        
-                <input class="rating-input" id="star-4" type="radio" name="review[rating]" value="4" required>
-                <label class="rating-label" for="star-4"></label>
-                <input class="rating-input" id="star-3" type="radio" name="review[rating]" value="3" required>
-                <label class="rating-label" for="star-3"></label>      
-                <input class="rating-input" id="star-2" type="radio" name="review[rating]" value="2" required>
-                <label class="rating-label" for="star-2"></label> 
-                <input class="rating-input" id="star-1" type="radio" name="review[rating]" value="1" required>
-                <label class="rating-label" for="star-1"></label>
-              </div>            
-            </div>
-            <div class="row">
-                <div class="col">
-                    <textarea class="form-control" name="review[text]" id="review-text" maxlength="1500"
-                      rows="4" placeholder="Describe your experience at <%= campground.name %>"></textarea>                
-                </div>
-            </div>
-            <div class="row mt-3 justify-content-center">
-              <button type="button" class="btn grey-btn col-3 mr-3" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn green-btn col-4">Submit Review</button>           
-            </div>
-          </form>
-        </div>
+        <% } %>
       </div>
     </div>
-  </div>
+    <ul class="list-group list-group-flush">
+    <% reviews.forEach(function(review){ %>
+      <li class="list-group-item campground-review">
+        <div class="row px-3 justify-content-between">
+          <div class="col-auto p-0 d-flex">
+            <img src="<%= review.author.id.image %>" class="mr-3">
+            <div class="d-flex flex-column flex-shrink-0 justify-content-between">
+              <h5 class="d-inline pl-1"><strong><a href="/users/<%= review.author.username %>"><%= review.author.username %></a></strong></h5>
+              <span class="d-flex">
+                  <% for (let i = 0; i < review.rating; i++) { %>
+                      <div class="review-star fill"></div>
+                  <% } %>
+              </span>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto d-flex p-0">
+            <small class="d-flex pt-1 flex-shrink-1 text-muted"><%= moment(review.createdAt).fromNow() %></small>
+            <% if (currentUser && review.author.id.equals(currentUser._id)) { %>  
+              <div class="dropdown">
+                <button class="btn options-btn ml-2" type="button" data-toggle="dropdown"></button>
+                <div class="dropdown-menu">
+                  <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-review-modal">
+                    Edit Review
+                  </button>
+                  <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-review-modal">
+                    Delete Review
+                  </button>
+                </div>
+              </div>
+                
+              <!-- Edit Review Modal -->
+              <div class="modal fade" id="edit-review-modal" tabindex="-1" role="dialog" aria-labelledby="Edit review modal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title font-weight-bold">Edit Review for <%= campground.name %></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form class="container" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
+                        <div class="row justify-content-center align-items-center mb-2">
+                          <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
+                          <div class="col-auto form-group d-flex flex-row-reverse m-0">
+                            <input class="rating-input" id="star-5" type="radio" name="review[rating]" value="5" <%= (review.rating === 5) ? "checked": "" %>>
+                            <label class="rating-label" for="star-5"></label>        
+                            <input class="rating-input" id="star-4" type="radio" name="review[rating]" value="4" <%= (review.rating === 4) ? "checked": "" %>>
+                            <label class="rating-label" for="star-4"></label>
+                            <input class="rating-input" id="star-3" type="radio" name="review[rating]" value="3" <%= (review.rating === 3) ? "checked": "" %>>
+                            <label class="rating-label" for="star-3"></label>      
+                            <input class="rating-input" id="star-2" type="radio" name="review[rating]" value="2" <%= (review.rating === 2) ? "checked": "" %>>
+                            <label class="rating-label" for="star-2"></label> 
+                            <input class="rating-input" id="star-1" type="radio" name="review[rating]" value="1" <%= (review.rating === 1) ? "checked": "" %>>
+                            <label class="rating-label" for="star-1"></label>
+                          </div>            
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <textarea class="form-control" name="review[text]" id="review-text" maxlength="1500"
+                                  rows="4" placeholder="Describe your experience at <%= campground.name %>"><%= review.text %></textarea>                
+                            </div>
+                        </div>
+                        <div class="row mt-3 justify-content-center">
+                          <button type="button" class="btn grey-btn col-3 mr-3" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn green-btn col-4">Submit Review</button>           
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+                <!-- Delete Review Modal -->
+              <div class="modal fade" id="delete-review-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModelLabel">Delete Review</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      This action cannot be undone. Do you wish to continue?
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn grey-btn mr-3" data-dismiss="modal">Cancel</button>
+                        <form class=" delete-form"
+                        action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                        method="POST">
+                          <button class="btn btn-danger rounded">Delete Review</button>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>                                                
+          </div>
+        </div>
+        <p class="mb-0 mt-2"><%= review.text %></p>
+      </li>
+    <% }); %>
+    </ul>
+    
+    <!-- Index Pagination -->
+    <nav aria-label="Page navigation">
+    <% if (pages && pages > 1) { %>
+      <ul class="pagination justify-content-center">
 
+      <!-- First Page button (disabled if on first page) -->
+      <% if (current == 1) { %>
+        <li class="page-item disabled"><a class="page-link">First</a></li>
+      <% } else { %>
+        <li><a class="page-link" href="<%= queryString({page: 1}) %>">First</a></li>
+      <% } %>
+
+      <!-- Previous Page button (disabled if on first page) -->
+      <% if (current == 1) { %>
+        <li class="page-item disabled"><a class="page-link">«</a></li>
+      <% } else { %>
+        <li><a class="page-link" href="<%= queryString({page: (Number(current) - 1)}) %>">
+        «</a></li>
+      <% } %>
+
+      <!-- Previous pages ellipses (if there are 5+ previous pages) -->
+      <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if (i !== 1) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+      <% } %>
+
+      <!-- Display up to 9 page links (up to 4 before, current, and 4 after) -->
+      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+        <% if (i == current) { %>
+        <li class="active"><a class="page-link"><%= i %></a></li>
+        <% } else { %>
+          <li><a class="page-link" href="<%= queryString({page: i}) %>"><%= i %></a></li>
+        <% } %>
+      <% } %>
+
+      <!-- Next pages ellipses (if there are 5+ subsequent pages) -->
+      <% if (pages > Number(current) + 4) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+      <% } %>
+
+      <!-- Next page button (disabled if on the last page) -->
+      <% if (current == pages) { %>
+        <li class="page-item disabled"><a class="page-link">»</a></li>
+      <% } else { %>
+        <li><a class="page-link" href="<%= queryString({page: (Number(current) + 1)}) %>">»</a></li>
+      <% } %>
+
+      <!-- Last page button (disabled if on the last page) -->
+      <% if (current == pages) { %>
+        <li class="page-item disabled"><a class="page-link">Last</a></li>
+      <% } else { %>
+        <li><a class="page-link" href="<%= queryString({page: pages}) %>">Last</a></li>
+      <% } %>
+      </ul>
+    <% } %>
+    </nav>
+  </div>
 </div>
 </main>
 
+<% include ../partials/new-review-modal %>
 <% include ../partials/footer %>
