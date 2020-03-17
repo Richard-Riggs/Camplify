@@ -79,25 +79,6 @@ body {
   100%     {bottom:30;}
 }
 
-/*#landing-header {*/
-/*    z-index: 1;*/
-/*    position: absolute;*/
-/*    text-align: center;*/
-/*    margin-top: 40vh;*/
-/*    left: 0;*/
-/*    right: 0;*/
-
-/*}*/
-
-/*#landing-header h1 {*/
-/*    color: white;*/
-/*    text-shadow: 0 0 10px #000000;*/
-/*}*/
-
-/*#landing-header a {*/
-/*    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
-/*}*/
-
 #slideshow {
   position: relative;
   /*top: 0;*/

@@ -1,75 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>YelpCamp</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/landing.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
-    </head>
-    <body>
-    
-<% include partials/flash-messages %>
+<% include partials/header %>
+<% include partials/navbar %>
 
-<!-- Landing Container -->
-<!--<div id="landing-header">-->
-<!-- 	<h1>Welcome to YelpCamp!</h1>-->
-<!--	<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>-->
-<!--</div>-->
+<main id="landing">
 
-<!-- Landing Container -->
 
-<div class="container-fluid landing-container front">
-
-    <div class="landing-buttons">
-        <a href='/users/new'><button class="btn btn-outline-success mr-2" type="submit">Sign Up</button></a>
-        <a href='/login'><button class="btn btn-outline-primary " type="submit">Log In</button></a>
+<div class="landing-container front d-flex flex-wrap justify-content-center">
+    <div id="landing-header" class="w-100 text-center align-self-end">
+      <h1 class="text-shadow">Camplify</h1>
+      <p class="lead text-shadow mt-3">Discover your next adventure.</p>
     </div>
-
-    <div class="container">
-        <div class="jumbotron text-light text-center">
-            <h1 class="display-1 text-shadow">YelpCamp</h1>
-            <p class="lead text-shadow mt-3">Discover your next adventure.</p>
-            <a class="btn btn-success btn-lg mt-3" href="/campgrounds" role="button">View Campgrounds</a>
-        </div>
-
+    <div id="arrow-container" class="align-self-end">
+        <img id="down-arrow" class="custom-bounce" src="/images/icons/arrow-down-sign-to-navigate.svg">
     </div>
-
-    <div id="arrow-container">
-        <img id="down-arrow" class="bounce" src="/images/icons/arrow-down-sign-to-navigate.svg" alt="">
-    </div>
-
 </div>
-
-
-
-
-
-
 
 <!-- Landing Slideshow -->
 <div id="slideshow" class="carousel slide carousel-fade back" data-ride="carousel">
   <div class="carousel-inner">
       
     <div class="carousel-item active">
-      <img src="/images/K3mPv14.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="/images/K3mPv14.jpg">
     </div>
     
     <div class="carousel-item">
-      <img src="/images/SBEmFpv.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="/images/SBEmFpv.jpg">
     </div>
     
     <div class="carousel-item">
-      <img src="/images/emvhOnb.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="/images/emvhOnb.jpg">
     </div>
     
     <div class="carousel-item">
-      <img src="/images/2LSMCmJ.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="/images/2LSMCmJ.jpg">
     </div>
 
     <div class="carousel-item">
-      <img src="/images/TVGe0Ef.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="/images/TVGe0Ef.jpg">
     </div>
     
   </div>
@@ -77,26 +43,92 @@
 
 <!-- Features -->
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1 class="display-1">TEST</h1>
+<div id="feature-intro" class="feature">
+    <div class="container">
+      <div class="row justify-content-around">
+          <div class="col-10 col-md-5 mb-3 mb-md-0 landing-fade">
+              <img src="/images/svg-graphics/adventure_.svg" alt="Adventure graphic">
+          </div>
+          <div class="col-12 col-md-6 feature-text landing-fade">
+              <h1 class="header text-center">Chart Your Course</h1>
+              <p>
+                Camplify is a web service for finding, sharing, and reviewing campgrounds across the world.
+                Camplify helps adventurers discover the best-rated campgrounds out there.
+              </p>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div id="feature-share" class="feature">
+  <div class="container">
+    <div class="row justify-content-around">
+        <div class="col-12 col-md-6 feature-text landing-fade">
+            <h1 class="header text-center">Share Your Adventure</h1>
+            <p>
+              Discover an amazing new campground? Camplify makes it easy to upload new
+              campgrounds and help fellow adventurers explore your favorite sites.
+            </p>
+        </div>
+        <div class="col-10 col-md-5 mb-3 mb-md-0 order-first order-md-last landing-fade">
+            <img src="/images/svg-graphics/camping.svg" alt="Camping graphic">
+        </div>        
+    </div>
+  </div>
+</div>
+
+<div id="feature-save" class="feature">
+  <div class="container">
+    <div class="row justify-content-around">
+        <div class="col-10 col-md-5 mb-3 mb-md-0 landing-fade">
+            <img src="/images/svg-graphics/hiking.svg" alt="Mountain graphic">
+        </div>
+        <div class="col-12 col-md-6 feature-text landing-fade">
+            <h1 class="header text-center">Discover New Horizons</h1>
+            <p>
+              See a campsite that piques your interest? Simply click the heart icon to save the
+              most intriguing locations to your list of favorites.
+            </p>
         </div>
     </div>
+  </div>
+</div>
 
+<div id="feature-profile" class="feature">
+  <div class="container">
+    <div class="row justify-content-around">
+        <div class="col-12 col-md-6 feature-text landing-fade">
+            <h1 class="header text-center">Find Fellow Explorers</h1>
+            <p>
+              Visit user profiles to see their campgrounds, favorites, reviews, and recent activity.
+            </p>
+        </div>
+        <div class="col-10 col-md-5 mb-3 mb-md-0 order-first order-md-last landing-fade">
+            <img src="/images/svg-graphics/mountain-hiker.svg" alt="Camping graphic">
+        </div>        
+    </div>
+  </div>
+</div>
+
+<div class="feature mx-2 mx-md-0" id="get-started">
+  <div class="container d-flex flex-column justify-content-center landing-fade">
+    <div class="row justify-content-center">
+        <div class="col-12 feature-text">
+          <h1 class="header text-center mb-4">Get Started</h1>
+        </div>
+   
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto my-2 text-center">
+          <a href="/campgrounds" class="btn d-inline green-btn flat round px-4">View Campgrounds</a>
+        </div>
+        <div class="col-auto my-2 text-center">
+          <a href="/users/new" class="btn d-inline blue-btn flat round px-4">Create an Account</a>          
+        </div>
+    </div>
+  </div>
 </div>
 
 <!-- ------------------------------- -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<script src="/scripts/landing.js"></script>
-</body>
-</html>
+</main>
+<% include partials/footer %>

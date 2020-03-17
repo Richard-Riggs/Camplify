@@ -1,6 +1,29 @@
 // All scripts go inside this function
 $(function () {
 
+    // Landing page functions
+    $('.carousel').carousel({
+        interval: 5000,
+        pause: false
+      });
+
+      $(window).scroll( function(){
+    
+        /* Check the location of each desired element */
+        $('.landing-fade').each( function(i){
+            
+            var bottom_of_object = $(this).offset().top + (0.5 * $(this).outerHeight());
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            
+            /* If the object is completely visible in the window, fade it it */
+            if( bottom_of_window > bottom_of_object ){
+                
+                $(this).animate({'opacity':'1'},500);
+      
+            }
+        }); 
+    });
+
     // Sends post request for favorite button without refreshing page
     $('body').on("submit", ".favorite-form", function(event) {
         event.preventDefault();
