@@ -1,5 +1,5 @@
 {
-  "name": "yelpcamp",
+  "name": "Camplify",
   "version": "1.0.0",
   "description": "Yelp Camp App",
   "main": "app.js",
@@ -14,6 +14,7 @@
     "bootstrap-icons": "^1.0.0-alpha2",
     "cloudinary": "^1.19.0",
     "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",

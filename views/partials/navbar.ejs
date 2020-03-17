@@ -1,109 +1,92 @@
-<!-- Navbar -->
 <nav id="navbar" class="navbar navbar-dark navbar-expand-md fixed-top pr-0">
-    <div class="container-fluid">
-        
-      <a class="navbar-brand header d-flex" href="/campgrounds"><img src="/images/icons/tent-solid-light.svg" class="mr-2" alt=""> Camplify</a>
-      <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse pl-3 pl-md-0" id="navbarSupportedContent">
-          
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-            <hr class="d-md-none">
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/campgrounds">Campgrounds</a>
-            <hr class="d-md-none">
-          </li>
-          
-          <% if (currentUser) { %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Profile
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-recent">Recent Activity</a>
-              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-campgrounds">Campgrounds</a>
-              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-reviews">Reviews</a>  
-              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-favorites">Favorites</a>              
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-settings">Settings</a>
-            </div>
-            <hr class="d-md-none">
-          </li>
-          <% } else { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Profile</a>
-            <hr class="d-md-none">
-          </li>          
-          <% } %>
-        </ul>
-    
-        <ul class="navbar-nav d-flex flex-row justify-content-center">
-            <% if (!currentUser) { %>
-                <li>
-                    <a href='/users/new' class="btn btn-outline-primary border border-primary rounded mr-2 my-2 my-md-0" type="submit">Sign Up</a>
-                </li>
-                <li>
-                    <a href='/login' class="btn btn-outline-success border border-success rounded my-2 my-md-0" type="submit">Log In</a>
-                </li>
-            <% } else { %>
-                <li class="nav-item">
-                    <a class="nav-link mr-2" href="/users/<%= currentUser.username %>">Signed in as <%= currentUser.username %></a>
-                </li>
-                <li>
-                    <a href='/logout' class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</a>
-                </li>
-            <% } %>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand header d-flex" href="/campgrounds"><img src="/images/icons/tent-solid-light.svg" class="mr-2" alt=""> Camplify</a>
+    <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse pl-3 pl-md-0" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+          <hr class="d-md-none">
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/campgrounds">Campgrounds</a>
+          <hr class="d-md-none">
+        </li>
+        <% if (currentUser) { %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profile
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-recent">Recent Activity</a>
+            <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-campgrounds">Campgrounds</a>
+            <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-reviews">Reviews</a>  
+            <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-favorites">Favorites</a>              
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/users/<%= currentUser.username %>?tab=list-settings">Settings</a>
+          </div>
+          <hr class="d-md-none">
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Profile</a>
+          <hr class="d-md-none">
+        </li>          
+        <% } %>
+      </ul>
+      <ul class="navbar-nav d-flex flex-row justify-content-center">
+        <% if (!currentUser) { %>
+        <li>
+          <a href='/users/new' class="btn btn-outline-primary border border-primary rounded mr-2 my-2 my-md-0" type="submit">Sign Up</a>
+        </li>
+        <li>
+          <a href='/login' class="btn btn-outline-success border border-success rounded my-2 my-md-0" type="submit">Log In</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link mr-2" href="/users/<%= currentUser.username %>">Signed in as <%= currentUser.username %></a>
+        </li>
+        <li>
+          <a href='/logout' class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
   </div>
 </nav>
 
-
 <!-- Flash Messages -->
+<% if (error && error.length > 0) { %>
+  <div class="flash container fixed-top">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= error %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+<% } %>
 
-    <% if (error && error.length > 0) { %>
+<% if (warning && warning.length > 0) { %>
+  <div class="flash container fixed-top">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= warning %>
+      <button type="button " class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+<% } %>
 
-        <!-- Error Message Flash -->
-        <div class="flash container fixed-top">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <%= error %>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-        </div>
-    <% } %>
-
-    <% if (warning && warning.length > 0) { %>
-
-        <!-- Warning Message Flash -->
-        <div class="flash container fixed-top">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <%= warning %>
-              <button type="button " class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-        </div>
-    <% } %>
-
-    <% if (success && success.length > 0) { %>
-
-        <!-- Success Message Flash -->
-        <div class="flash container fixed-top">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <%= success %>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-        </div>
-
-    <% } %>
-
-
+<% if (success && success.length > 0) { %>
+  <div class="flash container fixed-top">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+<% } %>
