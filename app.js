@@ -63,7 +63,7 @@ app.use(flash())
 // Create connection string
 const atlasUsername = secrets.atlasUsername,
       atlasPassword = secrets.atlasPassword,
-      database = 'yelpCamp',
+      database = 'Camplify',
       connectionString = `mongodb+srv://${atlasUsername}:${atlasPassword}@cluster0-pekd8.mongodb.net/${database}?retryWrites=true&w=majority`;
 
 // Connect to MongoDB Atlas with connection string
@@ -90,5 +90,5 @@ app.use(middleware.handleErrors);
 //===================== START SERVER ====================
 
 app.listen(process.env.PORT || 3000, function () {
-    console.log("The YelpCamp server has started");
+    console.log("The Camplify server has started");
 });

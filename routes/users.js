@@ -63,7 +63,7 @@ router.post('/users', [middleware.isLoggedOut, upload.single('image')], async (r
         });
         let user = await User.register(newUser, req.body.password);
         passport.authenticate('local')(req, res, () => {
-            req.flash('success', `Welcome to YelpCamp, ${user.username}!`);
+            req.flash('success', `Welcome to Camplify, ${user.username}!`);
             return res.redirect(`/users/${user.username}`);             
         });
     } catch(error) {return next(error)}
