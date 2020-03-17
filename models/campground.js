@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
       cloudinary = require("cloudinary"),
       secrets  = require("../lib/secrets"),
-      Comment  = require("./comment");
+      Review  = require("./review");
 
 cloudinary.config({ 
   cloud_name: secrets.CLOUDINARY_CLOUDNAME, 
@@ -28,10 +28,10 @@ const campgroundSchema = new mongoose.Schema({
         username: String
     },
     
-    comments: [
+    reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
+            ref: "Review"
         }
     ],
 
@@ -42,14 +42,14 @@ const campgroundSchema = new mongoose.Schema({
         }
     ],
     userFavCount: Number,
-    commentCount: Number,
+    reviewCount: Number,
     averageRating: Number
 });
 
 
 campgroundSchema.pre('remove', async function(next) {
     try {
-        await Comment.deleteMany({_id: {$in: this.comments}});
+        await Review.deleteMany({_id: {$in: this.reviews}});
         if (this.imageID) await cloudinary.uploader.destroy(this.imageID);
     } catch(error) {return next(error)}
     return next();

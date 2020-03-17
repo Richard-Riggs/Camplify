@@ -3,15 +3,15 @@
 const express = require("express"),
       router  = express.Router(),
       Campground = require("../models/campground"),
-      Comment = require("../models/comment"),
+      Review = require("../models/review"),
       middleware = require("../middleware"),
       database = require("../lib/database"),
       ejsFunctions = require("../lib/ejsFunctions");
 
-// ------------------ Comments Routes --------------------
+// ------------------ Reviews Routes --------------------
 
 // INDEX ROUTE
-router.get('/campgrounds/:id/comments', (req, res) => {
+router.get('/campgrounds/:id/reviews', (req, res) => {
 
     //let campground = await Campground.findById(req.params.id);
     Campground.findById(req.params.id, function(error, campground) {
@@ -24,21 +24,21 @@ router.get('/campgrounds/:id/comments', (req, res) => {
             let pageQuery = parseInt(req.query.page);
             let pageNumber = pageQuery ? pageQuery : 1;            
             
-            Comment
-                .find({_id: {$in: campground.comments}})
+            Review
+                .find({_id: {$in: campground.reviews}})
                 .sort({ createdAt: 'descending'})
                 .skip((perPage * pageNumber) - perPage)
                 .limit(perPage)
                 .populate("author.id")
-                .exec(function (error, comments) {
-                    Comment.countDocuments({_id: {$in: campground.comments}}).exec(function (error, count) {
+                .exec(function (error, reviews) {
+                    Review.countDocuments({_id: {$in: campground.reviews}}).exec(function (error, count) {
                         if (error) {
                             req.flash('error', `Error: ${error.message}.`);
                             res.redirect('/');
                         } else {
-                            res.render("comments/index", {
+                            res.render("reviews/index", {
                                 campground: campground,
-                                comments: comments,
+                                reviews: reviews,
                                 current: pageNumber,
                                 pages: Math.ceil(count / perPage),
                                 queryString: ejsFunctions.queryString,
@@ -51,7 +51,7 @@ router.get('/campgrounds/:id/comments', (req, res) => {
 });
 
 // NEW COMMENT ROUTE
-router.route('/campgrounds/:id/comments/new')
+router.route('/campgrounds/:id/reviews/new')
     .get([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
         Campground.findById(req.params.id, (error, campground) => {
             if (error) {
@@ -59,13 +59,13 @@ router.route('/campgrounds/:id/comments/new')
                 res.redirect(`/campgrounds`);
             }
             else {
-                res.render('comments/new', {campground: campground});
+                res.render('reviews/new', {campground: campground});
             }
         });
     });
 
 // CREATE COMMENT ROUTE
-router.route('/campgrounds/:id/comments')
+router.route('/campgrounds/:id/reviews')
     .post([middleware.isLoggedIn, middleware.userAlreadyReviewed], (req, res) => {
         
         // Lookup campground using ID
@@ -75,24 +75,24 @@ router.route('/campgrounds/:id/comments')
                 res.redirect('/campgrounds');
             } else {
                 
-                // Create new comment document
-                Comment.create(req.body.comment, (error, comment) => {
+                // Create new review document
+                Review.create(req.body.review, (error, review) => {
                     if (error) {
                         req.flash('error', `Error: ${error.message}.`);
                         res.redirect('back');
                     } else {
 
-                        // Add username and ID to comment
-                        comment.author.id = req.user._id;
-                        comment.author.username = req.user.username;
-                        comment.createdAt = Date();
-                        comment.campground = campground._id;
-                        comment.save();
+                        // Add username and ID to review
+                        review.author.id = req.user._id;
+                        review.author.username = req.user.username;
+                        review.createdAt = Date();
+                        review.campground = campground._id;
+                        review.save();
 
-                        // Associate new comment with campground                    
-                        campground.comments.push(comment);
-                        campground.averageRating = database.addRating(campground, comment);
-                        campground.commentCount = campground.comments.length;
+                        // Associate new review with campground                    
+                        campground.reviews.push(review);
+                        campground.averageRating = database.addRating(campground, review);
+                        campground.reviewCount = campground.reviews.length;
                         campground.save();
                         
                         // Redirect to campground show page                        
@@ -105,8 +105,8 @@ router.route('/campgrounds/:id/comments')
 
 
 // EDIT COMMENT ROUTE
-router.get("/campgrounds/:id/comments/:comment_id/edit",
-           [middleware.isLoggedIn, middleware.checkCommentOwnership],
+router.get("/campgrounds/:id/reviews/:review_id/edit",
+           [middleware.isLoggedIn, middleware.checkReviewOwnership],
            function(req, res) {
     
     // Lookup Campground by ID
@@ -119,18 +119,18 @@ router.get("/campgrounds/:id/comments/:comment_id/edit",
         }
         else {
             
-            // Lookup Comment by ID
-            Comment.findById(req.params.comment_id, function(error, comment) {
+            // Lookup Review by ID
+            Review.findById(req.params.review_id, function(error, review) {
                 if (error) {
                     req.flash('error', `Error: ${error.message}.`);
                     res.redirect(`/campgrounds/${req.params.id}`);
                 }
                 else {
                     
-                    // Send campground and comment document data to template
-                    res.render('comments/edit', {
+                    // Send campground and review document data to template
+                    res.render('reviews/edit', {
                         campground: campground,
-                        comment: comment
+                        review: review
                     });
                 }
             });
@@ -140,8 +140,8 @@ router.get("/campgrounds/:id/comments/:comment_id/edit",
 
 
 // UPDATE COMMENT ROUTE
-router.put("/campgrounds/:id/comments/:comment_id",
-           [middleware.isLoggedIn, middleware.checkCommentOwnership],
+router.put("/campgrounds/:id/reviews/:review_id",
+           [middleware.isLoggedIn, middleware.checkReviewOwnership],
            function(req, res) {
                
     Campground.findById(req.params.id, function(error, campground) {
@@ -150,16 +150,16 @@ router.put("/campgrounds/:id/comments/:comment_id",
             res.redirect('/campgrounds/');
         } else {
             
-            Comment.findById(req.params.comment_id, function(error, comment) {
+            Review.findById(req.params.review_id, function(error, review) {
                 if (error) {
                     req.flash('error', `Error: ${error.message}.`);
                     res.redirect('back');
                 } else {
-                    campground.averageRating = database.updateRating(campground, comment, Number(req.body.comment.rating));
+                    campground.averageRating = database.updateRating(campground, review, Number(req.body.review.rating));
                     campground.save();
-                    comment.text = req.body.comment.text;
-                    comment.rating = req.body.comment.rating;
-                    comment.save();
+                    review.text = req.body.review.text;
+                    review.rating = req.body.review.rating;
+                    review.save();
                     res.redirect(`/campgrounds/${req.params.id}`);
                 }
             });
@@ -169,8 +169,8 @@ router.put("/campgrounds/:id/comments/:comment_id",
 
 
 // DESTROY COMMENT ROUTE
-router.delete('/campgrounds/:id/comments/:comment_id',
-              [middleware.isLoggedIn, middleware.checkCommentOwnership],
+router.delete('/campgrounds/:id/reviews/:review_id',
+              [middleware.isLoggedIn, middleware.checkReviewOwnership],
               function(req, res) {
 
     // Lookup associated campground by ID
@@ -180,15 +180,15 @@ router.delete('/campgrounds/:id/comments/:comment_id',
             res.redirect('/campgrounds');
         } else {
 
-            // Lookup comment by ID and delete
-            Comment.findByIdAndDelete(req.params.comment_id, function(error, comment) {
+            // Lookup review by ID and delete
+            Review.findByIdAndDelete(req.params.review_id, function(error, review) {
                 if (error) {req.flash('error', `Error: ${error.message}.`);}
                 else {
-                    campground.averageRating = database.removeRating(campground, comment);
-                    campground.comments.pull(req.params.comment_id);
-                    campground.commentCount = campground.comments.length;
+                    campground.averageRating = database.removeRating(campground, review);
+                    campground.reviews.pull(req.params.review_id);
+                    campground.reviewCount = campground.reviews.length;
                     campground.save();
-                    req.flash('success', 'Comment has been deleted');
+                    req.flash('success', 'Review has been deleted');
                 }
                 res.redirect(`/campgrounds/${req.params.id}`);
             });

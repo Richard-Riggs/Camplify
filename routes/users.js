@@ -3,7 +3,7 @@ const express = require("express"),
       router = express.Router(),
       User = require("../models/user"),
       Campground = require("../models/campground"),
-      Comment = require("../models/comment"),
+      Review = require("../models/review"),
       passport = require("passport"),
       multer   = require("multer"),
       cloudinary = require("cloudinary"),
@@ -98,10 +98,10 @@ router.get('/users/:username', (req, res, next) => {
                         Campground.find({ "author.id": user._id }, function(error, campgrounds) {
                             if (error) return next(error);
                             else {
-                                Comment.find({ "author.id": user._id }).populate('campground').exec(function(error, comments) {
+                                Review.find({ "author.id": user._id }).populate('campground').exec(function(error, reviews) {
                                     if (error) return next(error);
                                     else {
-                                        let recentActivities = user.campFavs.concat(campgrounds).concat(comments);
+                                        let recentActivities = user.campFavs.concat(campgrounds).concat(reviews);
                                         recentActivities.sort((a, b) => {
                                             return Date.parse(b.createdAt) - Date.parse(a.createdAt);
                                         });
@@ -141,21 +141,21 @@ router.get('/users/:username', (req, res, next) => {
                         break;
 
                     case 'list-reviews':
-                        Comment
+                        Review
                             .find({ "author.id": user._id })
                             .sort({ createdAt: 'descending'})
                             .skip((perPage * currentPage) - perPage)
                             .limit(perPage)
                             .populate("campground")
-                            .exec( function(error, comments) {
+                            .exec( function(error, reviews) {
                                 if (error) return next(error);
                                 else {
-                                    Comment.countDocuments().exec(function (error, count) {
+                                    Review.countDocuments().exec(function (error, count) {
                                         if (error) return next(error);
                                         else {
                                             return res.render('partials/user-reviews', {
                                                 user: user,
-                                                comments: comments,
+                                                reviews: reviews,
                                                 currentPage: currentPage,
                                                 maxPage: Math.ceil(count / perPage)
                                             });                                            

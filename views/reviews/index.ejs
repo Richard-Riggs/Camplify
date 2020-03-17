@@ -9,7 +9,7 @@
         <div class="row align-items-center">
             <h5 class="float-left pl-3 m-0"><strong>Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></strong></h5>
             <% let alreadyReviewed = false; %>
-            <% comments.forEach((comment) => {if (currentUser && comment.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
+            <% reviews.forEach((review) => {if (currentUser && review.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
                 <button type="button" class="d-flex btn blue-btn round mr-2 ml-auto" data-toggle="modal" data-target="#new-review-modal">
                     <span class="new-review-icon mr-1"></span>
                     Write a Review
@@ -20,27 +20,27 @@
 
     </div>
     <ul class="list-group list-group-flush">
-        <% comments.forEach(function(comment){ %>
+        <% reviews.forEach(function(review){ %>
         
             <li class="list-group-item campground-review">
                 <div class="row px-3 justify-content-between">
                     <div class="col-auto p-0 d-flex">
-                      <img src="<%= comment.author.id.image %>" class="mr-3">
+                      <img src="<%= review.author.id.image %>" class="mr-3">
                       <div class="d-flex flex-column flex-shrink-0 justify-content-between">
-                        <h5 class="d-inline pl-1"><strong><a href="/users/<%= comment.author.username %>"><%= comment.author.username %></a></strong></h5>
+                        <h5 class="d-inline pl-1"><strong><a href="/users/<%= review.author.username %>"><%= review.author.username %></a></strong></h5>
                         <span class="d-flex">
-                            <% for (let i = 0; i < comment.rating; i++) { %>
+                            <% for (let i = 0; i < review.rating; i++) { %>
                                 <div class="review-star fill"></div>
                             <% } %>
                         </span>
                       </div>
                     </div>
                     <div class="col-12 col-sm-auto d-flex p-0">
-                        <small class="d-flex pt-1 flex-shrink-1 text-muted"><%= moment(comment.createdAt).fromNow() %></small>
-                        <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                        <small class="d-flex pt-1 flex-shrink-1 text-muted"><%= moment(review.createdAt).fromNow() %></small>
+                        <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
                             <!--<div class="btn-group btn-group-sm mt-1 ml-auto" role="group" aria-label="">-->
                                 <!--<a class="btn btn-info"-->
-                                <!--   href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">-->
+                                <!--   href="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>/edit">-->
                                 <!--   <img src="/images/icons/pencil.svg" width="15" height="15" alt=""> Edit-->
                                 <!--</a>-->
                                 
@@ -70,26 +70,26 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <form class="container" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+                                    <form class="container" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
                                       <div class="row justify-content-center align-items-center mb-2">
                                         <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
                                         <div class="col-auto form-group d-flex flex-row-reverse m-0">
-                                          <input class="rating-input" id="star-5" type="radio" name="comment[rating]" value="5" <%= (comment.rating === 5) ? "checked": "" %>>
+                                          <input class="rating-input" id="star-5" type="radio" name="review[rating]" value="5" <%= (review.rating === 5) ? "checked": "" %>>
                                           <label class="rating-label" for="star-5"></label>        
-                                          <input class="rating-input" id="star-4" type="radio" name="comment[rating]" value="4" <%= (comment.rating === 4) ? "checked": "" %>>
+                                          <input class="rating-input" id="star-4" type="radio" name="review[rating]" value="4" <%= (review.rating === 4) ? "checked": "" %>>
                                           <label class="rating-label" for="star-4"></label>
-                                          <input class="rating-input" id="star-3" type="radio" name="comment[rating]" value="3" <%= (comment.rating === 3) ? "checked": "" %>>
+                                          <input class="rating-input" id="star-3" type="radio" name="review[rating]" value="3" <%= (review.rating === 3) ? "checked": "" %>>
                                           <label class="rating-label" for="star-3"></label>      
-                                          <input class="rating-input" id="star-2" type="radio" name="comment[rating]" value="2" <%= (comment.rating === 2) ? "checked": "" %>>
+                                          <input class="rating-input" id="star-2" type="radio" name="review[rating]" value="2" <%= (review.rating === 2) ? "checked": "" %>>
                                           <label class="rating-label" for="star-2"></label> 
-                                          <input class="rating-input" id="star-1" type="radio" name="comment[rating]" value="1" <%= (comment.rating === 1) ? "checked": "" %>>
+                                          <input class="rating-input" id="star-1" type="radio" name="review[rating]" value="1" <%= (review.rating === 1) ? "checked": "" %>>
                                           <label class="rating-label" for="star-1"></label>
                                         </div>            
                                       </div>
                                       <div class="row">
                                           <div class="col">
-                                              <textarea class="form-control" name="comment[text]" id="review-text" maxlength="1500"
-                                                rows="4" placeholder="Describe your experience at <%= campground.name %>"><%= comment.text %></textarea>                
+                                              <textarea class="form-control" name="review[text]" id="review-text" maxlength="1500"
+                                                rows="4" placeholder="Describe your experience at <%= campground.name %>"><%= review.text %></textarea>                
                                           </div>
                                       </div>
                                       <div class="row mt-3 justify-content-center">
@@ -118,7 +118,7 @@
                                   <div class="modal-footer justify-content-center">
                                       <button type="button" class="btn grey-btn mr-3" data-dismiss="modal">Cancel</button>
                                       <form class=" delete-form"
-                                       action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                       action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
                                        method="POST">
                                         <button class="btn btn-danger rounded">Delete Review</button>
                                       </form>
@@ -130,7 +130,7 @@
                         <% } %>                                                
                     </div>
                 </div>
-                <p class="mb-0 mt-2"><%= comment.text %></p>
+                <p class="mb-0 mt-2"><%= review.text %></p>
             </li>
             
         <% }); %>
@@ -206,25 +206,25 @@
           </button>
         </div>
         <div class="modal-body">
-          <form class="container" action="/campgrounds/<%= campground._id %>/comments" method="POST">
+          <form class="container" action="/campgrounds/<%= campground._id %>/reviews" method="POST">
             <div class="row justify-content-center align-items-center mb-2">
               <span class="m-0 col-12 text-center font-weight-bold">Rating (1-5)</span>
               <div class="col-auto form-group d-flex flex-row-reverse m-0">
-                <input class="rating-input" id="star-5" type="radio" name="comment[rating]" value="5" required>
+                <input class="rating-input" id="star-5" type="radio" name="review[rating]" value="5" required>
                 <label class="rating-label" for="star-5"></label>        
-                <input class="rating-input" id="star-4" type="radio" name="comment[rating]" value="4" required>
+                <input class="rating-input" id="star-4" type="radio" name="review[rating]" value="4" required>
                 <label class="rating-label" for="star-4"></label>
-                <input class="rating-input" id="star-3" type="radio" name="comment[rating]" value="3" required>
+                <input class="rating-input" id="star-3" type="radio" name="review[rating]" value="3" required>
                 <label class="rating-label" for="star-3"></label>      
-                <input class="rating-input" id="star-2" type="radio" name="comment[rating]" value="2" required>
+                <input class="rating-input" id="star-2" type="radio" name="review[rating]" value="2" required>
                 <label class="rating-label" for="star-2"></label> 
-                <input class="rating-input" id="star-1" type="radio" name="comment[rating]" value="1" required>
+                <input class="rating-input" id="star-1" type="radio" name="review[rating]" value="1" required>
                 <label class="rating-label" for="star-1"></label>
               </div>            
             </div>
             <div class="row">
                 <div class="col">
-                    <textarea class="form-control" name="comment[text]" id="review-text" maxlength="1500"
+                    <textarea class="form-control" name="review[text]" id="review-text" maxlength="1500"
                       rows="4" placeholder="Describe your experience at <%= campground.name %>"></textarea>                
                 </div>
             </div>

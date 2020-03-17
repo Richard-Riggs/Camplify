@@ -84,7 +84,7 @@ CAMPGROUND NEW/EDIT FORM
 COMMENT NEW/EDIT
 - X - Include and require 1-5 star rating -------------------------------[Completed 1/9/2020]
 - Set all form fields as required
-- Set max limit for comment length
+- Set max limit for review length
 
 LOGIN/REGISTER FORMS
 - Update form styling

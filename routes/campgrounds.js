@@ -108,7 +108,7 @@ router.route("/campgrounds")
                 location: `${data[0].city}, ${data[0].administrativeLevels.level1short}, ${data[0].country}`,
                 lat: data[0].latitude,
                 long: data[0].longitude,
-                commentCount: 0,
+                reviewCount: 0,
                 userFavCount: 0,
                 averageRating: 0
             }, function(error, campground) {
@@ -140,7 +140,7 @@ router.route('/campgrounds/:id')
         Campground
           .findById(req.params.id)
           .populate({
-            path: "comments",
+            path: "reviews",
             populate: {path: "author.id"}
           })
           .exec((error, campground) => {

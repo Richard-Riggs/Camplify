@@ -1,6 +1,6 @@
 // MODULES
 const Campground = require("../models/campground"),
-      Comment    = require("../models/comment"),
+      Review    = require("../models/review"),
       User       = require("../models/user");
 
 // Pass user object to response templates
@@ -58,11 +58,11 @@ module.exports.checkCampgroundOwnership = function(req, res, next) {
 };
 
 
-// Check if user is authorized to modify comment
-module.exports.checkCommentOwnership = function(req, res, next) {
+// Check if user is authorized to modify review
+module.exports.checkReviewOwnership = function(req, res, next) {
     
-    // Lookup comment by id
-    Comment.findById(req.params.comment_id, function(error, comment) {
+    // Lookup review by id
+    Review.findById(req.params.review_id, function(error, review) {
         
         // Redirect to campgrounds page if there's an error
         if (error) {
@@ -71,14 +71,14 @@ module.exports.checkCommentOwnership = function(req, res, next) {
         }
         else {
             
-            // Continue routing if user's id matches the comment author's id
-            if (comment.author.id.equals(req.user._id)) {
+            // Continue routing if user's id matches the review author's id
+            if (review.author.id.equals(req.user._id)) {
                 next();
             }
 
             // Redirect back if there's no match
             else {
-                req.flash('error', 'Error: you are not authorized to modify this comment.');
+                req.flash('error', 'Error: you are not authorized to modify this review.');
                 res.redirect(`/campgrounds/${req.params.id}`);
             }
         }
@@ -96,16 +96,16 @@ module.exports.userAlreadyReviewed = function (req, res, next) {
             res.redirect('/campgrounds');
         } else {
 
-            // Lookup comments associated with campground
-            Comment.find({_id: {$in: campground.comments}}, function (error, comments) {
+            // Lookup reviews associated with campground
+            Review.find({_id: {$in: campground.reviews}}, function (error, reviews) {
                 if (error) {
                     req.flash('error', `Error: ${error.message}.`);
                     res.redirect('/campgrounds');
                 } else {
 
-                // Compare current user against comments
-                for(let i=0; i < comments.length; i++) {
-                    if (comments[i].author.id.equals(req.user._id)) {
+                // Compare current user against reviews
+                for(let i=0; i < reviews.length; i++) {
+                    if (reviews[i].author.id.equals(req.user._id)) {
                         req.flash('warning', 'You have already posted a review for this campground.');
                         return res.redirect(`/campgrounds/${req.params.id}`);
                     }

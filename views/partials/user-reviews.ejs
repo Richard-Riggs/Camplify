@@ -1,15 +1,15 @@
 <h4 class="text-center py-2 d-md-none">Reviews</h4>
 <ul class="list-group">
-    <% comments.forEach( function(comment) { %>
+    <% reviews.forEach( function(review) { %>
     
             <li class="list-group-item container-fluid px-3">
                 <div class="row align-items-sm-stretch">
                     <div class="col-4 col-sm-auto">
                         <div class="image-container">
-                            <img class="rounded" src="<%= comment.campground.image %>" alt="Image of <%= comment.campground.name %>">
+                            <img class="rounded" src="<%= review.campground.image %>" alt="Image of <%= review.campground.name %>">
                             <div class="image-overlay-bottom rounded-bottom text-right pr-2 pt-3">
-                                <% if (comment.rating) { %>
-                                <span style="color:#ff9900"><%= comment.rating %>/5</span>
+                                <% if (review.rating) { %>
+                                <span style="color:#ff9900"><%= review.rating %>/5</span>
                                 <% } %>
                                 <img class="icon" src="/images/icons/bootstrap/star-fill-yellow.svg">                                
                             </div>                            
@@ -17,12 +17,12 @@
                     </div>
                     <div class="col-8 col-sm-auto d-flex flex-column justify-content-between flex-grow-1">
                         <div class="row px-3">
-                            <h6><strong><%= user.username %> reviewed <em><%= comment.campground.name %></em></strong></h6>
+                            <h6><strong><%= user.username %> reviewed <em><%= review.campground.name %></em></strong></h6>
                         </div>
                         <div class="row px-3 justify-content-between">
-                            <small class="d-flex align-items-end justify-content-end"><em><%= moment(comment.createdAt).fromNow() %></em></small>
+                            <small class="d-flex align-items-end justify-content-end"><em><%= moment(review.createdAt).fromNow() %></em></small>
                             <div>
-                                <a href='/campgrounds/<%= comment.campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
+                                <a href='/campgrounds/<%= review.campground._id %>' class="btn green-btn card-link px-4 py-1 ml-auto">View<span class="d-none d-sm-inline">&nbsp;Campground</span></a>
                             </div>                            
                         </div>
                     </div>

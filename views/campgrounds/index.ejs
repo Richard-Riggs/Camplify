@@ -63,14 +63,14 @@
                     <div class="card-header camp-index-header d-flex px-3 py-2 justify-content-between">
                         
                             <span class="d-flex align-items-center">
-                                <% if (!campground.commentCount) { %>
+                                <% if (!campground.reviewCount) { %>
                                     <em>No rating</em>
                                 <% } else {%>
                                     <% for (let i = 0; i < Math.round(campground.averageRating); i++) { %>
                                         <div class="review-star fill"></div>
                                     <% } %>
                                     &nbsp;
-                                    (<a href="/campgrounds/<%= campground._id %>/comments"><%= campground.commentCount %></a>)
+                                    (<a href="/campgrounds/<%= campground._id %>/reviews"><%= campground.reviewCount %></a>)
                                 <% } %>
                             </span>
                             <form class="favorite-form d-flex align-items-center p-0" action='/campgrounds/<%= campground._id %>/favorites'>

@@ -3,7 +3,7 @@
 const express = require("express"),
       router  = express.Router(),
       Campground = require("../models/campground"),
-      Comment = require("../models/comment"),
+      Review = require("../models/review"),
       User    = require("../models/user"),
       middleware = require("../middleware"),
       database = require("../lib/database"),

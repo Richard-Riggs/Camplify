@@ -20,7 +20,7 @@ const express          = require("express"),
 
 // Routes
       campgroundRoutes = require("./routes/campgrounds"),
-      commentRoutes    = require("./routes/comments"),
+      reviewRoutes    = require("./routes/reviews"),
       userRoutes       = require("./routes/users"),
       indexRoutes      = require("./routes/index"),
       favorites        = require("./routes/favorites"),
@@ -78,7 +78,7 @@ mongoose.set('useUnifiedTopology', true)
 //======================= ROUTING =======================
 
 app.use(campgroundRoutes)
-   .use(commentRoutes)
+   .use(reviewRoutes)
    .use(indexRoutes)
    .use(userRoutes)
    .use(testRoutes) //##########################################
