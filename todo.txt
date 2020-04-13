@@ -1,0 +1,5 @@
+- 'Write a review' button should trigger login modal if not logged in
+- Make login modal a partial
+- Update standard login page
+- Update input validation on standard login page
+- Update locked account screen

@@ -1,6 +1,6 @@
-<form id="settings-form" class="mx-auto" action="/users/<%= user.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
+<form id="settings-form" class="mx-auto" action="/users/<%= user.username %>?_method=PUT" method="POST" enctype="multipart/form-data" autocomplete="off">
   <div class="accordion" id="settings-form">
-    <h4 id="settings-header" class="text-center py-2 d-md-none">Settings<span id="settings-success" class="ml-3 d-none">&check;</span></h4>
+    <h4 id="settings-header" class="text-center py-2 d-md-none">Settings</h4>
     <div class="card container-fluid border-0">
       <div class="card-header row justify-content-center align-items-center align-text-middle bg-transparent">
         <p class="col-12 col-md-3 m-0 py-2"><strong>Profile Picture</strong></p>
@@ -16,10 +16,10 @@
               <div class="form-group">
                 <label for="imageURL">Enter Image URL</label>
                 <div class="input-group">
-                <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL" autocomplete="on">  
-                    <div class="input-group-append">
-                      <span class="input-group-text">URL</span>
-                    </div>                  
+                  <input type="text" class="form-control" name="imageURL" id="imageURL" placeholder="Image URL" readonly>  
+                  <div class="input-group-append">
+                    <span class="input-group-text">URL</span>
+                  </div>                  
                 </div>
               </div>
               <p class="text-center mb-0"><strong>OR</strong></p>
@@ -27,7 +27,7 @@
                 <label for="image-upload">Upload Image</label>
                 <div id="image-upload" class="custom-file">
                     <input type="file" class="custom-file-input form-control-file"
-                    id="image" name="image" accept="image/jpeg, image/png, image/jpg, image/gif">
+                    id="image" name="image" accept="image/jpeg, image/png, image/jpg, image/gif" readonly>
                     <label class="custom-file-label" for="image">Choose file</label>
                     <small id="fileHelp" class="form-text">Supported file extensions: .png, .jpg, .jpeg, .gif</small>
                     <div class="invalid-tooltip">Please select a valid image file extension.</div>
@@ -59,7 +59,7 @@
             <input class="form-check-input" type="radio"
               name="profileVisibility"
               id="visibility-public" value="public"
-              <%= (user.settings.profileVisibility === "public") ? 'checked' : '' %>>                             
+              <%= (user.settings.profileVisibility === "public") ? 'checked' : '' %> readonly>                             
             <label class="form-check-label" for="visibility-public">
               Public - Anyone can see your profile
             </label>
@@ -68,7 +68,7 @@
             <input class="form-check-input" type="radio"
               name="profileVisibility"
               id="visibility-private" value="private"
-              <%= (user.settings.profileVisibility === "private") ? 'checked' : '' %>>
+              <%= (user.settings.profileVisibility === "private") ? 'checked' : '' %> readonly>
             <label class="form-check-label" for="visibility-private">
               Private - Only you can see your profile
             </label>
@@ -90,13 +90,13 @@
         <div class="card-body col-12 col-md-10">
           <div class="form-group">
             <label for="new-email">New Email address</label>
-            <input type="email" class="form-control" id="new-email" aria-describedby="new email" autocomplete="on">
+            <input type="email" class="form-control" id="new-email" aria-describedby="new email" autocomplete="false" readonly>
           </div>          
           <div class="form-group">
             <label for="confirm-email">Confirm Email address</label>
-            <input type="email" class="form-control" id="confirm-email" aria-describedby="confirm email" autocomplete="on">
+            <input type="email" class="form-control" id="confirm-email" aria-describedby="confirm email" readonly>
             <div class="invalid-tooltip">Email addresses must match</div>
-          </div>            
+          </div>
         </div>
       </div>
     </div>
@@ -114,23 +114,24 @@
         <div class="card-body col-12 col-md-6">
           <div class="form-group">
             <label for="current-password">Current Password</label>
-            <input type="password" class="form-control" name="password" id="current-password" aria-describedby="new email" autocomplete="off">
+            <input type="password" class="form-control" name="password" id="current-password" aria-describedby="new email" autocomplete="off" readonly>
             <div class="invalid-tooltip">Incorrect password</div>
           </div>
           <div class="form-group">
             <label for="new-password">New Password</label>
-            <input type="password" class="form-control" name="newPassword" id="new-password" aria-describedby="new email" autocomplete="off">
+            <input type="password" class="form-control" name="newPassword" id="new-password" aria-describedby="new email" autocomplete="off" readonly>
             <div class="invalid-tooltip">New password cannot be the same as current password</div>
           </div>
           <div class="form-group">
             <label for="confirm-password">Confirm Password</label>
-            <input type="password" class="form-control" name="confirmPassword" id="confirm-password" aria-describedby="confirm email" autocomplete="off">
+            <input type="password" class="form-control" name="confirmPassword" id="confirm-password" aria-describedby="confirm email" autocomplete="off" readonly>
             <div class="invalid-tooltip">New password must match</div>
           </div>
         </div>
       </div>
     </div>
     <div class="form-group form-row justify-content-center mt-5">
+      <p id="settings-success" class="col-12">Settings Saved!</p>
       <div class="col-12 col-sm-3">
         <button type="reset" class="btn grey-btn btn-block mb-2">Reset Changes</button>
       </div>
