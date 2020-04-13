@@ -9,7 +9,8 @@
         <h5 class="float-left pl-3 m-0"><strong>Reviews for <a href='/campgrounds/<%= campground._id %>'><%= campground.name %></a></strong></h5>
         <% let alreadyReviewed = false; %>
         <% reviews.forEach((review) => {if (currentUser && review.author.id.equals(currentUser._id)){ alreadyReviewed = true; }}); if (!alreadyReviewed) { %>
-          <button type="button" class="d-flex btn blue-btn round mr-2 ml-auto" data-toggle="modal" data-target="#new-review-modal">
+          <button type="button" class="d-flex btn blue-btn round mr-2 ml-auto" data-toggle="modal"
+            data-target="<%= currentUser ? '#new-review-modal' : '#login-modal' %>" >
             <span class="new-review-icon mr-1"></span>
             Write a Review
           </button>
@@ -181,5 +182,6 @@
 </div>
 </main>
 
+<% include ../partials/login-modal %>
 <% include ../partials/new-review-modal %>
 <% include ../partials/footer %>
