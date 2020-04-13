@@ -578,6 +578,10 @@ a:hover {
   opacity: 0;
 }
 
+#lock-screen {
+  height: 55vh;
+}
+
 /* User Campgrounds Tab */
 
 #campgrounds-content img {

@@ -13,9 +13,6 @@
                     <img src="<%= user.image %>">
                     <h1 class="display-4 image-overlay-bottom d-block w-100 mb-0  pb-2 pt-5 text-center"><%= user.username %></h1> 
                 </div>
-                <!--<div class="col-4 text-center">-->
-                                             
-                <!--</div>                -->
           
             </div>
         </div>
@@ -67,18 +64,16 @@
     
     <% } else { %>
     
-    <div class="row justify-content-center text-center">
+    <div id="lock-screen" class="row justify-content-center align-items-end text-center">
         <div class="col">
-            <p class="mt-5"><em>Lock icon goes here</em></p>
+            <img class="mb-3" src="/images/icons/icons8-lock.svg" alt="lock icon">
             <h1> This account is private.</h1>
-            <button class="back-button btn btn-primary mt-3">Go Back</button>
+            <button class="back-button btn grey-btn mt-3 mx-auto px-4 font-weight-bold">Go Back</button>
         </div>
     </div>
     
     <% } %>
 </div>
-
-
 
 <!-- Login Modal -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
