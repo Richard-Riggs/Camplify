@@ -70,6 +70,8 @@ $(function() {
     return true;
   });
 
+  $('#new-camp-btn').on('click', function(event) {});
+
   // Adds functionality for back button
   $('body').on('click', '.back-button', function(event) {
     window.history.back();
