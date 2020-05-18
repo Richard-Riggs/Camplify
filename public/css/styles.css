@@ -87,6 +87,7 @@ a:hover {
 }
 
 #navbar .btn {
+	-webkit-appearance: none;
 	width: 90px;
 }
 
@@ -124,6 +125,7 @@ a:hover {
 #index-logo {
 	width: 100%;
 	max-width: 150px;
+	max-height: 150px;
 	height: auto;
 }
 
