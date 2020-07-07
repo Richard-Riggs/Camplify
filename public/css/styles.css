@@ -685,6 +685,7 @@ a:hover {
 #landing #landing-header h1 {
 	font-family: "Bitter", serif;
 	font-size: 4rem;
+	margin: 0 auto;
 }
 
 @media (min-width: 500px) {
@@ -873,8 +874,6 @@ a:hover {
 
 #about ul {
 	width: fit-content;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 @media (min-width: 576px) {
