@@ -1,7 +1,6 @@
 # Camplify
 Camplify is an application for finding, reviewing, and uploading campgrounds.
 
-[Visit Camplify Home Page](http://camplify-env.eba-temwkpxm.us-east-1.elasticbeanstalk.com/)
 
 ## Features
 The campgrounds page features a sortable grid of cards with all of the user-submitted campgrounds. Each card contains a link to the campground's unique page, which provides additional information and contains the campground's ratings and reviews. Creating an account enables users to create new campgrounds or rate, review, and favorite existing campgrounds. Each user account has a profile page containing the user's recent activity, posted campgrounds, reviews, favorites, and profile settings. Users can visit other profile pages if their profile visibility is set to 'public'.
